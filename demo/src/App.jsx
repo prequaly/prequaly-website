@@ -579,10 +579,12 @@ export default function PreQualyApp() {
           <span>Pre<b>Q</b>ualy</span>
         </button>
         <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="Programs" />
           <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Homes" />
-          <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="My plan" />
-          <NavBtn on={tab === "connect"} onClick={() => go("connect")} icon={Users} label="Connect" />
+          <NavBtn on={tab === "about"} onClick={() => go("homes")} icon={Home} label="About" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" /> {/*TODO: need to create this pg*/}
+            <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="Resources" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "connect"} onClick={() => go("connect")} icon={Users} label="Contact" /> {/*TODO: need to create this pg*/}
         </nav>
       </header>
 
