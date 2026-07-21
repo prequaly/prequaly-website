@@ -641,7 +641,7 @@ export default function PreQualyApp() {
 function NavBtn({ on, onClick, icon: Icon, label }) {
   return (
     <button className={"pq-navbtn" + (on ? " on" : "")} onClick={onClick} aria-current={on ? "page" : undefined}>
-      <Icon size={15} /> <span>{label}</span>
+      {/* <Icon size={15} />*/} <span>{label}</span>
     </button>
   );
 }
@@ -1335,9 +1335,9 @@ function Resources({ onStart }) {
 const CSS = `
 :root{
   --navy:#0A2540; --navy-2:#143A5C; --cyan:#2BE3E0; --cyan-soft:#DFF8F8;
-  --teal:#0E7C86; --teal-dark:#0A606A; --mist:#E9F5F7; --bg:#FFFFFF;
+  --teal:#0E7C86; --teal-dark:#208d94; --mist:#E9F5F7; --bg:#FFFFFF;
   --panel:#F5FAFB; --shadow:0 1px 3px rgba(10,37,64,.06),0 8px 22px rgba(10,37,64,.05);
-  --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#5C7482;
+  --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#282d80;
   --good:#0E8A5F; --good-soft:#E3F4EC; --amber-ink:#8A6116; --amber-soft:#FBF1DC;
   --bad:#A34040; --bad-soft:#F9E9E9;
 }
@@ -1353,15 +1353,15 @@ button{font-family:inherit}
 
 /* header */
 .pq-head{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;
   padding:10px 18px;gap:10px}
 .pq-brand{display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:var(--navy);letter-spacing:-.01em}
 .pq-brand b{color:var(--teal)}
 .pq-nav{display:flex;gap:4px}
 .pq-navbtn{display:flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;
-  font-size:13px;font-weight:600;color:var(--muted);padding:8px 11px;border-radius:9px}
-.pq-navbtn.on{color:var(--teal-dark);background:var(--mist)}
+  font-size:13px;font-weight:600;color:var(--muted);padding:8px 11px;border-radius:0}
+.pq-navbtn.on{color:var(--teal-dark);border-bottom: 2px solid var(--teal-dark);}
 .pq-navbtn:hover{color:var(--teal-dark)}
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
@@ -1669,127 +1669,3 @@ button{font-family:inherit}
 
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 `;
-
-
-//Initial App.jsx code:
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
-// import heroImg from './assets/hero.png'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <section id="center">
-//         <div className="hero">
-//           <img src={heroImg} className="base" width="170" height="179" alt="" />
-//           <img src={reactLogo} className="framework" alt="React logo" />
-//           <img src={viteLogo} className="vite" alt="Vite logo" />
-//         </div>
-//         <div>
-//           <h1>Get started</h1>
-//           <p>
-//             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-//           </p>
-//         </div>
-//         <button
-//           type="button"
-//           className="counter"
-//           onClick={() => setCount((count) => count + 1)}
-//         >
-//           Count is {count}
-//         </button>
-//       </section>
-
-//       <div className="ticks"></div>
-
-//       <section id="next-steps">
-//         <div id="docs">
-//           <svg className="icon" role="presentation" aria-hidden="true">
-//             <use href="/icons.svg#documentation-icon"></use>
-//           </svg>
-//           <h2>Documentation</h2>
-//           <p>Your questions, answered</p>
-//           <ul>
-//             <li>
-//               <a href="https://vite.dev/" target="_blank">
-//                 <img className="logo" src={viteLogo} alt="" />
-//                 Explore Vite
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://react.dev/" target="_blank">
-//                 <img className="button-icon" src={reactLogo} alt="" />
-//                 Learn more
-//               </a>
-//             </li>
-//           </ul>
-//         </div>
-//         <div id="social">
-//           <svg className="icon" role="presentation" aria-hidden="true">
-//             <use href="/icons.svg#social-icon"></use>
-//           </svg>
-//           <h2>Connect with us</h2>
-//           <p>Join the Vite community</p>
-//           <ul>
-//             <li>
-//               <a href="https://github.com/vitejs/vite" target="_blank">
-//                 <svg
-//                   className="button-icon"
-//                   role="presentation"
-//                   aria-hidden="true"
-//                 >
-//                   <use href="/icons.svg#github-icon"></use>
-//                 </svg>
-//                 GitHub
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://chat.vite.dev/" target="_blank">
-//                 <svg
-//                   className="button-icon"
-//                   role="presentation"
-//                   aria-hidden="true"
-//                 >
-//                   <use href="/icons.svg#discord-icon"></use>
-//                 </svg>
-//                 Discord
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://x.com/vite_js" target="_blank">
-//                 <svg
-//                   className="button-icon"
-//                   role="presentation"
-//                   aria-hidden="true"
-//                 >
-//                   <use href="/icons.svg#x-icon"></use>
-//                 </svg>
-//                 X.com
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://bsky.app/profile/vite.dev" target="_blank">
-//                 <svg
-//                   className="button-icon"
-//                   role="presentation"
-//                   aria-hidden="true"
-//                 >
-//                   <use href="/icons.svg#bluesky-icon"></use>
-//                 </svg>
-//                 Bluesky
-//               </a>
-//             </li>
-//           </ul>
-//         </div>
-//       </section>
-
-//       <div className="ticks"></div>
-//       <section id="spacer"></section>
-//     </>
-//   )
-// }
