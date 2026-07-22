@@ -574,17 +574,18 @@ export default function PreQualyApp() {
     <div className="pq-root">
       <style>{CSS}</style>
       <header className="pq-head">
-        <button className="pq-brand" onClick={() => go("home")} aria-label="PreQualy home">
+        <button className="pq-brand" aria-label="PreQualy home">
           <Keyhole size={30} glow={false} />
           <span>Pre<b>Q</b>ualy</span>
+          {/* <img src="/PreQualy Logo.svg" className="pq-logo"/> */}
         </button>
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Homes" />
-          <NavBtn on={tab === "about"} onClick={() => go("homes")} icon={Home} label="About" /> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" /> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" /> {/*TODO: need to create this pg*/}
-            <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="Resources" /> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "connect"} onClick={() => go("connect")} icon={Users} label="Contact" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown/> {/*TODO: need to create this pg*/}
+            <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" /> {/*TODO: need to create this pg*/}
         </nav>
       </header>
 
@@ -629,7 +630,7 @@ export default function PreQualyApp() {
           <p><Keyhole size={20} glow={false} /> <strong>PreQualy</strong> — Opportunity. Access. Home.</p>
           <p>Screening only — not a loan approval, credit decision, or legal advice. Program figures are 2026 planning estimates verified on the date shown; a matched professional confirms specifics before you rely on them. Always free for homebuyers.</p>
           <p className="pq-foot-links">
-            <button onClick={() => go("resources")}>Resources</button>·
+            {/* <button onClick={() => go("resources")}>Resources</button>· */}
             <span>Serving Los Angeles, Orange, Riverside, San Bernardino & San Diego counties</span>
           </p>
         </div>
@@ -638,10 +639,10 @@ export default function PreQualyApp() {
   );
 }
 
-function NavBtn({ on, onClick, icon: Icon, label }) {
+function NavBtn({ on, onClick, icon: Icon, label, dropdown = false }) {
   return (
     <button className={"pq-navbtn" + (on ? " on" : "")} onClick={onClick} aria-current={on ? "page" : undefined}>
-      {/* <Icon size={15} />*/} <span>{label}</span>
+      <span className={on ? "pq-navlabel on" : "pq-navlabel"}>{label}{dropdown && " ∨"}</span>
     </button>
   );
 }
@@ -1330,8 +1331,8 @@ function Resources({ onStart }) {
 }
 
 /* =====================================================================
-   BRAND CSS — deep navy, glowing keyhole cyan, teal actions.
-   Display: Plus Jakarta Sans · Body: Inter */
+  BRAND CSS — deep navy, glowing keyhole cyan, teal actions.
+  Display: Plus Jakarta Sans · Body: Inter */
 const CSS = `
 :root{
   --navy:#0A2540; --navy-2:#143A5C; --cyan:#2BE3E0; --cyan-soft:#DFF8F8;
@@ -1361,8 +1362,20 @@ button{font-family:inherit}
 .pq-nav{display:flex;gap:4px}
 .pq-navbtn{display:flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;
   font-size:13px;font-weight:600;color:var(--muted);padding:8px 11px;border-radius:0}
-.pq-navbtn.on{color:var(--teal-dark);border-bottom: 2px solid var(--teal-dark);}
+.pq-navbtn.on{color:var(--teal-dark);}
 .pq-navbtn:hover{color:var(--teal-dark)}
+.pq-navlabel{
+  display:inline-block;
+  padding-bottom:3px;
+}
+.pq-navlabel.on{
+  border-bottom:2px solid var(--teal-dark);
+}
+.pq-logo{
+  height:44px;
+  width:auto;
+  display:block;
+}
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
 /* landing */
