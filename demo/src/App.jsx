@@ -519,6 +519,75 @@ function TriOrbit() {
     </div>
   );
 }
+function InterestList() {
+  const [email, setEmail] = useState("");
+  const [joined, setJoined] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [joinError, setJoinError] = useState(false);
+
+  const emailOk = /.+@.+\..+/.test(email);
+
+  async function submitInterest() {
+    setSending(true);
+    setJoinError(false);
+
+    const r = await joinInterestList(email);
+
+    setSending(false);
+
+    if (r.ok) setJoined(true);
+    else setJoinError(true);
+  }
+
+  return (
+    <main className="pq-interest-page">
+      <div className="pq-interest-card">
+        <h1>Be the first to know when we launch near you.</h1>
+
+        <p>
+          Join the interest list for early access, product updates,
+          and ways to get involved.
+        </p>
+
+        {!joined ? (
+          <>
+            <div className="pq-interest-row">
+              <input
+                className="pq-input"
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <button
+                className="pq-cta"
+                disabled={!emailOk || sending}
+                onClick={submitInterest}
+              >
+                {sending ? "Joining..." : "Join the Interest List"}
+              </button>
+            </div>
+
+            {joinError && (
+              <p className="pq-join-error">
+                Something went wrong. Please try again.
+              </p>
+            )}
+
+            <p className="pq-privacy">
+              We respect your privacy. Your email is never sold.
+            </p>
+          </>
+        ) : (
+          <p className="pq-joined">
+            ✓ Thanks! We'll keep you updated.
+          </p>
+        )}
+      </div>
+    </main>
+  );
+}
 
 /* =====================================================================
    APP SHELL */
@@ -582,11 +651,12 @@ export default function PreQualyApp() {
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Homes" />
           <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" /> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown/> {/*TODO: need to create this pg*/}
           <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown/> {/*TODO: need to create this pg*/}
-            <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" /> {/*TODO: need to create this pg*/}
+            <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" dropdown/> {/*TODO: need to create this pg*/}
           <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" /> {/*TODO: need to create this pg*/}
         </nav>
+        <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
       </header>
 
       {tab === "home" && <Landing onStart={startIntake} onBrowse={() => go("resources")} hasProfile={hasProfile} onResults={() => go("programs")} />}
@@ -624,6 +694,8 @@ export default function PreQualyApp() {
       )}
 
       {tab === "resources" && <Resources onStart={startIntake} />}
+
+      {tab === "interest" && <InterestList />}
 
       <footer className="pq-foot">
         <div className="pq-foot-in">
@@ -1376,6 +1448,54 @@ button{font-family:inherit}
   width:auto;
   display:block;
 }
+.pq-nav-cta{
+  background:var(--teal);
+  color:#fff;
+  border:none;
+  border-radius:999px;
+  padding:10px 20px;
+  font-size:14px;
+  font-weight:500;
+  cursor:pointer;
+  transition:background .15s;
+}
+.pq-nav-cta:hover{
+  background:var(--teal-dark);
+}
+.pq-interest-page{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:80px 24px;
+}
+.pq-interest-card{
+  width:100%;
+  max-width:650px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:48px;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.pq-interest-card h1{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--navy);
+  font-size:36px;
+  margin-bottom:16px;
+}
+.pq-interest-card p{
+  margin-bottom:24px;
+}
+.pq-interest-row{
+  display:flex;
+  gap:12px;
+  margin-bottom:16px;
+}
+.pq-interest-row .pq-input{
+  flex:1;
+}
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
 /* landing */
@@ -1631,7 +1751,7 @@ button{font-family:inherit}
 .pq-emptypage p{font-size:14.5px;color:var(--muted);line-height:1.6;margin:0 0 20px}
 
 /* footer */
-.pq-foot{border-top:1px solid var(--line);background:var(--surface);margin-top:auto}
+.pq-foot{background:var(--surface);margin-top:auto}
 .pq-foot-in{max-width:880px;margin:0 auto;padding:22px 20px}
 .pq-foot-in p{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0 0 8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .pq-foot-in p:first-child{font-size:13.5px;color:var(--navy)}
