@@ -650,11 +650,25 @@ export default function PreQualyApp() {
         </button>
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Homes" />
-          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" /> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown/> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown/> {/*TODO: need to create this pg*/}
-            <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" dropdown/> {/*TODO: need to create this pg*/}
-          <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" /> {/*TODO: need to create this pg*/}
+          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" />
+          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
+            <button onClick={() => go("programs")}>Overview</button>
+            <button onClick={() => go("homes")}>How it works</button>
+            <button onClick={() => go("connect")}>Resources</button>
+          </NavBtn>
+          <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown>
+            <button onClick={() => go("programs")}>Nonprofits</button>
+            <button onClick={() => go("homes")}>Agencies</button>
+            <button onClick={() => go("connect")}>Real Estate</button>
+            <button onClick={() => go("connect")}>Community Partners</button>
+          </NavBtn>
+          <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" dropdown>
+            <button onClick={() => go("programs")}>Guides & Articles</button>
+            <button onClick={() => go("homes")}>FAQs</button>
+            <button onClick={() => go("connect")}>Program Directory</button>
+            <button onClick={() => go("connect")}>News</button>
+          </NavBtn>
+          <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" />
         </nav>
         <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
       </header>
@@ -711,11 +725,26 @@ export default function PreQualyApp() {
   );
 }
 
-function NavBtn({ on, onClick, icon: Icon, label, dropdown = false }) {
+function NavBtn({ on, onClick, icon: Icon, label, dropdown = false, children }) {
   return (
-    <button className={"pq-navbtn" + (on ? " on" : "")} onClick={onClick} aria-current={on ? "page" : undefined}>
-      <span className={on ? "pq-navlabel on" : "pq-navlabel"}>{label}{dropdown && " ∨"}</span>
-    </button>
+    <div className="pq-nav-item">
+      <button
+        className={"pq-navbtn" + (on ? " on" : "")}
+        onClick={onClick}
+        aria-current={on ? "page" : undefined}
+      >
+        <span className={on ? "pq-navlabel on" : "pq-navlabel"}>
+          {label}
+          {dropdown && <span className="pq-arrow">∨</span>}
+        </span>
+      </button>
+
+      {dropdown && (
+        <div className="pq-dropdown">
+          {children}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -1495,6 +1524,43 @@ button{font-family:inherit}
 }
 .pq-interest-row .pq-input{
   flex:1;
+}
+
+.pq-nav-item{
+  position:relative;
+}
+
+.pq-dropdown{
+  position:absolute;
+  top:100%;
+  left:0;
+  min-width:220px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  display:none;
+  padding:8px 0;
+  z-index:100;
+}
+
+.pq-nav-item:hover .pq-dropdown{
+  display:block;
+}
+
+.pq-dropdown button{
+  width:100%;
+  background:none;
+  border:none;
+  text-align:left;
+  padding:12px 16px;
+  cursor:pointer;
+  font-size:14px;
+  color:var(--ink);
+}
+
+.pq-dropdown button:hover{
+  background:var(--mist);
 }
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
