@@ -712,14 +712,84 @@ export default function PreQualyApp() {
       {tab === "interest" && <InterestList />}
 
       <footer className="pq-foot">
-        <div className="pq-foot-in">
-          <p><Keyhole size={20} glow={false} /> <strong>PreQualy</strong> — Opportunity. Access. Home.</p>
-          <p>Screening only — not a loan approval, credit decision, or legal advice. Program figures are 2026 planning estimates verified on the date shown; a matched professional confirms specifics before you rely on them. Always free for homebuyers.</p>
-          <p className="pq-foot-links">
-            {/* <button onClick={() => go("resources")}>Resources</button>· */}
-            <span>Serving Los Angeles, Orange, Riverside, San Bernardino & San Diego counties</span>
-          </p>
-        </div>
+        <div className="pq-foot-grid">
+            {/* Brand */}
+            <div className="pq-foot-brand">
+              <div className="pq-foot-logo">
+                <Keyhole size={28} glow={false} />
+                <span>Pre<b>Q</b>ualy</span>
+              </div>
+
+              <p className="pq-foot-desc">
+                Building a future where everyone has the opportunity to call home.
+              </p>
+            </div>
+
+            {/* Homebuyers */}
+            <div className="pq-foot-col">
+              <h4>For Homebuyers</h4>
+              <button onClick={() => go("programs")}>Overview</button>
+              <button onClick={() => go("programs")}>How It Works</button>
+              <button onClick={() => go("homes")}>Resources</button>
+            </div>
+
+            {/* Partners */}
+            <div className="pq-foot-col">
+              <h4>For Partners</h4>
+              <button onClick={() => go("programs")}>Nonprofits</button>
+              <button onClick={() => go("programs")}>Agencies</button>
+              <button onClick={() => go("homes")}>Real Estate</button>
+              <button onClick={() => go("homes")}>Community Partners</button>
+            </div>
+
+            {/* Resources */}
+            <div className="pq-foot-col">
+              <h4>Resources</h4>
+              <button onClick={() => go("programs")}>Guides & Articles</button>
+              <button onClick={() => go("programs")}>FAQs</button>
+              <button onClick={() => go("homes")}>Program Directory</button>
+              <button onClick={() => go("homes")}>News</button>
+            </div>
+
+            {/* Company */}
+            <div className="pq-foot-col">
+              <h4>Company</h4>
+              <button>About Us</button>
+              <button>Our Mission</button>
+              <button>Careers</button>
+            </div>
+
+            {/* Newsletter */}
+            <div className="pq-foot-col">
+              <h4>Stay Connected</h4>
+
+              <p className="pq-foot-news">
+                Subscribe to our newsletter for updates.
+              </p>
+
+              <div className="pq-foot-subscribe">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  aria-label="Email address"
+                />
+
+                <button aria-label="Subscribe">
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="pq-foot-bottom">
+            <p>© 2026 PreQualy. All rights reserved.</p>
+
+            <div className="pq-foot-legal">
+              <button>Privacy Policy</button>
+              <button>Terms of Use</button>
+              <button>Accessibility</button>
+            </div>
+          </div>
       </footer>
     </div>
   );
@@ -1562,6 +1632,8 @@ button{font-family:inherit}
 .pq-dropdown button:hover{
   background:var(--mist);
 }
+
+.pq-arrow{margin-left: 6px; display: inline-block;}
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
 /* landing */
@@ -1817,12 +1889,177 @@ button{font-family:inherit}
 .pq-emptypage p{font-size:14.5px;color:var(--muted);line-height:1.6;margin:0 0 20px}
 
 /* footer */
-.pq-foot{background:var(--surface);margin-top:auto}
-.pq-foot-in{max-width:880px;margin:0 auto;padding:22px 20px}
-.pq-foot-in p{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0 0 8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.pq-foot-in p:first-child{font-size:13.5px;color:var(--navy)}
-.pq-foot-links{gap:8px}
-.pq-foot-links button{background:none;border:0;color:var(--teal-dark);font-weight:600;font-size:12.5px;cursor:pointer;padding:0}
+.pq-foot{
+  margin-top:60px;
+  border-top:1px solid var(--line);
+  background:#fff;
+  padding:44px 24px 18px;
+}
+
+.pq-foot-grid{
+  max-width:1280px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:48px;
+}
+
+.pq-foot-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:700;
+  font-size:20px;
+  color:var(--navy);
+  margin-bottom:14px;
+}
+
+.pq-foot-logo b{
+  color:var(--teal);
+}
+
+.pq-foot-tag{
+  font-weight:600;
+  color:var(--navy);
+  margin:0 0 8px;
+}
+
+.pq-foot-desc{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+  max-width:280px;
+  margin:0;
+}
+
+.pq-foot-col h4{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  color:var(--navy);
+  margin:0 0 16px;
+}
+
+.pq-foot-col button{
+  display:block;
+  background:none;
+  border:0;
+  padding:0;
+  margin:0 0 12px;
+  font-size:14px;
+  color:var(--muted);
+  cursor:pointer;
+  text-align:left;
+}
+
+.pq-foot-col button:hover{
+  color:var(--teal-dark);
+}
+
+.pq-foot-news{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+  margin:0 0 16px;
+}
+
+.pq-foot-subscribe{
+  display:flex;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:4px 4px 4px 16px;
+  gap:10px;
+  background:#fff;
+}
+
+.pq-foot-subscribe input{
+  flex:1;
+  border:0;
+  outline:none;
+  font-size:14px;
+  background:transparent;
+  color:var(--ink);
+}
+
+.pq-foot-subscribe button{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:0;
+  background:var(--teal);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  margin:0;
+}
+
+.pq-foot-subscribe button:hover{
+  background:var(--teal-dark);
+}
+
+.pq-foot-bottom{
+  max-width:1180px;
+  margin:32px auto 0;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.pq-foot-bottom p{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.pq-foot-legal{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.pq-foot-legal button{
+  background:none;
+  border:0;
+  padding:0;
+  font-size:13px;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.pq-foot-legal button:hover{
+  color:var(--teal-dark);
+}
+
+@media(max-width:900px){
+  .pq-foot-grid{
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+}
+
+@media(max-width:560px){
+  .pq-foot{
+    padding:36px 20px 18px;
+  }
+
+  .pq-foot-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .pq-foot-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
 
 
 /* motion */
