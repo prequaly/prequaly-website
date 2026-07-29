@@ -649,7 +649,7 @@ export default function PreQualyApp() {
           {/* <img src="/PreQualy Logo.svg" className="pq-logo"/> */}
         </button>
         <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Homes" />
+          <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Home" />
           <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" />
           <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
             <button onClick={() => go("programs")}>Overview</button>
