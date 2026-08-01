@@ -1,0 +1,22 @@
+id,form_type,submitted_at,full_name,title_role,email_address,agency_type,primary_service_area,familiarity_homeownership_programs,interest_pilot_collaboration,organization_type,location_state,affordable_homeownership_focus,location_county,planned_purchase_timeline,household_size,is_multigenerational,professional_role,works_with_affordable_products,years_of_experience,primary_focus_area
+1,Future Homebuyers,2026-03-26 21:56:29,,,,,,,,,MD,,Select County,6-12 months,1,FALSE,,,,
+2,Non-Profits,2026-01-04 14:03:29,,,,,,,,CDFI,SD,Down-Payment Assistance Administration,,,,,,,,
+3,Future Homebuyers,2025-10-25 14:53:29,,,,,,,,,ID,,Select County,0-6 months,5,TRUE,,,,
+4,Real Estate Professionals,2025-07-11 19:00:29,,,,,,,,,MT,,Select County,,,,Real Estate Agent,No,3-5,Other
+5,Future Homebuyers,2025-08-24 23:03:29,,,,,,,,,ID,,Select County,0-6 months,4,TRUE,,,,
+6,Future Homebuyers,2026-04-01 18:31:29,,,,,,,,,FL,,Select County,6-12 months,2,FALSE,,,,
+7,Real Estate Professionals,2025-10-20 10:10:29,,,,,,,,,ID,,Select County,,,,Other,Occasionally / Interested In Learning More,3-5,Down-Payment Assistance
+8,Real Estate Professionals,2025-07-17 23:16:29,,,,,,,,,VA,,Select County,,,,Loan Officer,No,6-10,Down-Payment Assistance
+9,Real Estate Professionals,2026-04-13 01:11:29,,,,,,,,,DE,,Select County,,,,Developer,Occasionally / Interested In Learning More,0-2,Down-Payment Assistance
+10,Real Estate Professionals,2026-02-19 07:26:29,,,,,,,,,KS,,Select County,,,,Developer,No,6-10,Affordable Homeownership Programs
+11,Government Agencies,2025-12-28 05:53:29,Gov Rep 11,Coordinator,rep11@gov.example.com,County Government,Federal,Provide Funding Oversight,Possibly,,,,,,,,,,,
+12,Future Homebuyers,2025-12-14 07:17:29,,,,,,,,,ND,,Select County,6-12 months,5,TRUE,,,,
+13,Real Estate Professionals,2025-12-16 17:48:29,,,,,,,,,MT,,Select County,,,,Loan Officer,No,6-10,Other
+14,Future Homebuyers,2026-02-16 01:14:29,,,,,,,,,MO,,Select County,Just Exploring,1,FALSE,,,,
+15,Government Agencies,2026-05-11 19:08:29,Gov Rep 15,Policy Analyst,rep15@gov.example.com,City Government,State,Interested In Coordination,Joining For Updates,,,,,,,,,,,
+16,Future Homebuyers,2025-11-30 00:02:29,,,,,,,,,SC,,Select County,0-6 months,1,FALSE,,,,
+17,Future Homebuyers,2026-03-25 09:51:29,,,,,,,,,MN,,Select County,12+ months,4,FALSE,,,,
+18,Non-Profits,2025-10-31 18:00:29,,,,,,,,CDFI,HI,Housing Counseling,,,,,,,,
+19,Non-Profits,2025-08-27 07:58:29,,,,,,,,CDFI,MO,Affordable Housing Development,,,,,,,,
+20,Future Homebuyers,2025-12-26 11:53:29,,,,,,,,,UT,,Select County,12+ months,6+,TRUE,,,,
+21,Real Estate Professionals,2025-10-27 16:48:29,,,,,,,,,NJ,,Select County,,,,Loan Officer,Occasionally / Interested In Learning More,0-2,First-Time Homebuyers

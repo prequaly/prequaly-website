@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PreQualy — Join the Interest List</title>
+  <meta name="description" content="PreQualy is unlocking opportunities for homeownership to millions. Join the interest list to get early access, updates, and pilot opportunities." />
+  <meta name="theme-color" content="#0A2233" />
+  <link rel="canonical" href="https://prequaly.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/brand/favicon.svg" />
+
+  <!-- Open Graph / social sharing (important for the social media push) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PreQualy — Unlocking Opportunities for Homeownership To Millions" />
+  <meta property="og:description" content="Join the PreQualy interest list for early access, product updates, and pilot opportunities." />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta property="og:url" content="https://prequaly.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PreQualy — Unlocking Opportunities for Homeownership To Millions" />
+  <meta name="twitter:description" content="Join the PreQualy interest list for early access, product updates, and pilot opportunities." />
+  <meta name="twitter:image" content="assets/images/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* PreQualy brand system */
+      --navy: #0A2233;
+      --navy-2: #0D2E45;
+      --navy-3: #123B57;
+      --teal: #19C9DB;
+      --teal-bright: #41DCEC;
+      --teal-dark: #0FA6B8;
+      --cyan-soft: #E4F8FB;
+      --fog: #F4F7F9;
+      --white: #ffffff;
+      --ink: #1F2933;
+      --muted: #61708f;
+      --line: #dfe9ef;
+      /* role accents (harmonized with brand) */
+      --purple: #6544d9;
+      --blue: #2468d9;
+      --green: #1FB980;
+      --success: #1FB980;
+      --shadow: 0 18px 50px rgba(10, 34, 51, 0.10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 8%, rgba(25,201,219,.10), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #fbfefe 55%, #f4f7f9 100%);
+      font-family: "Inter", sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute; left: -999px; top: 0; z-index: 100;
+      background: var(--navy); color: #fff; padding: 12px 18px; border-radius: 0 0 10px 0;
+    }
+    .skip-link:focus { left: 0; }
+
+    .site-header {
+      position: sticky; top: 0; z-index: 30;
+      background: var(--navy);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(25,201,219,.2);
+    }
+
+    .nav {
+      min-height: 78px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { height: 46px; width: auto; display: block; object-fit: contain; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      color: #ffffff; font-size: .94rem; font-weight: 600;
+    }
+    .nav-links a:not(.button):hover { color: var(--teal-bright); }
+
+    .button {
+      border: 0; cursor: pointer; display: inline-flex; align-items: center;
+      justify-content: center; gap: 9px; min-height: 46px; padding: 0 20px;
+      border-radius: 10px; font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .button:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+
+    .button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      box-shadow: 0 10px 24px rgba(25,201,219,.28);
+    }
+    .button-secondary { color: var(--navy); background: #fff; border: 1px solid var(--line); }
+
+    .hero { padding: 64px 0 30px; }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      align-items: center; gap: 42px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px; color: var(--teal-dark);
+      font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    }
+
+    h1, h2, h3 { font-family: "Manrope", sans-serif; color: var(--navy); margin-top: 0; }
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: 1.0;
+      letter-spacing: -.045em; margin-bottom: 20px; max-width: 760px;
+    }
+    .accent { color: var(--teal-dark); }
+
+    .hero-copy { color: var(--muted); font-size: 1.06rem; line-height: 1.75; max-width: 670px; margin-bottom: 26px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+    .hero-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .mini-benefit { display: flex; align-items: center; gap: 12px; }
+    .mini-icon {
+      width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal-dark); background: var(--cyan-soft); font-size: 0; line-height: 0;
+      flex-shrink: 0; padding: 0; margin: 0; box-sizing: border-box;
+    }
+    .mini-benefit strong { display: block; color: var(--navy); margin-bottom: 4px; font-size: .91rem; }
+    .mini-benefit span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+
+    .hero-visual {
+      min-height: 460px; border-radius: 32px;
+      background:
+        radial-gradient(circle at 50% 37%, rgba(65,220,236,.4), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.2), rgba(228,248,251,.85)),
+        linear-gradient(135deg, #eaf8fb, #f5fbff);
+      border: 1px solid rgba(207,232,236,.85); box-shadow: var(--shadow);
+      position: relative; overflow: hidden; display: grid; place-items: center; padding: 34px;
+    }
+    .hero-visual::before, .hero-visual::after { content: ""; position: absolute; border-radius: 50%; filter: blur(10px); }
+    .hero-visual::before { width: 270px; height: 270px; background: rgba(25,201,219,.16); top: 40px; right: 20px; }
+    .hero-visual::after { width: 180px; height: 180px; background: rgba(10,34,51,.08); bottom: 10px; left: 10px; }
+
+    .q-emblem {
+      width: 210px; height: 210px; border-radius: 50%; position: relative; z-index: 2;
+      display: grid; place-items: center;
+      background: radial-gradient(circle at 40% 30%, #41DCEC, #19C9DB 34%, #0D2E45 74%, #0A2233);
+      box-shadow: 0 30px 70px rgba(10,34,51,.30), inset 0 0 26px rgba(65,220,236,.35);
+    }
+    .keyhole { width: 46px; height: 76px; position: relative; filter: drop-shadow(0 0 10px rgba(65,220,236,.9)); }
+    .keyhole::before {
+      content: ""; position: absolute; top: 0; left: 8px; width: 30px; height: 30px;
+      border-radius: 50%; background: #eafcff;
+    }
+    .keyhole::after {
+      content: ""; position: absolute; bottom: 0; left: 12px; width: 22px; height: 52px;
+      clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); background: #eafcff;
+    }
+    .cityline {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 170px; opacity: .8;
+      background:
+        linear-gradient(180deg, transparent, rgba(25,201,219,.09)),
+        repeating-linear-gradient(90deg, transparent 0 23px, rgba(10,34,51,.12) 23px 44px, transparent 44px 60px);
+      clip-path: polygon(0 74%, 7% 66%, 12% 72%, 17% 45%, 23% 60%, 28% 48%, 33% 69%, 40% 34%, 47% 58%, 52% 45%, 59% 65%, 66% 39%, 72% 56%, 78% 49%, 84% 70%, 91% 52%, 100% 65%, 100% 100%, 0 100%);
+    }
+
+    .section { padding: 34px 0 74px; }
+    .section-heading { text-align: center; max-width: 780px; margin: 0 auto 30px; }
+    .section-heading h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 10px; letter-spacing: -.035em; }
+    .section-heading p { color: var(--muted); line-height: 1.7; margin: 0; }
+
+    .role-shell {
+      padding: 28px; border: 1px solid var(--line); background: rgba(255,255,255,.82);
+      border-radius: 28px; box-shadow: var(--shadow);
+    }
+    .role-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+    .role-card {
+      min-height: 390px; border-radius: 20px; padding: 22px; display: flex; flex-direction: column;
+      border: 1px solid var(--line); background: #fff;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .role-card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(10,34,51,.12); }
+    .role-card.selected { border-width: 2px; box-shadow: 0 16px 36px rgba(10,34,51,.14); }
+    .role-card[data-role="homebuyer"]:hover, .role-card[data-role="homebuyer"].selected { border-color: var(--teal); }
+    .role-card[data-role="professional"]:hover, .role-card[data-role="professional"].selected { border-color: var(--purple); }
+    .role-card[data-role="government"]:hover, .role-card[data-role="government"].selected { border-color: var(--blue); }
+    .role-card[data-role="nonprofit"]:hover, .role-card[data-role="nonprofit"].selected { border-color: var(--green); }
+
+    .role-icon { width: 70px; height: 70px; border-radius: 50%; display: grid; place-items: center; font-size: 1.75rem; margin-bottom: 20px; }
+    .homebuyer .role-icon { background: var(--cyan-soft); color: var(--teal-dark); }
+    .professional .role-icon { background: #f0ebff; color: var(--purple); }
+    .government .role-icon { background: #e8f0ff; color: var(--blue); }
+    .nonprofit .role-icon { background: #e7f7ee; color: var(--green); }
+
+    .role-card h3 { font-size: 1.12rem; margin-bottom: 8px; }
+    .role-card p { color: var(--muted); line-height: 1.55; font-size: .89rem; margin: 0 0 16px; }
+    .role-card ul { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; font-size: .83rem; color: #3e4d70; }
+    .role-card li::before { content: "✓"; margin-right: 8px; font-weight: 800; }
+    .homebuyer li::before { color: var(--teal-dark); }
+    .professional li::before { color: var(--purple); }
+    .government li::before { color: var(--blue); }
+    .nonprofit li::before { color: var(--green); }
+
+    .role-card .button { margin-top: auto; color: #fff; width: 100%; }
+    .homebuyer .button { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); }
+    .professional .button { background: var(--purple); }
+    .government .button { background: var(--blue); }
+    .nonprofit .button { background: var(--green); }
+
+    .journey { background: #fff; border: 1px solid var(--line); border-radius: 28px; padding: 36px 28px; box-shadow: var(--shadow); }
+    .journey-track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; position: relative; }
+    .journey-track::before {
+      content: ""; position: absolute; top: 37px; left: 7%; right: 7%;
+      border-top: 2px dashed rgba(25,201,219,.5); z-index: 0;
+    }
+    .journey-step { text-align: center; position: relative; z-index: 1; }
+    .journey-icon {
+      width: 74px; height: 74px; margin: 0 auto 14px; border-radius: 50%; display: grid; place-items: center;
+      background: #fff; border: 1px solid var(--line); color: var(--teal-dark);
+      font-size: 1.35rem; font-weight: 800; font-family: "Manrope", sans-serif;
+      box-shadow: 0 10px 24px rgba(10,34,51,.09);
+    }
+    .journey-step h3 { font-size: .9rem; margin-bottom: 8px; }
+    .journey-step p { color: var(--muted); font-size: .77rem; line-height: 1.5; margin: 0; }
+
+    .form-area { padding-top: 12px; }
+    .form-panel {
+      display: none; max-width: 840px; margin: 0 auto; padding: 28px; background: #fff;
+      border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow);
+    }
+    .form-panel.active { display: block; }
+    .form-panel-header { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; margin-bottom: 24px; }
+    .form-panel-header h2 { margin-bottom: 8px; }
+    .form-panel-header p { color: var(--muted); margin: 0; line-height: 1.6; }
+    .close-form { border: 0; background: #eef6f7; color: var(--navy); border-radius: 10px; min-width: 42px; height: 42px; cursor: pointer; font-weight: 800; font-size: 1.1rem; }
+    .close-form:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+
+    .progress { display: flex; gap: 7px; margin-bottom: 24px; }
+    .progress span { height: 5px; border-radius: 999px; background: #e5eef2; flex: 1; transition: background .2s ease; }
+    .progress span.active { background: var(--teal); }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .lbl { color: var(--navy); font-size: .82rem; font-weight: 700; }
+    .lbl .opt { color: var(--muted); font-weight: 500; }
+
+    input, select, textarea {
+      width: 100%; min-height: 48px; border: 1px solid #d9e5ea; border-radius: 10px;
+      padding: 11px 13px; color: var(--ink); background: #fff; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(25,201,219,.14); }
+    textarea { min-height: 110px; resize: vertical; }
+
+    /* Honeypot (spam trap) — hidden from real users */
+    .hp-field { position: absolute; left: -5000px; width: 1px; height: 1px; overflow: hidden; }
+
+    .checkbox-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+    .check { display: flex; align-items: flex-start; gap: 9px; padding: 12px; border: 1px solid var(--line); border-radius: 11px; font-size: .85rem; color: #41506f; cursor: pointer; }
+    .check:hover { border-color: var(--teal); }
+    .check input { width: auto; min-height: 0; margin-top: 2px; }
+
+    .form-actions { margin-top: 24px; display: flex; justify-content: space-between; gap: 12px; }
+    .form-error { color: #b42318; font-size: .85rem; margin: 14px 0 0; min-height: 1em; }
+
+    .success { text-align: center; padding: 38px 16px 18px; }
+    .success-icon {
+      width: 86px; height: 86px; border-radius: 50%; margin: 0 auto 18px; display: grid; place-items: center;
+      font-size: 2.2rem; color: #fff; background: linear-gradient(135deg, var(--teal), var(--navy));
+    }
+    .success h2 { margin-bottom: 10px; }
+    .success p { color: var(--muted); line-height: 1.7; }
+    .share-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+
+    .privacy { margin-top: 18px; font-size: .78rem; color: var(--muted); line-height: 1.6; }
+
+    footer { padding: 36px 0 44px; border-top: 1px solid rgba(25,201,219,.2); background: var(--navy); color: #fff; }
+    .footer-grid { display: flex; justify-content: space-between; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .footer-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .footer-logo { height: 44px; width: auto; max-width: 260px; object-fit: contain; align-self: flex-start; display: block; }
+    .footer-tag { color: rgba(255,255,255,.7); font-size: .8rem; max-width: 280px; }
+    .footer-links { display: flex; gap: 24px; color: rgba(255,255,255,.7); font-size: .85rem; flex-wrap: wrap; align-items: center; }
+    .footer-links a:hover { color: var(--teal-bright); }
+
+    @media (max-width: 1020px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 360px; }
+      .role-grid { grid-template-columns: repeat(2, 1fr); }
+      .journey-track { grid-template-columns: repeat(3, 1fr); gap: 26px 12px; }
+      .journey-track::before { display: none; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 24px, 1180px); }
+      .nav-links a:not(.button) { display: none; }
+      .hero { padding-top: 38px; }
+      .hero-benefits, .role-grid, .field-grid, .checkbox-grid, .journey-track { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 300px; }
+      .q-emblem { width: 160px; height: 160px; }
+      .role-shell, .journey, .form-panel { padding: 20px; }
+      .form-actions { flex-direction: column-reverse; }
+      .form-actions .button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+    .mini-icon svg { width: 22px; height: 22px; display: block; margin: auto; }
+    .role-icon svg { width: 30px; height: 30px; display: block; margin: auto; }
+    .hero-illustration { width: 100%; height: auto; max-height: 470px; }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#roles">Skip to sign-up</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="PreQualy home">
+        <img class="brand-logo" src="PreQualy Logo.svg" onerror="this.onerror=null;this.src='PreQualy Logo.png';" alt="PreQualy" />
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#journey">Your Journey</a>
+        <a href="#contact">Contact</a>
+        <a class="button button-primary" href="#roles">Join the Interest List</a>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    ============================================================
+    PARTNERSHIP / ANNOUNCEMENT BANNER SLOT (add later)
+    When ready to announce the CalOSBA grant or a partnership,
+    uncomment and edit this banner. It will sit directly under
+    the header. Keep it short and link the CTA to #roles.
+    ------------------------------------------------------------
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;text-align:center;padding:12px 16px;font-weight:600;font-size:.92rem;">
+      🎉 PreQualy is a proud recipient of the CalOSBA Accelerate California Innovation Grant.
+      <a href="#roles" style="color:var(--teal-bright);text-decoration:underline;margin-left:6px;">Join the movement →</a>
+    </div>
+    ============================================================
+  -->
+
+  <main id="top">
+    <section class="hero" id="about">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Unlocking Opportunities for Homeownership To Millions</p>
+          <h1>The Future of <span class="accent">Homeownership</span> Starts Here</h1>
+          <p class="hero-copy">
+            PreQualy is building an AI-powered platform that connects future homebuyers,
+            real estate professionals, nonprofits, and government agencies to
+            homeownership programs and opportunities that are often difficult to find.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#roles">Join the Interest List</a>
+            <a class="button button-secondary" href="#journey">See the Journey</a>
+          </div>
+
+          <div class="hero-benefits">
+            <div class="mini-benefit">
+              <div class="mini-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/></svg>
+              </div>
+              <div>
+                <strong>AI-powered matching</strong>
+                <span>Find the right programs and partners.</span>
+              </div>
+            </div>
+            <div class="mini-benefit">
+              <div class="mini-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <div>
+                <strong>Centralized resources</strong>
+                <span>Housing opportunities in one place.</span>
+              </div>
+            </div>
+            <div class="mini-benefit">
+              <div class="mini-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <strong>Stronger communities</strong>
+                <span>Equitable access to homeownership for all.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <svg class="hero-illustration" viewBox="0 0 600 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A multicultural family standing in front of homes beneath a glowing keyhole">
+            <defs>
+              <radialGradient id="glow" cx="50%" cy="42%" r="60%">
+                <stop offset="0%" stop-color="#41DCEC"/>
+                <stop offset="42%" stop-color="#19C9DB"/>
+                <stop offset="100%" stop-color="#0A2233"/>
+              </radialGradient>
+              <linearGradient id="roof" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#19C9DB"/>
+                <stop offset="100%" stop-color="#0FA6B8"/>
+              </linearGradient>
+              <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="10"/>
+              </filter>
+            </defs>
+
+            <!-- ground -->
+            <ellipse cx="300" cy="452" rx="290" ry="46" fill="#E4F8FB"/>
+            <line x1="30" y1="452" x2="570" y2="452" stroke="#CDE9EE" stroke-width="2"/>
+
+            <!-- glow behind keyhole -->
+            <circle cx="300" cy="150" r="120" fill="#19C9DB" opacity="0.18" filter="url(#soft)"/>
+
+            <!-- back houses -->
+            <g>
+              <!-- left house -->
+              <rect x="70" y="330" width="120" height="122" rx="6" fill="#0D2E45"/>
+              <path d="M60 332 L130 286 L200 332 Z" fill="url(#roof)"/>
+              <rect x="92" y="360" width="30" height="30" rx="4" fill="#41DCEC"/>
+              <rect x="138" y="360" width="30" height="30" rx="4" fill="#41DCEC"/>
+              <rect x="112" y="404" width="36" height="48" rx="4" fill="#123B57"/>
+              <!-- right house -->
+              <rect x="410" y="316" width="130" height="136" rx="6" fill="#0A2233"/>
+              <path d="M400 318 L475 268 L550 318 Z" fill="url(#roof)"/>
+              <rect x="432" y="348" width="32" height="32" rx="4" fill="#41DCEC"/>
+              <rect x="486" y="348" width="32" height="32" rx="4" fill="#41DCEC"/>
+              <rect x="452" y="398" width="40" height="54" rx="4" fill="#123B57"/>
+              <!-- center small house -->
+              <rect x="250" y="356" width="100" height="96" rx="6" fill="#123B57"/>
+              <path d="M242 358 L300 320 L358 358 Z" fill="#0FA6B8"/>
+              <rect x="284" y="384" width="32" height="30" rx="4" fill="#41DCEC"/>
+            </g>
+
+            <!-- trees -->
+            <g fill="#1FB980">
+              <circle cx="36" cy="404" r="26"/><rect x="32" y="424" width="8" height="30" fill="#0D2E45"/>
+              <circle cx="566" cy="410" r="24"/><rect x="562" y="428" width="8" height="26" fill="#0D2E45"/>
+            </g>
+
+            <!-- keyhole emblem -->
+            <circle cx="300" cy="150" r="96" fill="url(#glow)"/>
+            <g fill="#EAFCFF">
+              <circle cx="300" cy="128" r="26"/>
+              <path d="M289 146 h22 l10 52 h-42 z"/>
+            </g>
+
+            <!-- multicultural family (front) -->
+            <g>
+              <!-- adult 1 -->
+              <g transform="translate(214,372)">
+                <rect x="-22" y="30" width="44" height="70" rx="20" fill="#19C9DB"/>
+                <circle cx="0" cy="8" r="20" fill="#8D5524"/>
+              </g>
+              <!-- adult 2 -->
+              <g transform="translate(386,372)">
+                <rect x="-22" y="30" width="44" height="70" rx="20" fill="#0D2E45"/>
+                <circle cx="0" cy="8" r="20" fill="#C68642"/>
+              </g>
+              <!-- child 1 -->
+              <g transform="translate(268,400)">
+                <rect x="-16" y="24" width="32" height="48" rx="14" fill="#F2A93B"/>
+                <circle cx="0" cy="6" r="15" fill="#E0AC69"/>
+              </g>
+              <!-- child 2 -->
+              <g transform="translate(332,402)">
+                <rect x="-15" y="24" width="30" height="46" rx="13" fill="#1FB980"/>
+                <circle cx="0" cy="6" r="14" fill="#F1C27D"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roles">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Join the Interest List</p>
+          <h2>Choose Your Role</h2>
+          <p>
+            Tell us who you are so we can keep you informed about what matters most to you.
+            You will be taken to a short, tailored questionnaire so PreQualy can share relevant
+            updates, early-access opportunities, and future pilot information.
+          </p>
+        </div>
+
+        <div class="role-shell">
+          <div class="role-grid">
+            <article class="role-card homebuyer" data-role="homebuyer">
+              <div class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg></div>
+              <h3>Future Homebuyer</h3>
+              <p>Find opportunities you may not know exist.</p>
+              <ul>
+                <li>Access programs &amp; grants</li>
+                <li>Get matched with resources</li>
+                <li>Be first to know when we launch</li>
+              </ul>
+              <button class="button role-button" data-target="homebuyerForm">Join as a Homebuyer →</button>
+            </article>
+
+            <article class="role-card professional" data-role="professional">
+              <div class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 13h20"/></svg></div>
+              <h3>Real Estate Professional</h3>
+              <p>Help more clients become homeowners.</p>
+              <ul>
+                <li>Get qualified buyer leads</li>
+                <li>Access program insights</li>
+                <li>Grow your business</li>
+              </ul>
+              <button class="button role-button" data-target="professionalForm">Join as a Professional →</button>
+            </article>
+
+            <article class="role-card government" data-role="government">
+              <div class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10M9.5 21V10M14.5 21V10M19 21V10"/><path d="M12 3 3 8h18L12 3z"/></svg></div>
+              <h3>Government Agency</h3>
+              <p>Increase awareness and utilization of your programs.</p>
+              <ul>
+                <li>Improve program visibility</li>
+                <li>Measure community impact</li>
+                <li>Explore future collaboration</li>
+              </ul>
+              <button class="button role-button" data-target="governmentForm">Join as an Agency →</button>
+            </article>
+
+            <article class="role-card nonprofit" data-role="nonprofit">
+              <div class="role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+              <h3>Nonprofit Organization</h3>
+              <p>Expand your impact in the community.</p>
+              <ul>
+                <li>Connect clients to resources</li>
+                <li>Build stronger partnerships</li>
+                <li>Increase your reach</li>
+              </ul>
+              <button class="button role-button" data-target="nonprofitForm">Join as a Nonprofit →</button>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journey">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Simple and tailored</p>
+          <h2>Your Journey with PreQualy</h2>
+        </div>
+
+        <div class="journey">
+          <div class="journey-track">
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">1</div>
+              <h3>Discover</h3>
+              <p>You hear about PreQualy and visit our interest page.</p>
+            </div>
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">2</div>
+              <h3>Choose Your Role</h3>
+              <p>Select the role that best describes you.</p>
+            </div>
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">3</div>
+              <h3>Share Information</h3>
+              <p>Complete a short questionnaire so we can personalize your experience.</p>
+            </div>
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">4</div>
+              <h3>You're on the List</h3>
+              <p>You'll receive updates, early access, and opportunities tailored to you.</p>
+            </div>
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">5</div>
+              <h3>Stay Informed</h3>
+              <p>Be the first to know when PreQualy launches in your area.</p>
+            </div>
+            <div class="journey-step">
+              <div class="journey-icon" aria-hidden="true">6</div>
+              <h3>Shape the Future</h3>
+              <p>Participate in pilots, share feedback, and help us build what you need.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section form-area" id="forms" aria-live="polite">
+      <div class="container">
+
+        <!-- Future Homebuyer Form -->
+        <form class="form-panel multi-step-form" id="homebuyerForm" data-form-name="Future Homebuyer" novalidate>
+          <div class="form-panel-header">
+            <div>
+              <p class="eyebrow">Future Homebuyer</p>
+              <h2 tabindex="-1">Tell us about your homeownership goals</h2>
+              <p>Your responses help us understand where to launch and what resources matter most.</p>
+            </div>
+            <button type="button" class="close-form" aria-label="Close form">×</button>
+          </div>
+
+          <div class="progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+
+          <div class="hp-field" aria-hidden="true">
+            <label>Do not fill this field<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form-step active">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Full Name</span><input name="fullName" required autocomplete="name" /></label>
+              <label class="field"><span class="lbl">Email Address</span><input type="email" name="email" required autocomplete="email" /></label>
+              <label class="field"><span class="lbl">Phone Number <span class="opt">(Optional)</span></span><input type="tel" name="phone" autocomplete="tel" placeholder="(123) 456-7890" /></label>
+              <label class="field"><span class="lbl">State</span>
+                <select name="state" id="hb-state" required>
+                  <option value="">Select your state</option>
+                  <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">County</span>
+                <input name="county" id="hb-county" list="hb-county-list" placeholder="Enter county" required autocomplete="off" />
+                <datalist id="hb-county-list"></datalist>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">When are you hoping to purchase?</span>
+                <select name="timeline"><option>Within 6 months</option><option>6–12 months</option><option>1–2 years</option><option>More than 2 years</option><option>Just exploring</option></select>
+              </label>
+              <label class="field"><span class="lbl">First-time homebuyer?</span>
+                <select name="firstTime"><option>Yes</option><option>No</option><option>Not sure</option></select>
+              </label>
+              <label class="field"><span class="lbl">Household Size</span><input type="number" min="1" name="householdSize" /></label>
+              <label class="field"><span class="lbl">Current Housing Status</span>
+                <select name="housingStatus"><option>Renting</option><option>Living with family</option><option>Own a home</option><option>Other</option></select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field full">
+              <span class="lbl">What are you most interested in?</span>
+              <div class="checkbox-grid">
+                <label class="check"><input type="checkbox" name="interests" value="Down Payment Assistance">Down payment assistance</label>
+                <label class="check"><input type="checkbox" name="interests" value="First-Time Homebuyer Programs">First-time homebuyer programs</label>
+                <label class="check"><input type="checkbox" name="interests" value="Affordable Homeownership">Affordable homeownership options</label>
+                <label class="check"><input type="checkbox" name="interests" value="Community Land Trusts">Community land trusts</label>
+                <label class="check"><input type="checkbox" name="interests" value="Shared Equity">Shared equity programs</label>
+                <label class="check"><input type="checkbox" name="interests" value="Housing Counseling">Housing counseling and education</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="button button-secondary prev-step">Back</button>
+            <button type="button" class="button button-primary next-step">Next</button>
+          </div>
+          <p class="form-error" role="alert"></p>
+          <p class="privacy">By submitting this form, you agree to receive PreQualy updates. Your information will not be sold.</p>
+        </form>
+
+        <!-- Real Estate Professional Form -->
+        <form class="form-panel multi-step-form" id="professionalForm" data-form-name="Real Estate Professional" novalidate>
+          <div class="form-panel-header">
+            <div>
+              <p class="eyebrow">Real Estate Professional</p>
+              <h2 tabindex="-1">Join the future professional network</h2>
+              <p>Tell us about your role, market, and interest in future collaboration.</p>
+            </div>
+            <button type="button" class="close-form" aria-label="Close form">×</button>
+          </div>
+
+          <div class="progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+
+          <div class="hp-field" aria-hidden="true">
+            <label>Do not fill this field<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form-step active">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Full Name</span><input name="fullName" required autocomplete="name" /></label>
+              <label class="field"><span class="lbl">Email Address</span><input type="email" name="email" required autocomplete="email" /></label>
+              <label class="field"><span class="lbl">Phone Number <span class="opt">(Optional)</span></span><input type="tel" name="phone" autocomplete="tel" /></label>
+              <label class="field"><span class="lbl">Profession</span>
+                <select name="profession" required>
+                  <option value="">Select your profession</option>
+                  <option>Real Estate Agent</option><option>Broker</option><option>Loan Officer</option>
+                  <option>Mortgage Broker</option><option>Housing Counselor</option><option>Builder</option>
+                  <option>Title or Escrow Professional</option><option>Other</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">State</span>
+                <select name="state" id="pro-state" required>
+                  <option value="">Select primary state</option>
+                  <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">County</span>
+                <input name="county" id="pro-county" list="pro-county-list" placeholder="Enter or select county" required autocomplete="off" />
+                <datalist id="pro-county-list"></datalist>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Company or Brokerage</span><input name="company" /></label>
+              <label class="field"><span class="lbl">Title or Role</span><input name="title" /></label>
+              <label class="field full"><span class="lbl">Counties or Markets Served</span><input name="markets" placeholder="Example: Los Angeles, Orange, Riverside" /></label>
+              <label class="field"><span class="lbl">Years of Experience</span><input type="number" min="0" name="experience" /></label>
+              <label class="field"><span class="lbl">Approximate Clients Served Annually</span><input type="number" min="0" name="annualClients" /></label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field full">
+              <span class="lbl">What are you interested in?</span>
+              <div class="checkbox-grid">
+                <label class="check"><input type="checkbox" name="interests" value="Buyer Referrals">Buyer referrals</label>
+                <label class="check"><input type="checkbox" name="interests" value="Pilot Programs">Pilot programs</label>
+                <label class="check"><input type="checkbox" name="interests" value="Program Insights">Housing program insights</label>
+                <label class="check"><input type="checkbox" name="interests" value="Training">Training and education</label>
+                <label class="check"><input type="checkbox" name="interests" value="Platform Partnerships">Platform partnerships</label>
+                <label class="check"><input type="checkbox" name="interests" value="Integrations">Technology integrations</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="button button-secondary prev-step">Back</button>
+            <button type="button" class="button button-primary next-step">Next</button>
+          </div>
+          <p class="form-error" role="alert"></p>
+          <p class="privacy">Joining the interest list does not create a referral, brokerage, lending, or contractual relationship.</p>
+        </form>
+
+        <!-- Government Agency Form -->
+        <form class="form-panel multi-step-form" id="governmentForm" data-form-name="Government Agency" novalidate>
+          <div class="form-panel-header">
+            <div>
+              <p class="eyebrow">Government Agency</p>
+              <h2 tabindex="-1">Explore future coordination opportunities</h2>
+              <p>This is not a funding request or procurement agreement.</p>
+            </div>
+            <button type="button" class="close-form" aria-label="Close form">×</button>
+          </div>
+
+          <div class="progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+
+          <div class="hp-field" aria-hidden="true">
+            <label>Do not fill this field<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form-step active">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Agency or Department Name</span><input name="agencyName" required /></label>
+              <label class="field"><span class="lbl">Primary Contact Name</span><input name="fullName" required autocomplete="name" /></label>
+              <label class="field"><span class="lbl">Email Address</span><input type="email" name="email" required autocomplete="email" /></label>
+              <label class="field"><span class="lbl">Title or Role</span><input name="title" required /></label>
+              <label class="field"><span class="lbl">State</span>
+                <select name="state" id="gov-state" required>
+                  <option value="">Select state</option>
+                  <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">County</span>
+                <input name="county" id="gov-county" list="gov-county-list" placeholder="Enter or select county" required autocomplete="off" />
+                <datalist id="gov-county-list"></datalist>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Agency Type</span>
+                <select name="agencyType">
+                  <option>City Government</option><option>County Government</option><option>State Agency</option>
+                  <option>Public Housing Authority</option><option>Community Development Department</option><option>Other</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">Primary Service Area</span><input name="serviceArea" placeholder="State, county, city, or region" /></label>
+              <label class="field full"><span class="lbl">Familiarity with Homeownership Programs</span>
+                <select name="familiarity">
+                  <option>Administer programs directly</option><option>Oversee compliance or policy</option>
+                  <option>Provide funding oversight</option><option>Limited involvement, interested in coordination</option>
+                  <option>Exploring new initiatives</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <label class="field full">
+              <span class="lbl">Interest in Pilot Collaboration</span>
+              <select name="pilotInterest">
+                <option>Yes</option><option>Possibly</option><option>Just joining for updates</option>
+              </select>
+            </label>
+            <label class="field full" style="margin-top:18px;">
+              <span class="lbl">Additional Information</span>
+              <textarea name="notes" placeholder="Tell us about current priorities, program challenges, or potential collaboration interests."></textarea>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="button button-secondary prev-step">Back</button>
+            <button type="button" class="button button-primary next-step">Next</button>
+          </div>
+          <p class="form-error" role="alert"></p>
+          <p class="privacy">PreQualy is designed to complement existing agency systems and improve visibility, coordination, and utilization.</p>
+        </form>
+
+        <!-- Nonprofit Form -->
+        <form class="form-panel multi-step-form" id="nonprofitForm" data-form-name="Nonprofit Organization" novalidate>
+          <div class="form-panel-header">
+            <div>
+              <p class="eyebrow">Nonprofit Organization</p>
+              <h2 tabindex="-1">Help connect communities to opportunity</h2>
+              <p>Share your mission, service area, and partnership interests.</p>
+            </div>
+            <button type="button" class="close-form" aria-label="Close form">×</button>
+          </div>
+
+          <div class="progress" aria-hidden="true"><span class="active"></span><span></span><span></span></div>
+
+          <div class="hp-field" aria-hidden="true">
+            <label>Do not fill this field<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <div class="form-step active">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Organization Name</span><input name="organization" required /></label>
+              <label class="field"><span class="lbl">Contact Name</span><input name="fullName" required autocomplete="name" /></label>
+              <label class="field"><span class="lbl">Email Address</span><input type="email" name="email" required autocomplete="email" /></label>
+              <label class="field"><span class="lbl">Title or Role</span><input name="title" /></label>
+              <label class="field"><span class="lbl">State</span>
+                <select name="state" id="np-state" required>
+                  <option value="">Select state</option>
+                  <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">County</span>
+                <input name="county" id="np-county" list="np-county-list" placeholder="Enter or select county" required autocomplete="off" />
+                <datalist id="np-county-list"></datalist>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field-grid">
+              <label class="field"><span class="lbl">Mission Area</span>
+                <select name="missionArea">
+                  <option>Housing Counseling</option><option>Financial Education</option><option>Community Development</option>
+                  <option>Legal Services</option><option>Workforce Development</option><option>Family Services</option><option>Other</option>
+                </select>
+              </label>
+              <label class="field"><span class="lbl">Counties or Communities Served</span><input name="serviceArea" /></label>
+              <label class="field full"><span class="lbl">Populations Served</span><input name="populations" placeholder="Describe the communities or client groups you serve" /></label>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <div class="field full">
+              <span class="lbl">What are you interested in?</span>
+              <div class="checkbox-grid">
+                <label class="check"><input type="checkbox" name="interests" value="Client Referrals">Client referrals</label>
+                <label class="check"><input type="checkbox" name="interests" value="Resource Sharing">Resource sharing</label>
+                <label class="check"><input type="checkbox" name="interests" value="Pilot Programs">Pilot programs</label>
+                <label class="check"><input type="checkbox" name="interests" value="Data and Impact">Data and impact tools</label>
+                <label class="check"><input type="checkbox" name="interests" value="Community Partnerships">Community partnerships</label>
+                <label class="check"><input type="checkbox" name="interests" value="Training">Training and education</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="button button-secondary prev-step">Back</button>
+            <button type="button" class="button button-primary next-step">Next</button>
+          </div>
+          <p class="form-error" role="alert"></p>
+          <p class="privacy">Your information will be used for platform updates, research, and potential coordination discussions.</p>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img class="footer-logo" src="PreQualy Logo.svg" onerror="this.onerror=null;this.src='PreQualy Logo.png';" alt="PreQualy" />
+        <span class="footer-tag">Unlocking Opportunities for Homeownership To Millions.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#journey">Your Journey</a>
+        <a href="mailto:support@prequaly.ai">Contact</a>
+        <span>&copy; <span id="year"></span> PreQualy. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/us-states-counties.js"></script>
+  <script>
+    /* ============================================================
+       PREQUALY INTEREST LIST - CONFIG
+       ------------------------------------------------------------
+       To capture real signups, set formEndpoint to your provider's
+       URL (Formspree, Google Apps Script, Zapier, Make, a custom
+       API, etc.). It must accept a POST with a JSON body.
+
+       Example (Formspree):
+         formEndpoint: "https://formspree.io/f/xxxxxxxx"
+
+       While formEndpoint is "", the site runs in DEMO MODE:
+       it validates, shows the success screen, and logs the payload
+       to the browser console - but does NOT store data anywhere.
+       ============================================================ */
+    const PREQUALY_CONFIG = {
+      // ── Supabase Edge Function endpoint ──────────────────────────────────────
+      // Replace <project-ref> with your Supabase project reference ID.
+      // Find it at: Supabase Dashboard → Project Settings → General → Reference ID
+      formEndpoint: "https://qpwmfbviwpjtwcqbpkky.supabase.co/functions/v1/submit-interest",
+      redirectOnSuccess: ""        // optional: URL to send users to after signup
+    };
+
+    const forms = document.querySelectorAll(".multi-step-form");
+    const roleButtons = document.querySelectorAll(".role-button");
+    const roleCards = document.querySelectorAll(".role-card");
+
+    function resetFormUI(form) {
+      form.dataset.step = "0";
+      const steps = [...form.querySelectorAll(".form-step")];
+      const bars = [...form.querySelectorAll(".progress span")];
+      steps.forEach((step, i) => step.classList.toggle("active", i === 0));
+      bars.forEach((bar, i) => bar.classList.toggle("active", i === 0));
+      const next = form.querySelector(".next-step");
+      const prev = form.querySelector(".prev-step");
+      const err = form.querySelector(".form-error");
+      next.textContent = "Next";
+      next.disabled = false;
+      prev.style.visibility = "hidden";
+      if (err) err.textContent = "";
+    }
+
+    forms.forEach(resetFormUI);
+
+    roleButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        forms.forEach(form => form.classList.remove("active"));
+        roleCards.forEach(c => c.classList.remove("selected"));
+        button.closest(".role-card").classList.add("selected");
+
+        const target = document.getElementById(button.dataset.target);
+        resetFormUI(target);
+        target.classList.add("active");
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const heading = target.querySelector("h2[tabindex]");
+        if (heading) setTimeout(() => heading.focus(), 400);
+      });
+    });
+
+    document.querySelectorAll(".close-form").forEach(button => {
+      button.addEventListener("click", () => {
+        button.closest(".form-panel").classList.remove("active");
+        roleCards.forEach(c => c.classList.remove("selected"));
+        document.getElementById("roles").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    async function submitForm(form) {
+      const next = form.querySelector(".next-step");
+      const err = form.querySelector(".form-error");
+      err.textContent = "";
+
+      // Honeypot — if filled by a bot, silently succeed without submitting
+      const hp = form.querySelector('input[name="company_website"]');
+      if (hp && hp.value.trim() !== "") { showSuccess(form); return; }
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload.interests = [...form.querySelectorAll('input[name="interests"]:checked')].map(c => c.value);
+      delete payload.company_website;
+      const body = {
+        audience: form.dataset.formName,
+        submittedAt: new Date().toISOString(),
+        source: "interest-landing-page",
+        ...payload
+      };
+
+      // Demo mode — no endpoint configured
+      if (!PREQUALY_CONFIG.formEndpoint) {
+        console.log("PreQualy interest submission (DEMO MODE - not stored):", body);
+        showSuccess(form);
+        return;
+      }
+
+      next.disabled = true;
+      next.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(PREQUALY_CONFIG.formEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+          // Surface any error message the Edge Function returned
+          let msg = "Something went wrong. Please try again.";
+          try { const j = await res.json(); if (j.error) msg = j.error; } catch { /* ignore */ }
+          throw new Error(msg);
+        }
+
+        if (PREQUALY_CONFIG.redirectOnSuccess) {
+          window.location.href = PREQUALY_CONFIG.redirectOnSuccess;
+          return;
+        }
+        showSuccess(form);
+
+      } catch (e) {
+        console.error("Form submission error:", e);
+        next.disabled = false;
+        next.textContent = "Join the Interest List";
+        err.textContent = e.message || "Something went wrong submitting your information. Please try again, or email support@prequaly.ai.";
+      }
+    }
+
+    function showSuccess(form) {
+      const shareText = encodeURIComponent("I just joined the @PreQualy interest list - unlocking opportunities for homeownership to millions! Join me:");
+      const url = encodeURIComponent(window.location.href);
+      form.innerHTML =
+        '<div class="success">' +
+          '<div class="success-icon" aria-hidden="true">&#10003;</div>' +
+          '<h2 tabindex="-1">You\'re on the list!</h2>' +
+          '<p>Thank you for your interest in PreQualy. We\'ll keep you updated on launch ' +
+          'progress, early-access opportunities, and ways to participate.</p>' +
+          '<div class="share-row">' +
+            '<a class="button button-primary" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' + shareText + '&url=' + url + '">Share on X</a>' +
+            '<a class="button button-secondary" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + url + '">Share on Facebook</a>' +
+          '</div>' +
+          '<button type="button" class="button button-secondary" style="margin-top:14px" onclick="location.reload()">Return to the top</button>' +
+        '</div>';
+      const h = form.querySelector("h2[tabindex]");
+      if (h) h.focus();
+    }
+
+    forms.forEach(form => {
+      const steps = [...form.querySelectorAll(".form-step")];
+      const bars = [...form.querySelectorAll(".progress span")];
+      const next = form.querySelector(".next-step");
+      const prev = form.querySelector(".prev-step");
+
+      function showStep(index) {
+        form.dataset.step = String(index);
+        steps.forEach((step, i) => step.classList.toggle("active", i === index));
+        bars.forEach((bar, i) => bar.classList.toggle("active", i <= index));
+        prev.style.visibility = index === 0 ? "hidden" : "visible";
+        next.textContent = index === steps.length - 1 ? "Join the Interest List" : "Next";
+      }
+
+      next.addEventListener("click", () => {
+        const current = Number(form.dataset.step || 0);
+        const fields = [...steps[current].querySelectorAll("input, select, textarea")];
+        for (const field of fields) {
+          if (!field.checkValidity()) { field.reportValidity(); return; }
+        }
+        if (current < steps.length - 1) { showStep(current + 1); return; }
+        submitForm(form);
+      });
+
+      prev.addEventListener("click", () => {
+        const current = Number(form.dataset.step || 0);
+        if (current > 0) showStep(current - 1);
+      });
+    });
+
+    // Populate nationwide State select + County text input autocomplete for all forms
+    (function initGeo(){
+      const formGeos = [
+        { stateId: "hb-state", listId: "hb-county-list" },
+        { stateId: "pro-state", listId: "pro-county-list" },
+        { stateId: "gov-state", listId: "gov-county-list" },
+        { stateId: "np-state", listId: "np-county-list" }
+      ];
+
+      const statesList = (typeof US_STATES_COUNTIES !== "undefined")
+        ? Object.keys(US_STATES_COUNTIES).sort()
+        : ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+
+      formGeos.forEach(geo => {
+        const stateSel = document.getElementById(geo.stateId);
+        const datalist = document.getElementById(geo.listId);
+        if (!stateSel) return;
+
+        if (stateSel.options.length <= 1) {
+          statesList.forEach(st => stateSel.appendChild(new Option(st, st)));
+        }
+
+        if (datalist) {
+          stateSel.addEventListener("change", () => {
+            const counties = (typeof US_STATES_COUNTIES !== "undefined" && US_STATES_COUNTIES[stateSel.value]) || [];
+            datalist.innerHTML = "";
+            counties.forEach(c => {
+              const opt = document.createElement("option");
+              opt.value = c;
+              datalist.appendChild(opt);
+            });
+          });
+        }
+      });
+    })();
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

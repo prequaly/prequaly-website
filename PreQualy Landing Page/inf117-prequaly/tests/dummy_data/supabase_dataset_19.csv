@@ -1,0 +1,21 @@
+id,form_type,submitted_at,full_name,title_role,email_address,agency_type,primary_service_area,familiarity_homeownership_programs,interest_pilot_collaboration,organization_type,location_state,affordable_homeownership_focus,location_county,planned_purchase_timeline,household_size,is_multigenerational,professional_role,works_with_affordable_products,years_of_experience,primary_focus_area
+1,Real Estate Professionals,2026-02-26 08:23:29,,,,,,,,,CO,,Select County,,,,Broker,No,10+,First-Time Homebuyers
+2,Government Agencies,2026-05-11 15:27:29,Gov Rep 2,Specialist,rep2@gov.example.com,Other,County,Interested In Coordination,,,,,,,,,,,,
+3,Non-Profits,2025-12-22 21:48:29,,,,,,,,CDFI,MA,Tenant-To-Homeowner Transition Programs,,,,,,,,
+4,Government Agencies,2025-11-14 15:04:29,Gov Rep 4,Director,rep4@gov.example.com,County Government,County,Limited Involvement,Possibly,,,,,,,,,,,
+5,Future Homebuyers,2026-03-24 18:32:29,,,,,,,,,SC,,Select County,12+ months,5,FALSE,,,,
+6,Non-Profits,2025-10-19 05:13:29,,,,,,,,Nonprofit Organization,VT,Housing Counseling,,,,,,,,
+7,Future Homebuyers,2026-04-08 00:58:29,,,,,,,,,CA,,Select County,12+ months,3,TRUE,,,,
+8,Government Agencies,2025-10-18 08:25:29,Gov Rep 8,Coordinator,rep8@gov.example.com,Community Development Department,County,Provide Funding Oversight,Possibly,,,,,,,,,,,
+9,Real Estate Professionals,2026-04-05 01:58:29,,,,,,,,,WI,,Select County,,,,Other,Yes,3-5,Income- Or Deed-Restricting Housing
+10,Real Estate Professionals,2025-07-03 01:54:29,,,,,,,,,ND,,Select County,,,,Broker,No,10+,Income- Or Deed-Restricting Housing
+11,Government Agencies,2025-12-25 01:21:29,Gov Rep 11,Program Manager,rep11@gov.example.com,Other,Federal,Exploring New Initiatives,Possibly,,,,,,,,,,,
+12,Non-Profits,2025-12-25 20:44:29,,,,,,,,Nonprofit Organization,MA,Down-Payment Assistance Administration,,,,,,,,
+13,Future Homebuyers,2025-06-06 02:58:29,,,,,,,,,CO,,Select County,0-6 months,4,TRUE,,,,
+14,Future Homebuyers,2026-04-09 01:38:29,,,,,,,,,GA,,Select County,0-6 months,4,FALSE,,,,
+15,Real Estate Professionals,2026-01-29 13:17:29,,,,,,,,,GA,,Select County,,,,Bank / Lender,Occasionally / Interested In Learning More,0-2,First-Time Homebuyers
+16,Real Estate Professionals,2026-03-20 15:38:29,,,,,,,,,HI,,Select County,,,,Developer,No,0-2,Income- Or Deed-Restricting Housing
+17,Real Estate Professionals,2025-10-29 16:12:29,,,,,,,,,IL,,Select County,,,,Loan Officer,Occasionally / Interested In Learning More,10+,Down-Payment Assistance
+18,Government Agencies,2025-05-29 02:11:29,Gov Rep 18,Program Manager,rep18@gov.example.com,Other,County,Limited Involvement,Possibly,,,,,,,,,,,
+19,Future Homebuyers,2026-05-02 17:03:29,,,,,,,,,DE,,Select County,6-12 months,5,TRUE,,,,
+20,Real Estate Professionals,2025-11-15 17:37:29,,,,,,,,,NC,,Select County,,,,Loan Officer,No,6-10,Other

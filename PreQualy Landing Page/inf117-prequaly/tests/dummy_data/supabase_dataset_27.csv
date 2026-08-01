@@ -1,0 +1,33 @@
+id,form_type,submitted_at,full_name,title_role,email_address,agency_type,primary_service_area,familiarity_homeownership_programs,interest_pilot_collaboration,organization_type,location_state,affordable_homeownership_focus,location_county,planned_purchase_timeline,household_size,is_multigenerational,professional_role,works_with_affordable_products,years_of_experience,primary_focus_area
+1,Government Agencies,2026-02-10 02:24:29,Gov Rep 1,Specialist,rep1@gov.example.com,Other,County,Limited Involvement,Joining For Updates,,,,,,,,,,,
+2,Government Agencies,2025-12-27 14:51:29,Gov Rep 2,Program Manager,rep2@gov.example.com,State Agency,County,Administer Programs Directly,Joining For Updates,,,,,,,,,,,
+3,Government Agencies,2025-06-19 20:46:29,Gov Rep 3,Program Manager,rep3@gov.example.com,Community Development Department,Federal,Administer Programs Directly,Possibly,,,,,,,,,,,
+4,Future Homebuyers,2025-06-27 10:05:29,,,,,,,,,MN,,Select County,12+ months,4,FALSE,,,,
+5,Non-Profits,2026-03-28 10:11:29,,,,,,,,Nonprofit Organization,NJ,Down-Payment Assistance Administration,,,,,,,,
+6,Future Homebuyers,2025-06-23 00:07:29,,,,,,,,,NJ,,Select County,12+ months,3,TRUE,,,,
+7,Government Agencies,2025-12-14 01:23:29,Gov Rep 7,Policy Analyst,rep7@gov.example.com,Community Development Department,County,Oversee Compliance Or Policy,,,,,,,,,,,,
+8,Non-Profits,2025-11-22 16:16:29,,,,,,,,CDFI,KY,Mortgage Lending / Financing,,,,,,,,
+9,Non-Profits,2025-10-26 03:15:29,,,,,,,,Nonprofit Organization,WI,Tenant-To-Homeowner Transition Programs,,,,,,,,
+10,Future Homebuyers,2025-08-10 05:04:29,,,,,,,,,CT,,Select County,Just Exploring,3,FALSE,,,,
+11,Non-Profits,2026-04-04 19:01:29,,,,,,,,Nonprofit Organization,OR,Down-Payment Assistance Administration,,,,,,,,
+12,Non-Profits,2025-07-29 22:51:29,,,,,,,,Nonprofit Organization,TN,Homebuyer Education,,,,,,,,
+13,Real Estate Professionals,2025-10-30 22:11:29,,,,,,,,,MO,,Select County,,,,Broker,Yes,0-2,Other
+14,Future Homebuyers,2025-07-23 12:09:29,,,,,,,,,UT,,Select County,12+ months,2,TRUE,,,,
+15,Real Estate Professionals,2025-11-21 18:52:29,,,,,,,,,NY,,Select County,,,,Real Estate Agent,No,0-2,Affordable Homeownership Programs
+16,Government Agencies,2025-09-27 16:03:29,Gov Rep 16,Program Manager,rep16@gov.example.com,City Government,State,Oversee Compliance Or Policy,Possibly,,,,,,,,,,,
+17,Real Estate Professionals,2025-07-10 19:39:29,,,,,,,,,WA,,Select County,,,,Developer,Yes,3-5,Down-Payment Assistance
+18,Real Estate Professionals,2026-04-19 07:30:29,,,,,,,,,NM,,Select County,,,,Broker,No,3-5,Income- Or Deed-Restricting Housing
+19,Future Homebuyers,2025-08-11 17:13:29,,,,,,,,,AK,,Select County,6-12 months,2,FALSE,,,,
+20,Non-Profits,2025-10-03 01:32:29,,,,,,,,Nonprofit Organization,MN,Down-Payment Assistance Administration,,,,,,,,
+21,Real Estate Professionals,2026-02-07 19:18:29,,,,,,,,,ID,,Select County,,,,Real Estate Agent,Occasionally / Interested In Learning More,6-10,Other
+22,Real Estate Professionals,2025-10-25 04:31:29,,,,,,,,,IN,,Select County,,,,Real Estate Agent,No,6-10,Income- Or Deed-Restricting Housing
+23,Government Agencies,2025-06-06 07:59:29,Gov Rep 23,Policy Analyst,rep23@gov.example.com,State Agency,Federal,Administer Programs Directly,,,,,,,,,,,,
+24,Non-Profits,2025-06-19 12:08:29,,,,,,,,Nonprofit Organization,KS,Financial Literacy / Credit Readiness,,,,,,,,
+25,Non-Profits,2025-08-26 09:21:29,,,,,,,,Nonprofit Organization,IA,Shared Equity / Community Land Trusts,,,,,,,,
+26,Non-Profits,2026-04-29 13:55:29,,,,,,,,CDFI,TN,Homebuyer Education,,,,,,,,
+27,Non-Profits,2025-11-28 03:57:29,,,,,,,,Nonprofit Organization,IL,Affordable Housing Development,,,,,,,,
+28,Future Homebuyers,2025-10-25 20:16:29,,,,,,,,,FL,,Select County,6-12 months,3,FALSE,,,,
+29,Government Agencies,2026-04-18 10:42:29,Gov Rep 29,Specialist,rep29@gov.example.com,City Government,City,Limited Involvement,Yes,,,,,,,,,,,
+30,Future Homebuyers,2025-10-09 03:14:29,,,,,,,,,HI,,Select County,6-12 months,4,FALSE,,,,
+31,Government Agencies,2025-06-05 02:07:29,Gov Rep 31,Specialist,rep31@gov.example.com,County Government,State,Oversee Compliance Or Policy,Possibly,,,,,,,,,,,
+32,Real Estate Professionals,2026-03-13 15:52:29,,,,,,,,,IL,,Select County,,,,Other,Yes,3-5,Affordable Homeownership Programs

@@ -1,0 +1,87 @@
+id,form_type,submitted_at,full_name,title_role,email_address,agency_type,primary_service_area,familiarity_homeownership_programs,interest_pilot_collaboration,organization_type,location_state,affordable_homeownership_focus,location_county,planned_purchase_timeline,household_size,is_multigenerational,professional_role,works_with_affordable_products,years_of_experience,primary_focus_area
+1,Real Estate Professionals,2025-10-07 19:30:29,,,,,,,,,KS,,Select County,,,,Bank / Lender,Yes,0-2,Other
+2,Future Homebuyers,2026-04-07 03:04:29,,,,,,,,,MS,,Select County,6-12 months,2,FALSE,,,,
+3,Non-Profits,2025-09-16 04:44:29,,,,,,,,CDFI,VT,Shared Equity / Community Land Trusts,,,,,,,,
+4,Real Estate Professionals,2026-03-03 07:22:29,,,,,,,,,NJ,,Select County,,,,Developer,Occasionally / Interested In Learning More,10+,FHA / VA / USDA Loans
+5,Real Estate Professionals,2025-07-27 04:39:29,,,,,,,,,MA,,Select County,,,,Loan Officer,Yes,6-10,Affordable Homeownership Programs
+6,Real Estate Professionals,2026-02-04 19:34:29,,,,,,,,,NV,,Select County,,,,Bank / Lender,No,10+,First-Time Homebuyers
+7,Government Agencies,2025-09-20 15:36:29,Gov Rep 7,Director,rep7@gov.example.com,Community Development Department,State,Oversee Compliance Or Policy,Yes,,,,,,,,,,,
+8,Real Estate Professionals,2026-04-15 13:41:29,,,,,,,,,ID,,Select County,,,,Loan Officer,Yes,6-10,Down-Payment Assistance
+9,Future Homebuyers,2025-10-23 19:43:29,,,,,,,,,NC,,Select County,0-6 months,4,TRUE,,,,
+10,Government Agencies,2026-02-03 04:49:29,Gov Rep 10,Policy Analyst,rep10@gov.example.com,County Government,State,Oversee Compliance Or Policy,Possibly,,,,,,,,,,,
+11,Future Homebuyers,2026-03-05 21:05:29,,,,,,,,,MA,,Select County,6-12 months,5,FALSE,,,,
+12,Non-Profits,2025-05-28 13:54:29,,,,,,,,Nonprofit Organization,WI,Down-Payment Assistance Administration,,,,,,,,
+13,Real Estate Professionals,2025-09-06 11:27:29,,,,,,,,,KS,,Select County,,,,Loan Officer,No,3-5,Affordable Homeownership Programs
+14,Government Agencies,2025-08-09 17:33:29,Gov Rep 14,Coordinator,rep14@gov.example.com,County Government,City,Interested In Coordination,Yes,,,,,,,,,,,
+15,Future Homebuyers,2025-12-20 06:49:29,,,,,,,,,WI,,Select County,0-6 months,3,FALSE,,,,
+16,Government Agencies,2026-01-08 03:25:29,Gov Rep 16,Coordinator,rep16@gov.example.com,Community Development Department,City,Provide Funding Oversight,,,,,,,,,,,,
+17,Future Homebuyers,2026-04-07 11:43:29,,,,,,,,,OR,,Select County,12+ months,6+,FALSE,,,,
+18,Future Homebuyers,2025-12-21 07:07:29,,,,,,,,,OR,,Select County,12+ months,4,TRUE,,,,
+19,Real Estate Professionals,2026-04-15 13:27:29,,,,,,,,,SD,,Select County,,,,Developer,Occasionally / Interested In Learning More,3-5,Down-Payment Assistance
+20,Government Agencies,2026-03-23 03:13:29,Gov Rep 20,Policy Analyst,rep20@gov.example.com,State Agency,Federal,Administer Programs Directly,Joining For Updates,,,,,,,,,,,
+21,Government Agencies,2026-01-22 16:03:29,Gov Rep 21,Program Manager,rep21@gov.example.com,State Agency,Federal,Provide Funding Oversight,Yes,,,,,,,,,,,
+22,Future Homebuyers,2025-05-22 08:57:29,,,,,,,,,NM,,Select County,12+ months,5,FALSE,,,,
+23,Real Estate Professionals,2025-05-21 15:27:29,,,,,,,,,TN,,Select County,,,,Loan Officer,Yes,6-10,Affordable Homeownership Programs
+24,Non-Profits,2025-10-13 23:58:29,,,,,,,,Nonprofit Organization,TX,Mortgage Lending / Financing,,,,,,,,
+25,Government Agencies,2025-08-01 08:11:29,Gov Rep 25,Program Manager,rep25@gov.example.com,City Government,Federal,Interested In Coordination,,,,,,,,,,,,
+26,Future Homebuyers,2025-08-17 09:26:29,,,,,,,,,KS,,Select County,6-12 months,5,TRUE,,,,
+27,Future Homebuyers,2025-06-12 15:59:29,,,,,,,,,PA,,Select County,12+ months,1,TRUE,,,,
+28,Government Agencies,2025-08-01 05:36:29,Gov Rep 28,Policy Analyst,rep28@gov.example.com,City Government,State,Interested In Coordination,Joining For Updates,,,,,,,,,,,
+29,Real Estate Professionals,2025-12-15 04:21:29,,,,,,,,,AK,,Select County,,,,Developer,No,3-5,FHA / VA / USDA Loans
+30,Non-Profits,2025-05-28 08:24:29,,,,,,,,CDFI,VT,Financial Literacy / Credit Readiness,,,,,,,,
+31,Government Agencies,2025-08-19 16:53:29,Gov Rep 31,Director,rep31@gov.example.com,Public Housing Authority,Federal,Administer Programs Directly,Joining For Updates,,,,,,,,,,,
+32,Non-Profits,2025-08-11 06:56:29,,,,,,,,Nonprofit Organization,CA,Shared Equity / Community Land Trusts,,,,,,,,
+33,Non-Profits,2025-12-16 01:21:29,,,,,,,,CDFI,WI,,,,,,,,,
+34,Non-Profits,2025-06-10 22:07:29,,,,,,,,Nonprofit Organization,NY,Tenant-To-Homeowner Transition Programs,,,,,,,,
+35,Future Homebuyers,2025-10-31 20:43:29,,,,,,,,,NM,,Select County,0-6 months,1,FALSE,,,,
+36,Government Agencies,2026-05-09 02:55:29,Gov Rep 36,Policy Analyst,rep36@gov.example.com,State Agency,County,Exploring New Initiatives,,,,,,,,,,,,
+37,Government Agencies,2025-10-29 11:52:29,Gov Rep 37,Director,rep37@gov.example.com,State Agency,City,Administer Programs Directly,Joining For Updates,,,,,,,,,,,
+38,Government Agencies,2025-12-24 16:49:29,Gov Rep 38,Coordinator,rep38@gov.example.com,City Government,State,Administer Programs Directly,Yes,,,,,,,,,,,
+39,Non-Profits,2025-06-23 11:39:29,,,,,,,,CDFI,AK,Financial Literacy / Credit Readiness,,,,,,,,
+40,Non-Profits,2026-01-21 18:15:29,,,,,,,,CDFI,ME,Financial Literacy / Credit Readiness,,,,,,,,
+41,Real Estate Professionals,2025-11-24 06:19:29,,,,,,,,,SD,,Select County,,,,Other,Yes,0-2,Income- Or Deed-Restricting Housing
+42,Future Homebuyers,2025-11-11 20:50:29,,,,,,,,,ND,,Select County,Just Exploring,6+,FALSE,,,,
+43,Real Estate Professionals,2025-10-10 05:14:29,,,,,,,,,IL,,Select County,,,,Real Estate Agent,Yes,6-10,First-Time Homebuyers
+44,Future Homebuyers,2025-12-29 07:32:29,,,,,,,,,OR,,Select County,0-6 months,4,FALSE,,,,
+45,Future Homebuyers,2026-01-15 20:29:29,,,,,,,,,IN,,Select County,12+ months,3,TRUE,,,,
+46,Future Homebuyers,2025-11-23 17:32:29,,,,,,,,,SC,,Select County,0-6 months,3,TRUE,,,,
+47,Government Agencies,2025-07-30 03:11:29,Gov Rep 47,Director,rep47@gov.example.com,Public Housing Authority,State,Limited Involvement,Possibly,,,,,,,,,,,
+48,Real Estate Professionals,2026-03-21 08:54:29,,,,,,,,,CO,,Select County,,,,Real Estate Agent,No,0-2,First-Time Homebuyers
+49,Non-Profits,2026-04-25 02:18:29,,,,,,,,Nonprofit Organization,ME,Affordable Housing Development,,,,,,,,
+50,Non-Profits,2025-08-16 15:00:29,,,,,,,,Nonprofit Organization,ME,Shared Equity / Community Land Trusts,,,,,,,,
+51,Future Homebuyers,2025-10-29 23:24:29,,,,,,,,,RI,,Select County,Just Exploring,3,TRUE,,,,
+52,Non-Profits,2025-12-09 19:42:29,,,,,,,,Nonprofit Organization,IL,Shared Equity / Community Land Trusts,,,,,,,,
+53,Non-Profits,2025-07-19 09:03:29,,,,,,,,Nonprofit Organization,DE,,,,,,,,,
+54,Government Agencies,2026-04-09 16:47:29,Gov Rep 54,Policy Analyst,rep54@gov.example.com,Other,City,Limited Involvement,Yes,,,,,,,,,,,
+55,Government Agencies,2025-10-31 03:53:29,Gov Rep 55,Director,rep55@gov.example.com,Other,County,Administer Programs Directly,Joining For Updates,,,,,,,,,,,
+56,Real Estate Professionals,2026-01-19 00:07:29,,,,,,,,,TN,,Select County,,,,Broker,No,0-2,Affordable Homeownership Programs
+57,Government Agencies,2025-10-31 23:34:29,Gov Rep 57,Policy Analyst,rep57@gov.example.com,Community Development Department,County,Provide Funding Oversight,Yes,,,,,,,,,,,
+58,Real Estate Professionals,2025-11-15 01:06:29,,,,,,,,,WA,,Select County,,,,Loan Officer,Occasionally / Interested In Learning More,0-2,FHA / VA / USDA Loans
+59,Government Agencies,2025-11-29 14:06:29,Gov Rep 59,Coordinator,rep59@gov.example.com,Other,County,Interested In Coordination,,,,,,,,,,,,
+60,Real Estate Professionals,2025-06-09 16:55:29,,,,,,,,,KS,,Select County,,,,Other,Occasionally / Interested In Learning More,3-5,First-Time Homebuyers
+61,Future Homebuyers,2025-05-25 01:41:29,,,,,,,,,OR,,Select County,Just Exploring,6+,FALSE,,,,
+62,Real Estate Professionals,2025-10-01 18:26:29,,,,,,,,,MA,,Select County,,,,Other,Occasionally / Interested In Learning More,0-2,Other
+63,Non-Profits,2025-12-23 12:02:29,,,,,,,,Nonprofit Organization,HI,Down-Payment Assistance Administration,,,,,,,,
+64,Real Estate Professionals,2025-08-18 11:55:29,,,,,,,,,KY,,Select County,,,,Loan Officer,No,3-5,Income- Or Deed-Restricting Housing
+65,Non-Profits,2025-06-08 03:58:29,,,,,,,,Nonprofit Organization,KS,Housing Counseling,,,,,,,,
+66,Non-Profits,2025-06-13 16:19:29,,,,,,,,Nonprofit Organization,PA,Mortgage Lending / Financing,,,,,,,,
+67,Government Agencies,2026-02-01 10:17:29,Gov Rep 67,Coordinator,rep67@gov.example.com,County Government,State,Exploring New Initiatives,Yes,,,,,,,,,,,
+68,Real Estate Professionals,2025-08-27 05:54:29,,,,,,,,,SC,,Select County,,,,Broker,Occasionally / Interested In Learning More,10+,FHA / VA / USDA Loans
+69,Real Estate Professionals,2025-06-16 05:58:29,,,,,,,,,OK,,Select County,,,,Loan Officer,Yes,3-5,FHA / VA / USDA Loans
+70,Non-Profits,2025-12-29 10:32:29,,,,,,,,Nonprofit Organization,OH,Homebuyer Education,,,,,,,,
+71,Future Homebuyers,2025-07-05 07:02:29,,,,,,,,,OK,,Select County,6-12 months,1,TRUE,,,,
+72,Future Homebuyers,2025-09-15 20:36:29,,,,,,,,,SC,,Select County,Just Exploring,2,FALSE,,,,
+73,Non-Profits,2026-03-22 16:56:29,,,,,,,,CDFI,IA,Affordable Housing Development,,,,,,,,
+74,Real Estate Professionals,2026-03-04 18:20:29,,,,,,,,,WA,,Select County,,,,Developer,Yes,10+,First-Time Homebuyers
+75,Government Agencies,2025-08-13 02:50:29,Gov Rep 75,Coordinator,rep75@gov.example.com,Other,County,Interested In Coordination,Yes,,,,,,,,,,,
+76,Non-Profits,2025-06-15 04:30:29,,,,,,,,Nonprofit Organization,VA,,,,,,,,,
+77,Future Homebuyers,2026-03-18 07:06:29,,,,,,,,,UT,,Select County,12+ months,4,FALSE,,,,
+78,Real Estate Professionals,2026-01-14 16:04:29,,,,,,,,,WI,,Select County,,,,Other,No,3-5,Down-Payment Assistance
+79,Government Agencies,2025-11-09 09:17:29,Gov Rep 79,Coordinator,rep79@gov.example.com,Other,Federal,Exploring New Initiatives,Yes,,,,,,,,,,,
+80,Real Estate Professionals,2026-03-16 08:10:29,,,,,,,,,WY,,Select County,,,,Other,No,10+,First-Time Homebuyers
+81,Government Agencies,2026-05-13 07:05:29,Gov Rep 81,Specialist,rep81@gov.example.com,City Government,State,Exploring New Initiatives,Possibly,,,,,,,,,,,
+82,Non-Profits,2025-06-25 21:53:29,,,,,,,,Nonprofit Organization,SC,Affordable Housing Development,,,,,,,,
+83,Government Agencies,2025-07-25 11:50:29,Gov Rep 83,Director,rep83@gov.example.com,Community Development Department,Federal,Interested In Coordination,Joining For Updates,,,,,,,,,,,
+84,Non-Profits,2025-10-10 01:38:29,,,,,,,,CDFI,NV,Shared Equity / Community Land Trusts,,,,,,,,
+85,Real Estate Professionals,2026-02-14 12:59:29,,,,,,,,,ME,,Select County,,,,Real Estate Agent,Occasionally / Interested In Learning More,6-10,Income- Or Deed-Restricting Housing
+86,Government Agencies,2026-04-03 05:28:29,Gov Rep 86,Specialist,rep86@gov.example.com,Other,City,Limited Involvement,,,,,,,,,,,,
