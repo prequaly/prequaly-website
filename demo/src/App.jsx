@@ -5,7 +5,7 @@ import {
   Home, Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
   Building2, Users, Info, Clock, Tag, HeartHandshake, BadgeCheck, Star,
   Bookmark, BookmarkCheck, GraduationCap, Wallet, FileText, Search,
-  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle,
+  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown,
 } from "lucide-react";
 
 /* =====================================================================
@@ -492,10 +492,10 @@ function FadeIn({ children, delay = 0 }) {
 /* Animated tri-sector orbit — the ecosystem circling the buyer */
 function TriOrbit() {
   const nodes = [
-    { icon: Landmark, label: "Government resources" },
-    { icon: HeartHandshake, label: "Community organizations" },
-    { icon: Building2, label: "Trusted partners" },
-    { icon: FileText, label: "Programs & assistance" },
+    { icon: FileText, label: "Programs & Assistance" },
+    { icon: HeartHandshake, label: "Community Organizations" },
+    { icon: Building2, label: "Trusted Partners" },
+    { icon: Landmark, label: "Government Resources" },
   ];
   const period = 46;
   return (
@@ -503,7 +503,7 @@ function TriOrbit() {
       <div className="pq-orbit-dash" />
       <div className="pq-orbit-center">
         <div className="pq-float"><Keyhole size={84} /></div>
-        <span>People like you</span>
+        <span>People Like You</span>
       </div>
       {nodes.map((n, i) => {
         const Icon = n.icon;
@@ -643,14 +643,13 @@ export default function PreQualyApp() {
     <div className="pq-root">
       <style>{CSS}</style>
       <header className="pq-head">
-        <button className="pq-brand" aria-label="PreQualy home">
+        <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
           <Keyhole size={30} glow={false} />
           <span>Pre<b>Q</b>ualy</span>
-          {/* <img src="/PreQualy Logo.svg" className="pq-logo"/> */}
         </button>
         <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "homes"} onClick={() => go("homes")} icon={Home} label="Home" />
-          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="About" />
+          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
+          <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" />
           <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
             <button onClick={() => go("programs")}>Overview</button>
             <button onClick={() => go("homes")}>How it works</button>
@@ -673,7 +672,19 @@ export default function PreQualyApp() {
         <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
       </header>
 
-      {tab === "home" && <Landing onStart={startIntake} onBrowse={() => go("resources")} hasProfile={hasProfile} onResults={() => go("programs")} />}
+      {tab === "home" && <Landing onStart={startIntake} />}
+
+      {tab === "about" && (
+        <main className="pq-emptypage">
+          <Keyhole size={64} />
+          <h2>About PreQualy</h2>
+          <p>
+            PreQualy is the operating system for affordable homeownership — connecting people
+            to every program, grant, and below-market home they qualify for across Southern California.
+          </p>
+          <button className="pq-cta" onClick={() => go("home")}>Back to home <ArrowRight size={17} /></button>
+        </main>
+      )}
 
       {tab === "programs" && (
         intakeStep > 0
@@ -805,7 +816,7 @@ function NavBtn({ on, onClick, icon: Icon, label, dropdown = false, children }) 
       >
         <span className={on ? "pq-navlabel on" : "pq-navlabel"}>
           {label}
-          {dropdown && <span className="pq-arrow">∨</span>}
+          {dropdown && <ChevronDown size={14} className="pq-arrow" />}
         </span>
       </button>
 
@@ -830,7 +841,7 @@ function EmptyState({ title, body, cta, onCta }) {
 }
 
 /* ---------------------------------------------------------------- Landing */
-function Landing({ onStart, onBrowse, hasProfile, onResults }) {
+function Landing({ onStart }) {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
   const [sending, setSending] = useState(false);
@@ -842,38 +853,35 @@ function Landing({ onStart, onBrowse, hasProfile, onResults }) {
     setSending(false);
     if (r.ok) setJoined(true); else setJoinError(true);
   }
+  function scrollToWaitlist() {
+    document.getElementById("pq-waitlist")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
   return (
     <main className="pq-landing">
       <section className="pq-hero-grid">
         <div className="pq-hero-copy">
           <p className="pq-eyebrow">Opportunity. Access. Home.</p>
-          <h1 className="pq-hero">Unlock homeownership opportunities <em>you may not even know exist.</em></h1>
+          <h1 className="pq-hero">Unlock homeownership opportunities you may not even know exist.</h1>
           <p className="pq-sub">
-            PreQualy connects you to housing programs, assistance dollars, and trusted
-            partners — so more families can find what's already theirs and achieve the
-            dream of homeownership. Free, two minutes, no credit pull.
+            PreQualy connects people to housing programs, down payment assistance, and trusted
+            partners - making homeownership more accessible for everyone.
           </p>
           <div className="pq-hero-ctas">
-            {hasProfile
-              ? <button className="pq-cta" onClick={onResults}>See my results <ArrowRight size={18} /></button>
-              : <button className="pq-cta" onClick={onStart}>Check my eligibility <ArrowRight size={18} /></button>}
-            <button className="pq-ghost" onClick={onBrowse}>Browse free resources</button>
-          </div>
-          <div className="pq-trust">
-            <span><Landmark size={14} /> Government</span>
-            <span><HeartHandshake size={14} /> Nonprofit</span>
-            <span><Building2 size={14} /> Lender</span>
-            <span><Tag size={14} /> Below-market homes</span>
+            <button className="pq-cta" onClick={scrollToWaitlist}>
+              Join the Interest List <ArrowRight size={18} />
+            </button>
+            <button className="pq-ghost" type="button">
+              <Play size={16} fill="currentColor" /> See Our Vision
+            </button>
           </div>
         </div>
         <div className="pq-hero-art" aria-hidden="true">
-          <div className="pq-hero-glow pulse" />
-          <div className="pq-float"><Keyhole size={190} /></div>
+          <img src="/PreQualy Logo.svg" alt="" className="pq-hero-img" />
         </div>
       </section>
 
       <FadeIn><section className="pq-problem">
-        <h2>The path to homeownership is more complicated than it should be.</h2>
+        <h3>The path to homeownership is more complicated than it should be.</h3>
         <div className="pq-prob-grid">
           {[
             [Layers, "Too many programs", "Hundreds of programs with different rules, eligibility requirements, and deadlines."],
@@ -890,74 +898,69 @@ function Landing({ onStart, onBrowse, hasProfile, onResults }) {
         </div>
       </section></FadeIn>
 
-      <FadeIn><section className="pq-tri">
-        <div className="pq-tri-copy">
-          <p className="pq-eyebrow">A tri-sector venture</p>
-          <h2>Government. Community. Industry.<br /><em>All working for you.</em></h2>
+      <FadeIn><section className="pq-solution">
+        <div className="pq-solution-copy">
+          <h2>PreQualy brings opportunity within reach.</h2>
           <p>
-            Homeownership help lives in three separate worlds — public agencies,
-            community nonprofits, and private professionals. PreQualy is the first
-            platform built to bring all three together around one person: you.
+            Our technology and data bring together housing programs, community resources,
+            and trusted partners - so you can discover what's already yours.
           </p>
-          <ul className="pq-tri-list">
-            <li><Check size={14} /> Public programs and funding, verified at the source</li>
-            <li><Check size={14} /> Community organizations and HUD-approved counselors</li>
-            <li><Check size={14} /> Vetted lenders, Realtors, and builders who know these programs</li>
+          <ul className="pq-solution-list">
+            {[
+              "Personalized opportunity matching",
+              "Interactive maps & real-time insights",
+              "Trusted community connections",
+              "Tools to understand eligibility",
+            ].map((item) => (
+              <li key={item}><span className="pq-check-dot"><Check size={12} /></span>{item}</li>
+            ))}
           </ul>
-          <div className="pq-tri-goal">
-            <strong>1 goal</strong><span>stronger pathways to sustainable homeownership</span>
-            <strong>1 community</strong><span>stronger together</span>
-          </div>
         </div>
         <TriOrbit />
-      </section></FadeIn>
-
-      <FadeIn><section className="pq-how">
-        <h2>PreQualy brings opportunity within reach.</h2>
-        <div className="pq-how-grid">
-          <div className="pq-how-card"><span className="pq-how-k">1</span><h3>Tell us about you</h3><p>Nine questions — county, income, household. Nothing hits your credit, nothing is shared without your say-so.</p></div>
-          <div className="pq-how-card"><span className="pq-how-k">2</span><h3>See what's yours</h3><p>Our eligibility engine screens {PROGRAMS.length} programs across 5 counties and shows exactly why you match — or what one step would unlock.</p></div>
-          <div className="pq-how-card"><span className="pq-how-k">3</span><h3>Find reachable homes</h3><p>Listings flagged with your real buying power — including deed-restricted homes sold far below market.</p></div>
-          <div className="pq-how-card"><span className="pq-how-k">4</span><h3>Move with a pro</h3><p>When you're ready, we connect you free with a lender or counselor certified in your exact programs.</p></div>
-        </div>
-      </section></FadeIn>
-
-      <FadeIn><section className="pq-two">
         <div className="pq-opp-card">
-          <p className="pq-opp-label">Example opportunity</p>
-          <h3>CalHFA MyHome Assistance</h3>
-          <p className="pq-opp-est">Est. assistance</p>
+          <p className="pq-opp-label">Example Opportunity</p>
+          <h3>CalHFA FHA Loan</h3>
+          <p className="pq-opp-est">Est. Savings</p>
           <div className="pq-opp-amt">$24,500</div>
           <span className="pq-flag reach"><BadgeCheck size={12} /> Down Payment Assistance</span>
-          <p className="pq-opp-est">Reduced monthly payment</p>
-          <div className="pq-opp-amt sm">$320<span> /mo est.</span></div>
-          <button className="pq-ghost slim" onClick={onStart}>See what you match <ArrowRight size={14} /></button>
+          <p className="pq-opp-est">Reduced Monthly Payment</p>
+          <div className="pq-opp-amt sm">$320<span> est.</span></div>
+          <button className="pq-link-btn" onClick={onStart}>Learn More <ArrowRight size={14} /></button>
         </div>
-        <div className="pq-interest">
-          <span className="pq-icircle big"><Mail size={22} /></span>
-          <h3>Be the first to know when we launch near you.</h3>
-          <p>Join the interest list for early access, product updates, and ways to get involved.</p>
-          {joined ? (
-            <p className="pq-joined"><Check size={15} /> You're on the list — welcome to PreQualy.</p>
-          ) : (
-            <div className="pq-interest-row">
-              <input className="pq-input" type="email" placeholder="Enter your email address"
-                value={email} onChange={(e) => setEmail(e.target.value)} aria-label="Email address" />
-              <button className="pq-cta" disabled={!emailOk || sending} onClick={submitInterest}>
-                {sending ? "Joining…" : "Join the Interest List"}
-              </button>
-            </div>
-          )}
-          {joinError && <p className="pq-join-error">Something went wrong on our end — please try again in a moment.</p>}
-          <p className="pq-privacy">We respect your privacy. Your email is never sold.</p>
-        </div>
+      </section></FadeIn>
+
+      <FadeIn><section className="pq-interest" id="pq-waitlist">
+        <span className="pq-icircle big"><Mail size={22} /></span>
+        <h3>Be the first to know when we launch!</h3>
+        <p>Join our interest list to get early access, product updates, and ways to get involved.</p>
+        {joined ? (
+          <p className="pq-joined"><Check size={15} /> You're on the list - welcome to PreQualy.</p>
+        ) : (
+          <div className="pq-interest-row">
+            <input className="pq-input" type="email" placeholder="Enter your email address"
+              value={email} onChange={(e) => setEmail(e.target.value)} aria-label="Email address" />
+            <button className="pq-cta" disabled={!emailOk || sending} onClick={submitInterest}>
+              {sending ? "Joining…" : "Join the Interest List"}
+            </button>
+          </div>
+        )}
+        {joinError && <p className="pq-join-error">Something went wrong on our end — please try again in a moment.</p>}
+        <p className="pq-privacy">We respect your privacy. <button type="button" className="pq-inline-link">See our Privacy Policy</button></p>
       </section></FadeIn>
 
       <FadeIn><section className="pq-proof">
-        <div><strong>{PROGRAMS.length}+</strong><span>programs & resources mapped</span></div>
-        <div><strong>5</strong><span>SoCal counties covered</span></div>
-        <div><strong>$140K+</strong><span>largest single program match</span></div>
-        <div><strong>$0</strong><span>cost to homebuyers, ever</span></div>
+        {[
+          [Layers, "250+", "Programs & Resources Mapped"],
+          [Users, "50+", "Community Partners Engaged"],
+          [Home, "1 Goal", "Stronger Pathways to Sustainable Homeownership"],
+          [HeartHandshake, "1 Community", "Stronger Together"],
+        ].map(([Icon, num, label]) => (
+          <div className="pq-proof-item" key={label}>
+            <span className="pq-proof-icon"><Icon size={22} strokeWidth={1.5} /></span>
+            <strong>{num}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
       </section></FadeIn>
     </main>
   );
@@ -1509,14 +1512,17 @@ const CSS = `
   --navy:#0A2540; --navy-2:#143A5C; --cyan:#2BE3E0; --cyan-soft:#DFF8F8;
   --teal:#0E7C86; --teal-dark:#208d94; --mist:#E9F5F7; --bg:#FFFFFF;
   --panel:#F5FAFB; --shadow:0 1px 3px rgba(10,37,64,.06),0 8px 22px rgba(10,37,64,.05);
-  --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#282d80;
+  --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#5A7184;
   --good:#0E8A5F; --good-soft:#E3F4EC; --amber-ink:#8A6116; --amber-soft:#FBF1DC;
   --bad:#A34040; --bad-soft:#F9E9E9;
+}
+body {
+  color: var(--ink);
 }
 *{box-sizing:border-box}
 .pq-root{min-height:100vh;background:var(--bg);color:var(--ink);
   font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.5;
-  display:flex;flex-direction:column}
+  display:flex;flex-direction:column;text-align:left}
 button{font-family:inherit}
 :focus-visible{outline:2.5px solid var(--teal);outline-offset:2px;border-radius:6px}
 
@@ -1524,23 +1530,27 @@ button{font-family:inherit}
 .pq-key.glow circle:nth-of-type(2), .pq-key.glow path:nth-of-type(2){filter:drop-shadow(0 0 5px var(--cyan))}
 
 /* header */
-.pq-head{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 18px;gap:10px}
+.pq-head{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:12px 24px;gap:16px;border-bottom:1px solid var(--line)}
 .pq-brand{display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
-  font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:var(--navy);letter-spacing:-.01em}
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:var(--navy);letter-spacing:-.01em;
+  justify-self:start}
 .pq-brand b{color:var(--teal)}
-.pq-nav{display:flex;gap:4px}
+.pq-nav{display:flex;gap:2px;justify-self:center;flex-wrap:wrap;justify-content:center}
 .pq-navbtn{display:flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;
-  font-size:13px;font-weight:600;color:var(--muted);padding:8px 11px;border-radius:0}
+  font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 12px;border-radius:0}
 .pq-navbtn.on{color:var(--teal-dark);}
 .pq-navbtn:hover{color:var(--teal-dark)}
 .pq-navlabel{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
   padding-bottom:3px;
 }
 .pq-navlabel.on{
   border-bottom:2px solid var(--teal-dark);
+  color:var(--teal-dark);
 }
 .pq-logo{
   height:44px;
@@ -1551,12 +1561,14 @@ button{font-family:inherit}
   background:var(--teal);
   color:#fff;
   border:none;
-  border-radius:999px;
-  padding:10px 20px;
+  border-radius:10px;
+  padding:10px 18px;
   font-size:14px;
-  font-weight:500;
+  font-weight:600;
   cursor:pointer;
   transition:background .15s;
+  justify-self:end;
+  white-space:nowrap;
 }
 .pq-nav-cta:hover{
   background:var(--teal-dark);
@@ -1633,38 +1645,67 @@ button{font-family:inherit}
   background:var(--mist);
 }
 
-.pq-arrow{margin-left: 6px; display: inline-block;}
+.pq-arrow{margin-left:2px;color:var(--muted);flex-shrink:0}
+@media(max-width:900px){
+  .pq-head{grid-template-columns:1fr auto;padding:10px 16px}
+  .pq-nav{display:none}
+  .pq-nav-cta{justify-self:end;font-size:13px;padding:9px 14px}
+}
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
 /* landing */
-.pq-landing{flex:1;width:100%;max-width:960px;margin:0 auto;padding:42px 22px 34px}
-.pq-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;margin-bottom:44px}
-@media(max-width:700px){.pq-hero-grid{grid-template-columns:1fr}.pq-hero-art{order:-1;min-height:190px}}
+.pq-landing{flex:1;width:100%;max-width:1280px;margin:0 auto;padding:48px 24px 40px}
+.pq-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-bottom:56px}
+@media(max-width:800px){.pq-hero-grid{grid-template-columns:1fr}.pq-hero-art{order:-1;min-height:220px}}
 .pq-eyebrow{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:0 0 14px}
-.pq-hero{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(30px,5.5vw,44px);line-height:1.14;
-  letter-spacing:-.02em;color:var(--navy);margin:0 0 16px}
-.pq-hero em{font-style:normal;color:var(--teal)}
-.pq-sub{font-size:16px;color:#3E5666;line-height:1.65;margin:0 0 24px;max-width:520px}
-.pq-hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.pq-hero{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4.5vw,48px);line-height:1.12;
+  letter-spacing:-.02em;color:var(--navy);margin:0 0 18px;max-width:560px}
+.pq-sub{font-size:16px;color:#3E5666;line-height:1.65;margin:0 0 28px;max-width:520px}
+.pq-hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.pq-ghost{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--teal-dark);
+  border:1.5px solid var(--teal);border-radius:10px;padding:13px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+.pq-ghost:hover{background:var(--mist)}
+.pq-hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:320px}
+.pq-hero-img{width:100%;max-width:580px;height:300px;object-fit:cover;object-position:center 18%;border-radius:12px}
+
+.pq-problem{text-align:center;margin-bottom:56px;padding:0 8px}
+.pq-problem h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(22px,3vw,32px);
+  color:var(--navy);margin:0 auto 36px;max-width:720px;line-height:1.25}
+.pq-prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;max-width:1100px;margin:0 auto}
+.pq-prob-grid:before{content:"";position:absolute;top:26px;left:12%;right:12%;height:0;
+  border-top:2px dotted #B8D4DC;z-index:0}
+@media(max-width:800px){
+  .pq-prob-grid{grid-template-columns:1fr 1fr;gap:20px}
+  .pq-prob-grid:before{display:none}
+}
+@media(max-width:480px){.pq-prob-grid{grid-template-columns:1fr}}
+.pq-prob-item{position:relative;z-index:1}
 .pq-cta{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;border:0;
-  border-radius:999px;padding:14px 26px;font-size:15.5px;font-weight:700;cursor:pointer;
+  border-radius:10px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;
   box-shadow:0 4px 14px rgba(14,124,134,.24);transition:background .15s}
 .pq-cta:hover{background:var(--teal-dark)}
 .pq-cta:disabled{opacity:.45;cursor:not-allowed}
 .pq-cta.full{width:100%;justify-content:center;margin-top:8px}
-.pq-ghost{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--teal-dark);
-  border:1.5px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
-.pq-ghost:hover{border-color:var(--teal)}
 .pq-ghost.slim{padding:9px 16px;font-size:13px;align-self:flex-start;margin-top:14px}
-.pq-trust{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;font-weight:600;color:var(--muted)}
-.pq-trust span{display:inline-flex;align-items:center;gap:5px}
-.pq-hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:250px}
-.pq-hero-glow{position:absolute;width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(43,227,224,.30),rgba(43,227,224,.07) 55%,transparent 72%)}
+.pq-link-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:0;margin-top:14px;
+  font-size:14px;font-weight:700;color:var(--teal-dark);cursor:pointer}
+.pq-link-btn:hover{color:var(--teal)}
+.pq-inline-link{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--teal-dark);
+  text-decoration:underline;cursor:pointer}
+.pq-inline-link:hover{color:var(--teal)}
 
-.pq-problem{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:30px 26px;margin-bottom:38px;text-align:center}
-.pq-problem h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:21px;color:var(--navy);margin:0 0 24px}
-.pq-prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:18px}
+.pq-solution{display:grid;grid-template-columns:1fr 1.1fr .95fr;gap:28px;align-items:center;
+  margin-bottom:56px;padding:0 4px}
+@media(max-width:1000px){.pq-solution{grid-template-columns:1fr;gap:32px}}
+.pq-solution-copy h2{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.8vw,30px);
+  color:var(--navy);margin:0 0 14px;line-height:1.2}
+.pq-solution-copy>p{font-size:14.5px;color:#3E5666;line-height:1.6;margin:0 0 18px}
+.pq-solution-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.pq-solution-list li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink)}
+.pq-check-dot{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;
+  display:grid;place-items:center;flex-shrink:0}
+
+.pq-problem{background:transparent;border:0;border-radius:0;padding:0;box-shadow:none}
 .pq-icircle{width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid var(--line);
   display:inline-grid;place-items:center;color:var(--teal);margin:0 auto 10px;box-shadow:var(--shadow)}
 .pq-icircle.big{width:56px;height:56px}
@@ -1683,26 +1724,31 @@ button{font-family:inherit}
 .pq-two{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;margin-bottom:38px}
 @media(max-width:640px){.pq-two{grid-template-columns:1fr}}
 .pq-opp-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);
-  display:flex;flex-direction:column;align-items:flex-start}
+  display:flex;flex-direction:column;align-items:flex-start;max-width:320px;margin:0 auto;width:100%}
 .pq-opp-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px}
 .pq-opp-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin:0 0 6px}
 .pq-opp-est{font-size:11px;font-weight:700;color:var(--muted);margin:10px 0 2px;text-transform:uppercase;letter-spacing:.05em}
 .pq-opp-amt{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:30px;color:var(--teal-dark);line-height:1.1}
 .pq-opp-amt.sm{font-size:22px}
 .pq-opp-amt span{font-size:13px;font-weight:600;color:var(--muted)}
-.pq-interest{background:var(--mist);border-radius:20px;padding:28px 26px;text-align:center}
-.pq-interest h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;color:var(--navy);margin:12px 0 8px}
-.pq-interest p{font-size:13.5px;color:#3E5666;line-height:1.5;margin:0 0 16px}
-.pq-interest-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pq-interest-row .pq-input{flex:1;min-width:200px;border-radius:999px;padding:12px 18px;background:#fff}
+.pq-interest{background:var(--mist);border-radius:20px;padding:36px 28px;text-align:center;margin-bottom:48px;max-width:900px;margin-left:auto;margin-right:auto}
+.pq-interest h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(20px,2.5vw,26px);font-weight:800;color:var(--navy);margin:12px 0 8px}
+.pq-interest p{font-size:14px;color:#3E5666;line-height:1.55;margin:0 0 20px}
+.pq-interest-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:560px;margin:0 auto}
+.pq-interest-row .pq-input{flex:1;min-width:220px;border-radius:10px;padding:13px 18px;background:#fff;border:1px solid var(--line)}
+.pq-interest-row .pq-cta{border-radius:10px;padding:13px 22px;white-space:nowrap}
 .pq-joined{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:var(--good) !important}
 .pq-privacy{font-size:11.5px !important;color:var(--muted) !important;margin:12px 0 0 !important}
 .pq-join-error{font-size:12.5px !important;font-weight:600;color:var(--bad) !important;margin:10px 0 0 !important}
 
-.pq-proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;background:#fff;
-  border:1px solid var(--line);border-radius:20px;padding:24px 20px;text-align:center;box-shadow:var(--shadow)}
-.pq-proof strong{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:26px;color:var(--teal-dark)}
-.pq-proof span{font-size:12px;color:var(--muted);font-weight:600}
+.pq-proof{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;background:transparent;
+  border:0;border-radius:0;padding:8px 0 24px;text-align:center;box-shadow:none}
+@media(max-width:800px){.pq-proof{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:480px){.pq-proof{grid-template-columns:1fr}}
+.pq-proof-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 12px}
+.pq-proof-icon{color:var(--teal);margin-bottom:4px;opacity:.85}
+.pq-proof strong{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:28px;color:var(--teal-dark);line-height:1.1}
+.pq-proof span{font-size:13px;color:var(--navy);font-weight:600;line-height:1.35;max-width:200px}
 
 /* generic page shells */
 .pq-form,.pq-results,.pq-connectpage{flex:1;width:100%;max-width:640px;margin:0 auto;padding:26px 20px 44px}
@@ -1899,10 +1945,10 @@ button{font-family:inherit}
 .pq-foot-grid{
   max-width:1280px;
   margin:0 auto;
-  display:flex;
-  justify-content:space-between;
+  display:grid;
+  grid-template-columns:1.2fr repeat(4,1fr) 1.1fr;
+  gap:32px;
   align-items:flex-start;
-  gap:48px;
 }
 
 .pq-foot-logo{
