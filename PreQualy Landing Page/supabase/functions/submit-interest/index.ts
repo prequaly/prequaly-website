@@ -2,10 +2,11 @@
  * PreQualy — Supabase Edge Function: submit-interest
  * ─────────────────────────────────────────────────
  * Accepts POST /functions/v1/submit-interest with the form payload from
- * index.html and performs a dual-write:
+ * index.html and performs:
  *   1. Inserts the record into the correct per-audience Supabase table (source of truth)
- *   2. Creates/updates a HubSpot Contact via the Contacts API and attaches a
- *      formatted Note with audience-specific details (non-blocking — HubSpot
+ *   2. Creates/updates a HubSpot Contact via the Contacts API (non-blocking — HubSpot
+ *      failure does NOT fail the overall response or the user's experience)
+ *   3. Sends a no-reply confirmation email via Mailjet (non-blocking — email
  *      failure does NOT fail the overall response or the user's experience)
  *
  * Why Contacts API instead of Forms API?
@@ -18,6 +19,8 @@
  *   SUPABASE_URL                — auto-injected by Supabase runtime
  *   SUPABASE_SERVICE_ROLE_KEY   — auto-injected by Supabase runtime
  *   HUBSPOT_ACCESS_TOKEN        — Private App token from HubSpot
+ *   MAILJET_API_KEY             — Mailjet API Key (for confirmation emails)
+ *   MAILJET_SECRET_KEY          — Mailjet Secret Key (for confirmation emails)
  *
  * One-time HubSpot setup:
  *   1. Create a Private App with scopes:
@@ -56,6 +59,19 @@ const AUDIENCE_TABLE: Record<string, string> = {
   "Government Agency":         "government_agencies",
   "Nonprofit Organization":    "nonprofits",
 };
+
+// ── Utility: normalize multi-select values to string[] ────────────────────────
+function normalizeArray(val: unknown): string[] {
+  if (Array.isArray(val)) return val.map(String).filter(Boolean)
+  if (typeof val === "string") {
+    try {
+      const parsed = JSON.parse(val)
+      if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean)
+    } catch { /* not JSON */ }
+    return val.split(",").map(s => s.trim()).filter(Boolean)
+  }
+  return []
+}
 
 // ── Supabase row builder — maps payload → typed table row ─────────────────────
 function buildSupabaseRow(audience: string, payload: Record<string, unknown>) {
@@ -133,10 +149,8 @@ function buildHubSpotContactProperties(
 ): Record<string, string> {
   const props: Record<string, string> = {};
 
-  // ── Email (required) ───────────────────────────────────────────────────────
   props.email = String(payload.email ?? "").toLowerCase().trim();
 
-  // ── Name — split full_name → firstname / lastname ─────────────────────────
   const rawName = String(
     payload.fullName      ??
     payload.contactName   ??
@@ -150,15 +164,12 @@ function buildHubSpotContactProperties(
     if (parts.length > 1) props.lastname = parts.slice(1).join(" ")
   }
 
-  // ── Standard contact fields ────────────────────────────────────────────────
   if (payload.phone)  props.phone = String(payload.phone)
   if (payload.state)  props.state = String(payload.state)
-  if (payload.county) props.city  = String(payload.county)  // closest HS standard field
+  if (payload.county) props.city  = String(payload.county)
 
-  // ── Audience-specific standard field mappings ─────────────────────────────
   switch (audience) {
     case "Future Homebuyer":
-      // No company needed — jobtitle left blank
       break
     case "Government Agency":
       if (payload.agencyName)  props.company  = String(payload.agencyName)
@@ -175,75 +186,10 @@ function buildHubSpotContactProperties(
       break
   }
 
-  // ── Custom property: audience tag (the only custom prop needed) ───────────
-  // Create this in HubSpot: Contacts → Properties → Create property
-  //   Label: "PreQualy Audience"  |  Internal name: prequaly_audience  |  Type: Single-line text
   props.prequaly_audience = audience
-
-  // ── Lead source tracking ──────────────────────────────────────────────────
   props.hs_lead_status = "NEW"
 
   return props
-}
-
-/**
- * Builds a formatted plain-text Note body containing all audience-specific
- * fields that don't fit into standard HubSpot contact properties.
- *
- * NOTE: This function is kept for reference but is no longer called.
- * Audience-specific data is stored in Supabase only.
- * Removing the Notes API call means only 2 HubSpot scopes are needed:
- *   crm.objects.contacts.read  +  crm.objects.contacts.write
- */
-function _buildHubSpotNoteBody_unused(audience: string, payload: Record<string, unknown>): string {
-  const lines: string[] = [
-    `PreQualy Interest Submission`,
-    `Audience: ${audience}`,
-    `Submitted: ${payload.submittedAt ?? new Date().toISOString()}`,
-    `Source: ${payload.source ?? "interest-landing-page"}`,
-    `---`,
-  ]
-
-  if (payload.state)  lines.push(`State: ${payload.state}`)
-  if (payload.county) lines.push(`County: ${payload.county}`)
-
-  switch (audience) {
-    case "Future Homebuyer": {
-      if (payload.timeline)      lines.push(`Purchase Timeline: ${payload.timeline}`)
-      if (payload.firstTime)     lines.push(`First-Time Buyer: ${payload.firstTime}`)
-      if (payload.householdSize) lines.push(`Household Size: ${payload.householdSize}`)
-      if (payload.housingStatus) lines.push(`Housing Status: ${payload.housingStatus}`)
-      const interests = normalizeArray(payload.interests)
-      if (interests.length) lines.push(`Interests: ${interests.join(", ")}`)
-      break
-    }
-    case "Government Agency": {
-      if (payload.agencyType)    lines.push(`Agency Type: ${payload.agencyType}`)
-      if (payload.familiarity)   lines.push(`Familiarity with Programs: ${payload.familiarity}`)
-      if (payload.pilotInterest) lines.push(`Pilot Interest: ${payload.pilotInterest}`)
-      if (payload.notes)         lines.push(`Notes: ${payload.notes}`)
-      break
-    }
-    case "Nonprofit Organization": {
-      if (payload.missionArea)   lines.push(`Mission Area: ${payload.missionArea}`)
-      const populations = normalizeArray(payload.populations)
-      const interests   = normalizeArray(payload.interests)
-      if (populations.length) lines.push(`Populations Served: ${populations.join(", ")}`)
-      if (interests.length)   lines.push(`Partnership Interests: ${interests.join(", ")}`)
-      break
-    }
-    case "Real Estate Professional": {
-      if (payload.profession)    lines.push(`Profession: ${payload.profession}`)
-      if (payload.markets)       lines.push(`Markets/Service Area: ${payload.markets}`)
-      if (payload.experience)    lines.push(`Years of Experience: ${payload.experience}`)
-      if (payload.annualClients) lines.push(`Annual Clients: ${payload.annualClients}`)
-      const interests = normalizeArray(payload.interests)
-      if (interests.length) lines.push(`Partnership Interests: ${interests.join(", ")}`)
-      break
-    }
-  }
-
-  return lines.join("\n")
 }
 
 // ── HubSpot API calls ─────────────────────────────────────────────────────────
@@ -313,7 +259,6 @@ async function addContactToHubSpotList(
 
   if (!res.ok) {
     const text = await res.text()
-    // 400 often means the contact is already in the list — not a real error
     if (res.status === 400 && text.includes("already")) {
       console.log(`[HubSpot] Contact ${contactId} already in list ${listId}`)
       return
@@ -324,55 +269,194 @@ async function addContactToHubSpotList(
   }
 }
 
+// ── Mailjet: confirmation email ───────────────────────────────────────────────
+
 /**
- * Creates a HubSpot Note and associates it with a contact.
- *
- * NOTE: This function is kept for reference but is no longer called.
- * Removing the Notes API call eliminates the need for a notes scope.
+ * Sends a no-reply confirmation email to the submitter via Mailjet.
+ * Uses HTTP Basic Auth (API Key : Secret Key) and the Mailjet Send API v3.1.
+ * Non-blocking — caller should fire-and-forget; failure is only logged.
  */
-async function _createHubSpotNote_unused(
-  contactId: string,
-  body: string,
-  accessToken: string,
+async function sendConfirmationEmail(
+  toEmail: string,
+  firstName: string,
+  apiKey: string,
+  secretKey: string,
 ): Promise<void> {
-  const res = await fetch(
-    "https://api.hubapi.com/crm/v3/objects/notes",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        properties: {
-          hs_note_body:  body,
-          hs_timestamp:  new Date().toISOString(),
+  const greeting = firstName ? `Hi ${firstName},` : "Hello,"
+
+  // ── Plain-text fallback ──────────────────────────────────────────────────
+  const textBody = `${greeting}
+
+Thank you for joining the PreQualy interest list!
+
+We are building a housing technology platform that will make it easier to find homebuyer assistance programs, affordable mortgage options, grants, and income-restricted homeownership opportunities in one centralized location.
+
+As a member of our interest list, you may receive updates about:
+  • PreQualy's platform launch
+  • Early-access and pilot opportunities
+  • New homeownership resources and programs
+  • Community events, webinars, and information sessions
+  • Partnership and professional opportunities, when applicable
+
+No additional action is required at this time. We will contact you as new information and opportunities become available.
+
+Thank you for your interest in PreQualy and for joining us as we work to make the path to homeownership easier to navigate.
+
+The PreQualy Team
+PreQualy Inc.
+prequaly.ai
+
+──────────────────────────────────────────────
+Please do not reply to this automated message. This inbox is not monitored.`
+
+  // ── HTML email ───────────────────────────────────────────────────────────
+  const htmlBody = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the PreQualy Interest List</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f7f9;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f7f9;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" style="max-width:600px;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(10,34,51,0.08);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#0A2233 0%,#123B57 100%);padding:36px 40px;text-align:center;">
+              <h1 style="margin:0;font-size:28px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">PreQualy</h1>
+              <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.65);letter-spacing:0.5px;text-transform:uppercase;">Unlocking Opportunities for Homeownership</p>
+            </td>
+          </tr>
+
+          <!-- Greeting -->
+          <tr>
+            <td style="padding:36px 40px 0;">
+              <p style="margin:0;font-size:16px;color:#1F2933;line-height:1.6;">${greeting}</p>
+            </td>
+          </tr>
+
+          <!-- Intro -->
+          <tr>
+            <td style="padding:20px 40px 0;">
+              <p style="margin:0;font-size:16px;color:#1F2933;line-height:1.7;">
+                Thank you for joining the PreQualy interest list!
+              </p>
+              <p style="margin:16px 0 0;font-size:15px;color:#61708f;line-height:1.7;">
+                We are building a housing technology platform that will make it easier to find homebuyer assistance programs, affordable mortgage options, grants, and income-restricted homeownership opportunities in one centralized location.
+              </p>
+            </td>
+          </tr>
+
+          <!-- What you may receive -->
+          <tr>
+            <td style="padding:28px 40px 0;">
+              <p style="margin:0 0 14px;font-size:15px;font-weight:700;color:#0A2233;">As a member of our interest list, you may receive updates about:</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f4f7f9;border-radius:10px;padding:6px 0;">
+                <tr><td style="padding:10px 20px;font-size:14px;color:#61708f;line-height:1.6;">
+                  <span style="color:#19C9DB;font-weight:700;margin-right:8px;">&#8226;</span>PreQualy's platform launch
+                </td></tr>
+                <tr><td style="padding:4px 20px 10px;font-size:14px;color:#61708f;line-height:1.6;">
+                  <span style="color:#19C9DB;font-weight:700;margin-right:8px;">&#8226;</span>Early-access and pilot opportunities
+                </td></tr>
+                <tr><td style="padding:4px 20px 10px;font-size:14px;color:#61708f;line-height:1.6;">
+                  <span style="color:#19C9DB;font-weight:700;margin-right:8px;">&#8226;</span>New homeownership resources and programs
+                </td></tr>
+                <tr><td style="padding:4px 20px 10px;font-size:14px;color:#61708f;line-height:1.6;">
+                  <span style="color:#19C9DB;font-weight:700;margin-right:8px;">&#8226;</span>Community events, webinars, and information sessions
+                </td></tr>
+                <tr><td style="padding:4px 20px 14px;font-size:14px;color:#61708f;line-height:1.6;">
+                  <span style="color:#19C9DB;font-weight:700;margin-right:8px;">&#8226;</span>Partnership and professional opportunities, when applicable
+                </td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- No action required -->
+          <tr>
+            <td style="padding:24px 40px 0;">
+              <p style="margin:0;font-size:15px;color:#61708f;line-height:1.7;">
+                No additional action is required at this time. We will contact you as new information and opportunities become available.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Closing -->
+          <tr>
+            <td style="padding:24px 40px 0;">
+              <p style="margin:0;font-size:15px;color:#1F2933;line-height:1.7;">
+                Thank you for your interest in PreQualy and for joining us as we work to make the path to homeownership easier to navigate.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Signature -->
+          <tr>
+            <td style="padding:28px 40px 0;">
+              <p style="margin:0;font-size:15px;font-weight:700;color:#0A2233;line-height:1.6;">The PreQualy Team</p>
+              <p style="margin:4px 0 0;font-size:14px;color:#61708f;line-height:1.6;">PreQualy Inc.</p>
+              <p style="margin:2px 0 0;font-size:14px;color:#19C9DB;">prequaly.ai</p>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="padding:32px 40px 0;">
+              <hr style="border:none;border-top:1px solid #dfe9ef;margin:0;" />
+            </td>
+          </tr>
+
+          <!-- Footer / disclaimer -->
+          <tr>
+            <td style="padding:20px 40px 36px;">
+              <p style="margin:0;font-size:12px;color:#9ba8b5;line-height:1.6;text-align:center;">
+                Please do not reply to this automated message. This inbox is not monitored.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`
+
+  // ── Mailjet Send API v3.1 ────────────────────────────────────────────────
+  const credentials = btoa(`${apiKey}:${secretKey}`)
+
+  const res = await fetch("https://api.mailjet.com/v3.1/send", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Basic ${credentials}`,
+    },
+    body: JSON.stringify({
+      Messages: [{
+        From: {
+          Email: "noreply@prequaly.ai",
+          Name:  "PreQualy",
         },
-        associations: [{
-          to:    { id: contactId },
-          types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 202 }],
+        To: [{
+          Email: toEmail,
         }],
-      }),
-    }
-  )
+        Subject: "Thank You for Joining the PreQualy Interest List",
+        TextPart: textBody,
+        HTMLPart: htmlBody,
+      }],
+    }),
+  })
 
   if (!res.ok) {
-    const text = await res.text()
-    console.error(`[HubSpot] Note creation failed ${res.status}: ${text}`)
+    const body = await res.text()
+    throw new Error(`Mailjet send failed ${res.status}: ${body}`)
   }
-}
 
-// ── Utility: normalize multi-select values to string[] ────────────────────────
-function normalizeArray(val: unknown): string[] {
-  if (Array.isArray(val)) return val.map(String).filter(Boolean)
-  if (typeof val === "string") {
-    try {
-      const parsed = JSON.parse(val)
-      if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean)
-    } catch { /* not JSON */ }
-    return val.split(",").map(s => s.trim()).filter(Boolean)
-  }
-  return []
+  const data = await res.json()
+  const msgStatus = data?.Messages?.[0]?.Status ?? "unknown"
+  console.log(`[Mailjet] Email to ${toEmail} — status: ${msgStatus}`)
 }
 
 // ── Main handler ──────────────────────────────────────────────────────────────
@@ -426,8 +510,21 @@ Deno.serve(async (req: Request) => {
   }
   payload.email = email
 
-  const tableName    = AUDIENCE_TABLE[audience]
-  const accessToken  = Deno.env.get("HUBSPOT_ACCESS_TOKEN") ?? ""
+  // ── Derive first name for personalised email greeting ────────────────────────
+  const rawName = String(
+    payload.fullName        ??
+    payload.contactName     ??
+    payload.agencyName      ??
+    payload.organizationName ?? ""
+  ).trim()
+  const firstName = rawName ? rawName.split(/\s+/)[0] : ""
+
+  const tableName   = AUDIENCE_TABLE[audience]
+  const accessToken = Deno.env.get("HUBSPOT_ACCESS_TOKEN") ?? ""
+
+  // ── Mailjet credentials ───────────────────────────────────────────────────
+  const mailjetApiKey    = Deno.env.get("MAILJET_API_KEY")    ?? ""
+  const mailjetSecretKey = Deno.env.get("MAILJET_SECRET_KEY") ?? ""
 
   // ── Supabase service-role client ────────────────────────────────────────────
   const supabase = createClient(
@@ -456,11 +553,11 @@ Deno.serve(async (req: Request) => {
       )
   )
 
-  // ── Supabase INSERT (our source of truth — blocking) ─────────────────────────
+  // ── Supabase INSERT (source of truth — blocking) ──────────────────────────────
   const row = buildSupabaseRow(audience, payload)
   const { error: dbError } = await supabase.from(tableName).insert(row)
 
-  // Let HubSpot finish in the background after we've written to Supabase
+  // Let HubSpot finish in the background
   hubspotPromise.catch(() => {/* already logged */})
 
   if (dbError) {
@@ -472,6 +569,15 @@ Deno.serve(async (req: Request) => {
   }
 
   console.log(`[Supabase] Inserted into ${tableName} for ${email}`)
+
+  // ── Mailjet confirmation email (fire-and-forget, non-blocking) ───────────────
+  // Runs only after Supabase confirms the write. Email failure never surfaces to users.
+  if (mailjetApiKey && mailjetSecretKey) {
+    sendConfirmationEmail(email, firstName, mailjetApiKey, mailjetSecretKey)
+      .catch(err => console.error("[Mailjet] Error:", (err as Error).message))
+  } else {
+    console.warn("[Mailjet] Skipped — MAILJET_API_KEY or MAILJET_SECRET_KEY not configured")
+  }
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,
