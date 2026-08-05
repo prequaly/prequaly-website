@@ -648,23 +648,19 @@ export default function PreQualyApp() {
           <span>Pre<b>Q</b>ualy</span>
         </button>
         <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
-          <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" />
+          <NavBtn on={tab === "home"} onClick={() => window.location.href = "/index.html"} icon={Home} label="Home" />
+          {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
           <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
             <button onClick={() => go("programs")}>Overview</button>
             <button onClick={() => go("homes")}>How it works</button>
-            <button onClick={() => go("connect")}>Resources</button>
           </NavBtn>
           <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown>
             <button onClick={() => go("programs")}>Nonprofits</button>
-            <button onClick={() => go("homes")}>Agencies</button>
-            <button onClick={() => go("connect")}>Real Estate</button>
-            <button onClick={() => go("connect")}>Community Partners</button>
+            <button onClick={() => go("homes")}>Government Agencies</button>
+            <button onClick={() => go("connect")}>Real Estate Professionals</button>
           </NavBtn>
           <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" dropdown>
-            <button onClick={() => go("programs")}>Guides & Articles</button>
             <button onClick={() => go("homes")}>FAQs</button>
-            <button onClick={() => go("connect")}>Program Directory</button>
             <button onClick={() => go("connect")}>News</button>
           </NavBtn>
           <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" />
@@ -674,7 +670,7 @@ export default function PreQualyApp() {
 
       {tab === "home" && <Landing onStart={startIntake} />}
 
-      {tab === "about" && (
+      {/* {tab === "about" && (
         <main className="pq-emptypage">
           <Keyhole size={64} />
           <h2>About PreQualy</h2>
@@ -684,7 +680,7 @@ export default function PreQualyApp() {
           </p>
           <button className="pq-cta" onClick={() => go("home")}>Back to home <ArrowRight size={17} /></button>
         </main>
-      )}
+      )} */}
 
       {tab === "programs" && (
         intakeStep > 0
@@ -741,24 +737,20 @@ export default function PreQualyApp() {
               <h4>For Homebuyers</h4>
               <button onClick={() => go("programs")}>Overview</button>
               <button onClick={() => go("programs")}>How It Works</button>
-              <button onClick={() => go("homes")}>Resources</button>
             </div>
 
             {/* Partners */}
             <div className="pq-foot-col">
               <h4>For Partners</h4>
               <button onClick={() => go("programs")}>Nonprofits</button>
-              <button onClick={() => go("programs")}>Agencies</button>
-              <button onClick={() => go("homes")}>Real Estate</button>
-              <button onClick={() => go("homes")}>Community Partners</button>
+              <button onClick={() => go("programs")}>Government Agencies</button>
+              <button onClick={() => go("homes")}>Real Estate Professionals</button>
             </div>
 
             {/* Resources */}
             <div className="pq-foot-col">
               <h4>Resources</h4>
-              <button onClick={() => go("programs")}>Guides & Articles</button>
               <button onClick={() => go("programs")}>FAQs</button>
-              <button onClick={() => go("homes")}>Program Directory</button>
               <button onClick={() => go("homes")}>News</button>
             </div>
 
@@ -1515,9 +1507,6 @@ const CSS = `
   --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#5A7184;
   --good:#0E8A5F; --good-soft:#E3F4EC; --amber-ink:#8A6116; --amber-soft:#FBF1DC;
   --bad:#A34040; --bad-soft:#F9E9E9;
-}
-body {
-  color: var(--ink);
 }
 *{box-sizing:border-box}
 .pq-root{min-height:100vh;background:var(--bg);color:var(--ink);

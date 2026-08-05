@@ -57,7 +57,9 @@
     body {
       margin: 0;
       color: var(--ink);
-      background: linear-gradient(180deg, #ffffff 0%, #fbfefe 55%, #f4f7f9 100%);
+      background:
+        radial-gradient(circle at 80% 8%, rgba(25,201,219,.10), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, #fbfefe 55%, #f4f7f9 100%);
       font-family: "Inter", sans-serif;
     }
 
@@ -146,10 +148,16 @@
 
     .hero-visual {
       min-height: 460px; border-radius: 32px;
-      background: #E4F8FB;
+      background:
+        radial-gradient(circle at 50% 37%, rgba(65,220,236,.4), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.2), rgba(228,248,251,.85)),
+        linear-gradient(135deg, #eaf8fb, #f5fbff);
       border: 1px solid rgba(207,232,236,.85); box-shadow: var(--shadow);
       position: relative; overflow: hidden; display: grid; place-items: center; padding: 34px;
     }
+    .hero-visual::before, .hero-visual::after { content: ""; position: absolute; border-radius: 50%; filter: blur(10px); }
+    .hero-visual::before { width: 270px; height: 270px; background: rgba(25,201,219,.16); top: 40px; right: 20px; }
+    .hero-visual::after { width: 180px; height: 180px; background: rgba(10,34,51,.08); bottom: 10px; left: 10px; }
 
     .q-emblem {
       width: 210px; height: 210px; border-radius: 50%; position: relative; z-index: 2;
@@ -330,7 +338,7 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="PreQualy home">
-        <img class="brand-logo" src="assets/brand/PreQualy Logo.png" alt="PreQualy" />
+        <img class="brand-logo" src="PreQualy Logo.svg" onerror="this.onerror=null;this.src='PreQualy Logo.png';" alt="PreQualy" />
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#about">About</a>
@@ -424,6 +432,8 @@
             <ellipse cx="300" cy="452" rx="290" ry="46" fill="#E4F8FB"/>
             <line x1="30" y1="452" x2="570" y2="452" stroke="#CDE9EE" stroke-width="2"/>
 
+            <!-- glow behind keyhole -->
+            <circle cx="300" cy="150" r="120" fill="#19C9DB" opacity="0.18" filter="url(#soft)"/>
 
             <!-- back houses -->
             <g>
@@ -452,7 +462,7 @@
             </g>
 
             <!-- keyhole emblem -->
-            <circle cx="300" cy="150" r="96" fill="#123B57"/>
+            <circle cx="300" cy="150" r="96" fill="url(#glow)"/>
             <g fill="#EAFCFF">
               <circle cx="300" cy="128" r="26"/>
               <path d="M289 146 h22 l10 52 h-42 z"/>
@@ -900,7 +910,7 @@
   <footer id="contact">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <img class="footer-logo" src="assets/brand/PreQualy Logo.png" alt="PreQualy" />
+        <img class="footer-logo" src="PreQualy Logo.svg" onerror="this.onerror=null;this.src='PreQualy Logo.png';" alt="PreQualy" />
         <span class="footer-tag">Unlocking Opportunities for Homeownership To Millions.</span>
       </div>
       <div class="footer-links">
@@ -1043,10 +1053,9 @@
       form.innerHTML =
         '<div class="success">' +
           '<div class="success-icon" aria-hidden="true">&#10003;</div>' +
-          '<h2 tabindex="-1">Thank You for Joining the PreQualy Interest List!</h2>' +
-          '<p>Your information has been successfully submitted. Please check your inbox for a confirmation email.</p>' +
-          '<p>We will keep you informed about PreQualy’s launch, platform updates, early-access opportunities, and resources that may support your homeownership journey or your work in the housing industry.</p>' +
-          '<p>We look forward to connecting with you.</p>' +
+          '<h2 tabindex="-1">You\'re on the list!</h2>' +
+          '<p>Thank you for your interest in PreQualy. We\'ll keep you updated on launch ' +
+          'progress, early-access opportunities, and ways to participate.</p>' +
           '<div class="share-row">' +
             '<a class="button button-primary" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=' + shareText + '&url=' + url + '">Share on X</a>' +
             '<a class="button button-secondary" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + url + '">Share on Facebook</a>' +
