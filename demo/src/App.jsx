@@ -5,7 +5,7 @@ import {
   Home, Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
   Building2, Users, Info, Clock, Tag, HeartHandshake, BadgeCheck, Star,
   Bookmark, BookmarkCheck, GraduationCap, Wallet, FileText, Search,
-  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown,
+  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown
 } from "lucide-react";
 
 /* =====================================================================
@@ -650,37 +650,184 @@ export default function PreQualyApp() {
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "home"} onClick={() => window.location.href = "/index.html"} icon={Home} label="Home" />
           {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
-          <NavBtn on={tab === "homebuyers"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
-            <button onClick={() => go("programs")}>Overview</button>
+          <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
+            <button onClick={() => go("overview")}>Overview</button>
             <button onClick={() => go("homes")}>How it works</button>
           </NavBtn>
-          <NavBtn on={tab === "partners"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown>
+          <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown>
             <button onClick={() => go("programs")}>Nonprofits</button>
             <button onClick={() => go("homes")}>Government Agencies</button>
             <button onClick={() => go("connect")}>Real Estate Professionals</button>
           </NavBtn>
-          <NavBtn on={tab === "resources"} onClick={() => go("resources")} icon={LayoutDashboard} label="Resources" dropdown>
-            <button onClick={() => go("homes")}>FAQs</button>
-            <button onClick={() => go("connect")}>News</button>
+          <NavBtn on={tab === "faqs" || tab === "news"} icon={LayoutDashboard} label="Resources" dropdown>
+            <button onClick={() => go("faqs")}>FAQs</button>
+            <button onClick={() => go("news")}>News</button>
           </NavBtn>
-          <NavBtn on={tab === "contact"} onClick={() => go("connect")} icon={Users} label="Contact" />
+          <NavBtn on={tab === "contact"} onClick={() => go("contact")} icon={Users} label="Contact" />
         </nav>
         <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
       </header>
 
       {tab === "home" && <Landing onStart={startIntake} />}
 
-      {/* {tab === "about" && (
-        <main className="pq-emptypage">
-          <Keyhole size={64} />
-          <h2>About PreQualy</h2>
-          <p>
-            PreQualy is the operating system for affordable homeownership — connecting people
-            to every program, grant, and below-market home they qualify for across Southern California.
-          </p>
-          <button className="pq-cta" onClick={() => go("home")}>Back to home <ArrowRight size={17} /></button>
+      {tab === "news" && (
+        <main className="pq-news">
+          {/* NEWS HERO */}
+          <section className="pq-news-hero">
+            <span className="pq-section-tag">News & Updates</span>
+            <h1>What's Happening at <span>PreQualy</span></h1>
+            <p>Stay up to date with PreQualy announcements, milestones,
+              partnerships, and stories as we work to make affordable
+              homeownership more accessible.</p>
+          </section>
+          {/* FEATURED UPDATE */}
+          <section className="pq-news-featured">
+            <div className="pq-news-featured-label">
+              Latest Update
+            </div>
+            <div className="pq-news-featured-content">
+              <div className="pq-news-date">
+                August 2026
+              </div>
+              <h2>PreQualy Advances in the ACE Pitch Program</h2>
+              <p>PreQualy is continuing to develop its vision for a more
+                accessible homeownership ecosystem, helping first-time and
+                working-class homebuyers better identify affordable
+                homeownership opportunities and resources.</p>
+              <a
+                href="https://www.instagram.com/p/DTOBxKXjzfM/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pq-news-link"
+              >View the announcement →</a>
+            </div>
+          </section>
+          {/* PRESS RELEASES */}
+          <section className="pq-news-section">
+            <div className="pq-news-section-heading">
+              <span className="pq-section-tag">Press</span>
+              <h2>Press Releases</h2>
+              <p>
+                Official announcements and company updates from PreQualy
+                will appear here as they become available.
+              </p>
+            </div>
+            <div className="pq-news-empty">
+              <div className="pq-news-empty-icon">✦</div>
+              <h3>More updates coming soon</h3>
+              <p>PreQualy is growing, and we're just getting started.
+                Check back here for company announcements, partnerships,
+                milestones, and other updates.</p>
+              <button
+                className="pq-nav-cta"
+                onClick={() => go("contact")}
+              >Get in Touch</button>
+            </div>
+          </section>
+          {/* BOTTOM CTA */}
+          <section className="pq-news-cta">
+            <h2>Want to stay in the loop?</h2>
+            <p>Join the PreQualy interest list to hear about new
+              developments and opportunities as we grow.</p>
+            <button
+              className="pq-nav-cta"
+              onClick={() => go("interest")}
+            >Join the Interest List</button>
+          </section>
         </main>
-      )} */}
+      )}
+
+      {tab === "faqs" && (
+        <main className="pq-faq-page">
+          <section className="pq-faq-hero">
+            <span className="pq-section-tag">Frequently Asked Questions</span>
+            <h1>Questions?</h1>
+            <h1><span>We've got answers.</span></h1>
+            <p>
+              Learn more about PreQualy, how the platform works, and how we help
+              make homeownership resources easier to understand and access.
+            </p>
+          </section>
+          <section className="pq-faq-list" aria-label="Frequently asked questions">
+            <details className="pq-faq-item">
+              <summary>
+                <span>What is PreQualy?</span>
+                <span className="pq-faq-icon">+</span>
+              </summary>
+              <div className="pq-faq-answer">
+                <p>
+                  PreQualy is a centralized platform that helps connect future
+                  homebuyers with lenders, real estate professionals, nonprofits,
+                  developers, and public agencies. By bringing housing programs,
+                  grants, and financing resources into one place, PreQualy helps
+                  people better understand their potential homeownership options
+                  before applying for a loan.
+                </p>
+              </div>
+            </details>
+            <details className="pq-faq-item">
+              <summary>
+                <span>Who can benefit from using PreQualy?</span>
+                <span className="pq-faq-icon">+</span>
+              </summary>
+              <div className="pq-faq-answer">
+                <p>
+                  PreQualy supports multiple groups across the housing ecosystem,
+                  including future homebuyers, real estate professionals, lenders,
+                  nonprofits, developers, and public agencies. By improving
+                  coordination between these groups, the platform helps expand
+                  access to affordable homeownership.
+                </p>
+              </div>
+            </details>
+            <details className="pq-faq-item">
+              <summary>
+                <span>How does PreQualy improve access to homeownership programs?</span>
+                <span className="pq-faq-icon">+</span>
+              </summary>
+              <div className="pq-faq-answer">
+                <p>
+                  Many assistance programs and housing resources already exist,
+                  but they are often scattered across different organizations and
+                  systems. PreQualy centralizes this information and aligns it with
+                  factors like location, income, and household size, helping users
+                  identify programs that may be available to them more easily.
+                </p>
+              </div>
+            </details>
+            <details className="pq-faq-item">
+              <summary>
+                <span>Does using PreQualy affect my credit score?</span>
+                <span className="pq-faq-icon">+</span>
+              </summary>
+              <div className="pq-faq-answer">
+                <p>
+                  No. PreQualy allows users to explore potential housing programs,
+                  grants, and financing opportunities without a credit check. The
+                  platform is designed to provide clarity and information without
+                  creating any obligation or commitment to a lender.
+                </p>
+              </div>
+            </details>
+          </section>
+          <section className="pq-faq-cta">
+            <div>
+              <span className="pq-faq-cta-label">Still have questions?</span>
+              <h2>We're here to help.</h2>
+              <p>
+                If you can't find what you're looking for, reach out to our team
+                and we'll be happy to help.
+              </p>
+            </div>
+            <button
+              className="pq-nav-cta"
+              onClick={() => go("contact")}
+            >
+              Contact Us
+            </button>
+          </section>
+        </main>
+      )}
 
       {tab === "programs" && (
         intakeStep > 0
@@ -690,6 +837,103 @@ export default function PreQualyApp() {
                 saved={saved} toggleSave={toggleSave}
                 onEdit={() => setIntakeStep(1)} onConnect={() => go("connect")} onHomes={() => go("homes")} />
             : <EmptyState title="Let's find your programs" body="Answer nine quick questions — no credit pull, nothing shared — and see every down-payment program, grant, and below-market home you match in your county." cta="Check my eligibility" onCta={startIntake} />
+      )}
+
+      {tab === "overview" && (
+        <main className="pq-emptypage">
+          <h1>Overview</h1>
+        </main>
+      )}
+
+      {tab === "contact" && (
+        <main className="pq-contact">
+          <section className="pq-contact-hero">
+            <h1>Let's Build Smarter Housing Access Together</h1>
+            <p>
+              Whether you're a prospective partner, housing professional,
+              nonprofit, public agency, or simply exploring PreQualy,
+              we'd welcome the conversation.
+            </p>
+          </section>
+          <section className="pq-contact-grid">
+            <aside className="pq-contact-info">
+              <div className="pq-info-card">
+                <h3>Get in Touch</h3>
+                <div className="pq-contact-item">
+                  <Mail size={18} />
+                  <div>
+                    <strong>Email</strong>
+                    <a href="mailto:info@prequaly.ai">
+                      info@prequaly.ai
+                    </a>
+                  </div>
+                </div>
+                <div className="pq-contact-item">
+                  <Clock size={18} />
+                  <div>
+                    <strong>Response Time</strong>
+                    <span>Typically within 1–2 business days</span>
+                  </div>
+                </div>
+              </div>
+              <div className="pq-info-card">
+                <h3>Follow Us</h3>
+                <a
+                  className="pq-social-link"
+                  href="https://www.linkedin.com/company/prequaly"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </aside>
+            <section className="pq-contact-card">
+              <h2>Send Us a Message</h2>
+              <form className="pq-contact-form">
+                <div className="pq-field">
+                  <label>Your Name *</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div className="pq-field">
+                  <label>Your Email *</label>
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+                <div className="pq-field">
+                  <label>Your Message</label>
+                  <textarea
+                    rows={7}
+                    placeholder="Write your message here..."
+                  />
+                </div>
+                <button className="pq-cta">
+                  Send Message
+                </button>
+              </form>
+            </section>
+          </section>
+          <section className="pq-partner-banner">
+            <h2>Interested in Partnering With PreQualy?</h2>
+            <p>
+              If you represent a public agency, nonprofit, lender,
+              foundation, or housing organization, we'd love to explore
+              opportunities to expand equitable access to affordable
+              homeownership together.
+            </p>
+            <button
+              className="pq-nav-cta"
+              onClick={() => go("partners")}
+            >
+              Explore Partnerships
+            </button>
+          </section>
+        </main>
       )}
 
       {tab === "homes" && (
@@ -1501,12 +1745,55 @@ function Resources({ onStart }) {
   Display: Plus Jakarta Sans · Body: Inter */
 const CSS = `
 :root{
-  --navy:#0A2540; --navy-2:#143A5C; --cyan:#2BE3E0; --cyan-soft:#DFF8F8;
-  --teal:#0E7C86; --teal-dark:#208d94; --mist:#E9F5F7; --bg:#FFFFFF;
-  --panel:#F5FAFB; --shadow:0 1px 3px rgba(10,37,64,.06),0 8px 22px rgba(10,37,64,.05);
-  --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#5A7184;
-  --good:#0E8A5F; --good-soft:#E3F4EC; --amber-ink:#8A6116; --amber-soft:#FBF1DC;
-  --bad:#A34040; --bad-soft:#F9E9E9;
+  // --navy:#0A2540; --navy-2:#143A5C; --cyan:#2BE3E0; --cyan-soft:#DFF8F8;
+  // --teal:#0E7C86; --teal-dark:#208d94; --mist:#E9F5F7; --bg:#FFFFFF;
+  // --panel:#F5FAFB; --shadow:0 1px 3px rgba(10,37,64,.06),0 8px 22px rgba(10,37,64,.05);
+  // --surface:#FFFFFF; --line:#E3EEF1; --ink:#16324A; --muted:#5A7184;
+  // --good:#0E8A5F; --good-soft:#E3F4EC; --amber-ink:#8A6116; --amber-soft:#FBF1DC;
+  // --bad:#A34040; --bad-soft:#F9E9E9;
+  /* PreQualy brand system */
+  --navy: #0A2233;
+  --navy-2: #0D2E45;
+
+  /* Primary cyan / teal */
+  --cyan: #19C9DB;
+  --cyan-soft: #E4F8FB;
+  --teal: #0FA6B8;
+  --teal-dark: #0FA6B8;
+  --teal-bright: #41DCEC;
+
+  /* Backgrounds / surfaces */
+  --mist: #E4F8FB;
+  --bg: #FFFFFF;
+  --panel: #F4F7F9;
+  --surface: #FFFFFF;
+  --fog: #F4F7F9;
+  --white: #FFFFFF;
+
+  /* Borders / text */
+  --line: #DFE9EF;
+  --ink: #1F2933;
+  --muted: #61708F;
+
+  /* Status colors */
+  --good: #1FB980;
+  --good-soft: #E7F7EE;
+
+  --amber-ink: #8A6116;
+  --amber-soft: #FBF1DC;
+
+  --bad: #A34040;
+  --bad-soft: #F9E9E9;
+
+  /* Supporting brand colors */
+  --purple: #6544D9;
+  --blue: #2468D9;
+  --green: #1FB980;
+  --success: #1FB980;
+
+  /* Shared UI */
+  --shadow: 0 18px 50px rgba(10, 34, 51, 0.10);
+  --radius: 22px;
 }
 *{box-sizing:border-box}
 .pq-root{min-height:100vh;background:var(--bg);color:var(--ink);
@@ -2139,4 +2426,447 @@ button{font-family:inherit}
   background:rgba(255,255,255,.92);border-radius:8px;padding:2px 5px}
 
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+
+//contact pg
+.pq-contact{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    padding:70px 40px 90px;
+}
+.pq-contact-hero{
+    text-align:center;
+    max-width:760px;
+    margin:0 auto 60px;
+}
+.pq-section-tag{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:999px;
+    background:var(--cyan-soft);
+    color:var(--teal-dark);
+    font-size:.82rem;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+.pq-contact-hero h1{
+    font-family:"Manrope",sans-serif;
+    color:var(--navy);
+    font-size:clamp(2.5rem,5vw,4rem);
+    line-height:1.05;
+    letter-spacing:-.04em;
+    margin-bottom:20px;
+}
+.pq-contact-hero p{
+    color:var(--muted);
+    font-size:1.08rem;
+    line-height:1.8;
+    max-width:700px;
+    margin:auto;
+}
+.pq-contact-grid{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:28px;
+    margin:0 350px 60px;
+    align-items:start;
+}
+.pq-info-card,
+.pq-contact-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:30px;
+}
+.pq-info-card{
+    margin-bottom:20px;
+}
+.pq-info-card h3,
+.pq-contact-card h2{
+    margin:0 0 24px;
+    color:var(--navy);
+    font-family:"Manrope",sans-serif;
+    font-size:1.45rem;
+}
+.pq-contact-item{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    margin-bottom:22px;
+}
+.pq-contact-item svg{
+    color:var(--teal-dark);
+    margin-top:3px;
+}
+.pq-contact-item strong{
+    display:block;
+    color:var(--navy);
+    margin-bottom:4px;
+}
+.pq-contact-item a,
+.pq-contact-item span{
+    color:var(--muted);
+}
+.pq-social-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:14px;
+    background:var(--fog);
+    border:1px solid var(--line);
+    color:var(--navy);
+    font-weight:700;
+    transition:.2s ease;
+}
+.pq-social-link:hover{
+    border-color:var(--teal);
+    background:var(--cyan-soft);
+    color:var(--teal-dark);
+    transform:translateY(-2px);
+}
+.pq-contact-form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+.pq-field{
+    display:flex;
+    flex-direction:column;
+}
+.pq-field label{
+    color:var(--navy);
+    font-weight:700;
+    margin-bottom:8px;
+}
+.pq-field input,
+.pq-field textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 16px;
+    background:#fff;
+    color:var(--ink);
+    transition:.2s;
+}
+.pq-field input::placeholder,
+.pq-field textarea::placeholder{
+    color:#8b98ad;
+}
+.pq-field input:focus,
+.pq-field textarea:focus{
+    outline:none;
+    border-color:var(--teal);
+    box-shadow:0 0 0 4px rgba(25,201,219,.14);
+}
+.pq-field textarea{
+    resize:vertical;
+    min-height:170px;
+}
+.pq-partner-banner{
+    background:var(--navy);
+    border-radius:28px;
+    padding:60px 50px;
+    text-align:center;
+    color:#fff;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+    margin:0 350px;
+}
+.pq-partner-banner::before{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background:rgba(25,201,219,.12);
+    top:-120px;
+    right:-80px;
+}
+.pq-partner-banner::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(65,220,236,.08);
+    bottom:-90px;
+    left:-60px;
+}
+.pq-partner-banner>*{
+    position:relative;
+    z-index:2;
+}
+.pq-partner-banner h2{
+    color:#fff;
+    font-family:"Manrope",sans-serif;
+    font-size:2.2rem;
+    margin:0 0 18px;
+}
+.pq-partner-banner p{
+    color:rgba(255,255,255,.82);
+    max-width:700px;
+    margin:0 auto 30px;
+    line-height:1.8;
+}
+.pq-partner-banner .pq-nav-cta{
+    background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+    color:#fff;
+    box-shadow:0 10px 25px rgba(25,201,219,.3);
+}
+.pq-partner-banner .pq-nav-cta:hover{
+    transform:translateY(-2px);
+}
+@media (max-width:900px){
+    .pq-contact{
+        padding:50px 18px 70px;
+    }
+    .pq-contact-grid{
+        grid-template-columns:1fr;
+    }
+    .pq-contact-hero{
+        margin-bottom:45px;
+    }
+    .pq-contact-hero h1{
+        font-size:2.5rem;
+    }
+    .pq-partner-banner{
+        padding:40px 25px;
+    }
+    .pq-partner-banner h2{
+        font-size:1.8rem;
+    }
+}
+
+/* faqs pg */
+.pq-faq-page {
+  width: min(100% - 40px, 1000px);
+  margin: 0 auto;
+  padding: 76px 0 90px;
+}
+.pq-faq-hero { /* Hero */
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 54px;
+}
+.pq-faq-hero h1 {
+  font-family: "Manrope", sans-serif;
+  color: var(--navy);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  margin: 0 0 20px;
+}
+.pq-faq-hero h1 span {
+  color: var(--teal-dark);
+}
+.pq-faq-hero p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+.pq-faq-list { /* FAQ list */
+  display: grid;
+  gap: 14px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.pq-faq-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 8px 26px rgba(10, 34, 51, .055);
+  overflow: hidden;
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+}
+.pq-faq-item:hover {
+  border-color: rgba(25, 201, 219, .45);
+  box-shadow: 0 12px 32px rgba(10, 34, 51, .08);
+}
+.pq-faq-item[open] {
+  border-color: var(--teal);
+  box-shadow: 0 14px 36px rgba(10, 34, 51, .09);
+}
+.pq-faq-item summary { /* Question */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 23px 26px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--navy);
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+.pq-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.pq-faq-item summary:focus-visible {
+  outline: 3px solid rgba(25, 201, 219, .25);
+  outline-offset: -3px;
+}
+.pq-faq-icon { /* Plus / minus icon */
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--cyan-soft);
+  color: var(--teal-dark);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    color .2s ease;
+}
+.pq-faq-item[open] .pq-faq-icon {
+  background: var(--teal);
+  color: #fff;
+  transform: rotate(45deg);
+}
+.pq-faq-answer { /* Answer */
+  padding: 0 26px 26px;
+}
+.pq-faq-answer p {
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.8;
+}
+.pq-faq-cta { /* Bottom CTA */
+  max-width: 860px;
+  margin: 58px auto 0;
+  padding: 34px 38px;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(65, 220, 236, .18),
+      transparent 35%
+    ),
+    var(--navy);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.pq-faq-cta-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--teal-bright);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.pq-faq-cta h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-family: "Manrope", sans-serif;
+  font-size: 1.7rem;
+  letter-spacing: -.025em;
+}
+.pq-faq-cta p {
+  margin: 0;
+  max-width: 570px;
+  color: rgba(255, 255, 255, .72);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+.pq-faq-cta .pq-nav-cta {
+  flex-shrink: 0;
+  background: linear-gradient(
+    135deg,
+    var(--teal),
+    var(--teal-dark)
+  );
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(25, 201, 219, .25);
+}
+@media (max-width: 720px) { /* Responsive */
+  .pq-faq-page {
+    width: min(100% - 24px, 1000px);
+    padding: 50px 0 70px;
+  }
+  .pq-faq-hero {
+    margin-bottom: 38px;
+  }
+  .pq-faq-hero h1 {
+    font-size: 2.45rem;
+  }
+  .pq-faq-hero p {
+    font-size: .98rem;
+  }
+  .pq-faq-item summary {
+    padding: 20px;
+    font-size: .95rem;
+  }
+  .pq-faq-answer {
+    padding: 0 20px 22px;
+  }
+  .pq-faq-answer p {
+    font-size: .9rem;
+  }
+  .pq-faq-cta {
+    margin-top: 42px;
+    padding: 28px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pq-faq-cta .pq-nav-cta {
+    width: 100%;
+  }
+}
+
+//news pg
+.pq-news{width:100%;max-width:1000px;margin:0 auto;padding:70px 40px 90px}
+.pq-news-hero{text-align:center;max-width:760px;margin:70px auto 55px}
+.pq-news-hero h1{font-family:"Manrope",sans-serif;color:var(--navy);font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;letter-spacing:-.04em;margin:0 0 20px}
+.pq-news-hero h1 span{color:var(--teal-dark)}
+.pq-news-hero p{color:var(--muted);font-size:1.08rem;line-height:1.8;max-width:700px;margin:0 auto}
+.pq-news-featured{position:relative;overflow:hidden;display:grid;grid-template-columns:170px 1fr;gap:30px;max-width:1050px;background:radial-gradient(circle at 100% 0%,rgba(65,220,236,.14),transparent 45%),linear-gradient(135deg,#fff,var(--cyan-soft));border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);margin:0 auto 70px}
+.pq-news-featured::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(25,201,219,.07);right:-80px;bottom:-90px}
+.pq-news-featured-label{align-self:start;display:inline-flex;justify-content:center;align-items:center;padding:9px 15px;border-radius:999px;background:var(--navy);color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;width:max-content}
+.pq-news-featured-content{position:relative;z-index:2}
+.pq-news-date{color:var(--teal-dark);font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+.pq-news-featured h2{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.8rem;line-height:1.2;margin:0 0 14px}
+.pq-news-featured p{color:var(--muted);line-height:1.7;margin:0 0 18px;max-width:650px}
+.pq-news-link{display:inline-flex;align-items:center;gap:6px;color:var(--teal-dark);font-weight:800;text-decoration:underline;text-underline-offset:3px;transition:.2s ease}
+.pq-news-link:hover{color:var(--navy)}
+.pq-news-section{width:100%;margin:0 auto 70px}
+.pq-news-section-heading{text-align:center;max-width:700px;margin:0 auto 28px}
+.pq-news-section-heading .pq-section-tag{margin-bottom:14px}
+.pq-news-section-heading h2{font-family:"Manrope",sans-serif;color:var(--navy);font-size:2rem;margin:0 0 10px}
+.pq-news-section-heading p{color:var(--muted);line-height:1.7;margin:0}
+.pq-news-empty{text-align:center;width:100%;max-width:760px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:45px 30px;margin:0 auto}
+.pq-news-empty-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:var(--cyan-soft);color:var(--teal-dark);font-size:1.4rem;font-weight:800}
+.pq-news-empty h3{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.35rem;margin:0 0 10px}
+.pq-news-empty p{max-width:580px;margin:0 auto 24px;color:var(--muted);line-height:1.7}
+.pq-news-cta{position:relative;overflow:hidden;max-width:1050px;background:var(--navy);color:#fff;border-radius:28px;padding:55px 40px;text-align:center;box-shadow:var(--shadow);margin:0 auto}
+.pq-news-cta::before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(25,201,219,.12);top:-130px;right:-70px}
+.pq-news-cta::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(65,220,236,.07);bottom:-100px;left:-60px}
+.pq-news-cta>*{position:relative;z-index:2}
+.pq-news-cta h2{font-family:"Manrope",sans-serif;color:#fff;font-size:2rem;margin:0 0 12px}
+.pq-news-cta p{color:rgba(255,255,255,.8);line-height:1.7;max-width:620px;margin:0 auto 25px}
+.pq-news-cta .pq-nav-cta{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 10px 25px rgba(25,201,219,.3)}
+@media(max-width:900px){.pq-news{padding:50px 18px 70px}.pq-news-featured{grid-template-columns:1fr;gap:18px;padding:26px}.pq-news-featured-label{width:max-content}.pq-news-hero{margin-bottom:45px}.pq-news-hero h1{font-size:2.5rem}.pq-news-featured h2{font-size:1.5rem}.pq-news-cta{padding:42px 25px}.pq-news-cta h2{font-size:1.7rem}}
 `;
+
