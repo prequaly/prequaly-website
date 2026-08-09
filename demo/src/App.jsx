@@ -1,11 +1,13 @@
 
 // export default App
 import React, { useState, useEffect, useMemo, useRef } from "react";
+import Home from "./Home";
+import "./Landing.css";
 import {
-  Home, Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
+  Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
   Building2, Users, Info, Clock, Tag, HeartHandshake, BadgeCheck, Star,
   Bookmark, BookmarkCheck, GraduationCap, Wallet, FileText, Search,
-  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown
+  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown, Target, Eye, Lightbulb
 } from "lucide-react";
 
 /* =====================================================================
@@ -644,11 +646,10 @@ export default function PreQualyApp() {
       <style>{CSS}</style>
       <header className="pq-head">
         <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
-          <Keyhole size={30} glow={false} />
-          <span>Pre<b>Q</b>ualy</span>
+          <img src="/PreQualy%20Logo.svg" alt="PreQualy" className="pq-brand-logo"/>
         </button>
         <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "home"} onClick={() => window.location.href = "/index.html"} icon={Home} label="Home" />
+          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
           {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
           <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
             <button onClick={() => go("overview")}>Overview</button>
@@ -668,7 +669,7 @@ export default function PreQualyApp() {
         <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
       </header>
 
-      {tab === "home" && <Landing onStart={startIntake} />}
+      {tab === "home" && <Home go={go} />}
 
       {tab === "news" && (
         <main className="pq-news">
@@ -962,13 +963,421 @@ export default function PreQualyApp() {
 
       {tab === "interest" && <InterestList />}
 
+      {tab === "about" && (
+        <main className="pq-about">
+
+          {/* Hero */}
+          <section className="pq-about-hero">
+            <p className="pq-eyebrow">ABOUT PREQUALY</p>
+            <h1>A Centralized Infrastructure for Affordable Homeownership</h1>
+            <p>
+              PreQualy brings housing resources, programs, and partners together
+              to create clearer pathways to affordable homeownership.
+            </p>
+          </section>
+
+          {/* Our Process */}
+          <section className="pq-about-section">
+            <div className="pq-section-heading">
+              <p className="pq-eyebrow">OUR PROCESS</p>
+              <h2>From Idea to Reality</h2>
+            </div>
+
+            <div className="pq-process-grid">
+
+              <article className="pq-process-card">
+                <div className="pq-process-number">01</div>
+                <h3>Discover</h3>
+                <p>
+                  We start with a one-on-one discussion to understand your goals,
+                  preferences, and expectations, ensuring every detail is aligned
+                  with your vision.
+                </p>
+              </article>
+
+              <article className="pq-process-card">
+                <div className="pq-process-number">02</div>
+                <h3>Plan</h3>
+                <p>
+                  Our team develops a clear, customized plan with thoughtful details
+                  and practical solutions, shared with you for feedback and approval.
+                </p>
+              </article>
+
+              <article className="pq-process-card">
+                <div className="pq-process-number">03</div>
+                <h3>Deliver</h3>
+                <p>
+                  We bring the plan to life with expert execution, quality
+                  workmanship, and attention to every finishing touch.
+                </p>
+              </article>
+
+            </div>
+          </section>
+
+          {/* Mission + Vision */}
+          <section className="pq-about-section pq-about-mission">
+            <div className="pq-about-two-column">
+
+              <article className="pq-about-info-card">
+                <div className="pq-about-icon">
+                  <Target size={28} />
+                </div>
+                <p className="pq-eyebrow">OUR MISSION</p>
+                <h2>Bringing Clarity to a Fragmented System</h2>
+                <p>
+                  PreQualy exists to bring clarity to a fragmented system. By
+                  centralizing housing resources and aligning them with real-world
+                  buyer profiles - such as location, income, household size, and
+                  goals - we help future homebuyers understand what opportunities may
+                  be available to them before applying, before a credit check, and
+                  before committing to a lender.
+                </p>
+              </article>
+
+              <article className="pq-about-info-card">
+                <div className="pq-about-icon">
+                  <Eye size={28} />
+                </div>
+                <p className="pq-eyebrow">OUR VISION</p>
+                <h2>A More Connected Housing Ecosystem</h2>
+                <p>
+                  We envision a future where public agencies, nonprofits, lenders,
+                  developers, and real estate professionals operate through shared
+                  infrastructure-reducing inefficiencies, increasing program
+                  utilization, and improving outcomes for buyers and communities
+                  alike.
+                </p>
+                <p>
+                  PreQualy is not a lender or broker, but the connective layer that
+                  allows affordable homeownership systems to work better together.
+                </p>
+              </article>
+
+            </div>
+          </section>
+
+          {/* Growing Homeownership Together */}
+          <section className="pq-about-growth">
+            <div className="pq-about-growth-inner">
+              <p className="pq-eyebrow">GROWING HOMEOWNERSHIP TOGETHER</p>
+
+              <h2>Affordable Homeownership Is Built Together</h2>
+
+              <p>
+                Affordable homeownership is built through collaboration, care, and
+                long-term commitment. Across communities, public agencies,
+                nonprofits, lenders, and developers invest deeply in housing
+                solutions - but without coordination, much of that effort falls short
+                of its potential.
+              </p>
+
+              <p>
+                PreQualy brings these partners together by centralizing program
+                visibility and aligning resources with real-world buyer profiles.
+                Using a tri-sector model, we connect public agencies, private
+                industry, and nonprofit organizations to create clearer pathways
+                and stronger outcomes across the housing ecosystem.
+              </p>
+
+              <p>
+                PreQualy is not a lender, broker, or real estate agency. It is the
+                connective infrastructure that helps communities grow sustainable and
+                accessible homeownership together.
+              </p>
+
+              <button
+                className="pq-nav-cta pq-about-button"
+                onClick={() => go("interest")}
+              >
+                Join the Interest List
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          </section>
+
+        </main>
+      )}
+
+      {tab === "careers" && (
+        <main className="pq-careers">
+          <section className="pq-careers-hero">
+            <p className="pq-eyebrow">CAREERS AT PREQUALY</p>
+            <h1>Help Build the Future of Homeownership.</h1>
+            <p>
+              We're building the infrastructure that makes affordable homeownership
+              easier to understand, access, and navigate. While we don't have any
+              open positions right now, we'd love for you to check back as we grow.
+            </p>
+          </section>
+
+          <section className="pq-careers-values">
+            <div className="pq-careers-value">
+              <div className="pq-careers-icon">
+                <Users size={26} />
+              </div>
+              <h3>People First</h3>
+              <p>
+                We believe better housing outcomes start with understanding the
+                people and communities we serve.
+              </p>
+            </div>
+
+            <div className="pq-careers-value">
+              <div className="pq-careers-icon">
+                <Target size={26} />
+              </div>
+              <h3>Purpose Driven</h3>
+              <p>
+                We're solving a real problem by creating clearer pathways to
+                affordable homeownership.
+              </p>
+            </div>
+
+            <div className="pq-careers-value">
+              <div className="pq-careers-icon">
+                <Layers size={26} />
+              </div>
+              <h3>Build Together</h3>
+              <p>
+                Housing is a shared ecosystem. We collaborate across sectors to
+                create solutions that work better together.
+              </p>
+            </div>
+          </section>
+
+          <section className="pq-careers-openings">
+            <div className="pq-careers-openings-inner">
+              <p className="pq-eyebrow">OPEN POSITIONS</p>
+              <h2>We're Not Hiring Just Yet</h2>
+              <p>
+                We don't currently have any open positions. As PreQualy grows, this
+                is where you'll find opportunities to join our team and help shape
+                the future of housing access.
+              </p>
+
+              <button
+                className="pq-nav-cta pq-careers-button"
+                onClick={() => go("contact")}
+              >
+                Get in Touch
+                <ArrowRight size={17} />
+              </button>
+            </div>
+          </section>
+        </main>
+      )}
+
+      {tab === "founderstory" && (
+        <main className="pq-founder">
+
+          {/* Hero */}
+          <section className="pq-founder-hero">
+            <p className="pq-eyebrow">Founder Story</p>
+            <h1>Built at the Intersection of Policy, Property, and Possibility</h1>
+            <p className="pq-founder-hero-copy">
+              PreQualy was born from a firsthand understanding of how fragmented
+              housing systems can prevent people from accessing opportunities that
+              already exist.
+            </p>
+
+            <button className="pq-button pq-founder-cta" onClick={() => go("contact")}>
+              Make an Inquiry <ArrowRight size={17} />
+            </button>
+          </section>
+
+          {/* Founder Introduction */}
+          <section className="pq-founder-intro pq-founder-section">
+            <div className="pq-founder-intro-grid">
+
+              <div className="pq-founder-profile">
+                <div className="pq-founder-avatar">
+                  <img src="/lashonda.webp" alt="LaShonda Smith, Founder and CEO of PreQualy" />
+                </div>
+
+                <p className="pq-eyebrow">Founder & CEO</p>
+                <h2>LaShonda Smith</h2>
+                <p>
+                  Housing strategist, advisor, and systems-level innovator working
+                  at the intersection of real estate, public finance, philanthropy,
+                  and technology.
+                </p>
+              </div>
+
+              <div className="pq-founder-insight">
+                <p className="pq-eyebrow">The Insight Behind PreQualy</p>
+                <h2>Redefining Access to Affordable Homeownership</h2>
+
+                <p>
+                  LaShonda Smith is the Founder and CEO of PreQualy, a mobile-first,
+                  AI-powered platform designed to unlock pathways to homeownership
+                  by aligning government, business, and nonprofit sectors.
+                </p>
+
+                <p>
+                  Her work sits at the intersection of housing equity, technology
+                  innovation, and systems-level strategy.
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+          {/* Story */}
+          <section className="pq-founder-story pq-founder-section">
+            <div className="pq-founder-story-inner">
+
+              <p className="pq-eyebrow">The Story</p>
+              <h2>Turning a Recurring Problem Into a New Possibility</h2>
+
+              <p>
+                PreQualy was founded by LaShonda Smith, a longtime advisor working
+                at the intersection of real estate, public finance, and philanthropy.
+              </p>
+
+              <p>
+                Throughout her career advising on property tax, sales tax, and
+                philanthropic strategy, LaShonda repeatedly encountered a common
+                challenge. Resources designed to expand opportunity existed, but
+                were not accessible to the people who needed them most.
+              </p>
+
+              <p>
+                With a professional background in client advisory services spanning
+                property tax, sales tax, and philanthropic strategy, LaShonda has
+                spent her career helping organizations navigate complex regulatory
+                and funding environments.
+              </p>
+
+              <p>
+                She is also a Global Social Impact Fellow, holds a master’s degree
+                in public administration, and has led strategic development
+                initiatives supporting nonprofits, municipalities, and
+                mission-driven enterprises.
+              </p>
+
+            </div>
+          </section>
+
+          {/* The Idea */}
+          <section className="pq-founder-idea">
+            <div className="pq-founder-idea-inner">
+
+              <div className="pq-founder-idea-icon">
+                <Lightbulb size={30} />
+              </div>
+
+              <p className="pq-eyebrow">Why PreQualy</p>
+
+              <h2>
+                What if the resources already existed
+                but people simply couldn't find them?
+              </h2>
+
+              <p>
+                PreQualy was born from LaShonda's firsthand recognition that
+                billions of dollars in housing assistance remain underutilized
+                each year due to fragmentation, lack of visibility, and
+                misalignment across sectors.
+              </p>
+
+              <p>
+                Rather than creating another housing program, LaShonda envisioned
+                infrastructure that strengthens existing systems by centralizing
+                resources, improving coordination, and empowering individuals with
+                actionable information.
+              </p>
+
+            </div>
+          </section>
+
+          {/* Tri-sector model */}
+          <section className="pq-founder-section pq-founder-model">
+            <div className="pq-section-heading">
+              <p className="pq-eyebrow">A Different Approach</p>
+              <h2>Building Shared Value Across the Housing Ecosystem</h2>
+              <p>
+                PreQualy brings together the people and organizations that influence
+                the homeownership journey.
+              </p>
+            </div>
+
+            <div className="pq-founder-model-grid">
+
+              <div className="pq-founder-model-card">
+                <div className="pq-founder-model-icon">
+                  <Landmark size={26} />
+                </div>
+                <h3>Public Sector</h3>
+                <p>
+                  Public agencies and municipalities working to make housing
+                  resources more visible and accessible.
+                </p>
+              </div>
+
+              <div className="pq-founder-model-card">
+                <div className="pq-founder-model-icon">
+                  <Building2 size={26} />
+                </div>
+                <h3>Private Industry</h3>
+                <p>
+                  Real estate professionals, developers, and lenders contributing
+                  expertise and resources to the housing ecosystem.
+                </p>
+              </div>
+
+              <div className="pq-founder-model-card">
+                <div className="pq-founder-model-icon">
+                  <HeartHandshake size={26} />
+                </div>
+                <h3>Nonprofit Sector</h3>
+                <p>
+                  Mission-driven organizations helping communities navigate
+                  programs, resources, and pathways toward homeownership.
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+          {/* Vision */}
+          <section className="pq-founder-vision">
+            <div className="pq-founder-vision-inner">
+
+              <p className="pq-eyebrow">The Vision</p>
+
+              <h2>
+                Modernizing access to homeownership nationwide.
+              </h2>
+
+              <p>
+                LaShonda’s leadership is grounded in justice, transparency, and
+                collective power. Her long-term vision is to modernize access to
+                homeownership nationwide, ensuring opportunity is not determined by
+                race, income, or zip code, but by equitable access to information,
+                technology, and coordinated community action.
+              </p>
+
+              <button
+                className="pq-button pq-founder-vision-button"
+                onClick={() => go("contact")}
+              >
+                Connect With PreQualy <ArrowRight size={17} />
+              </button>
+
+            </div>
+          </section>
+
+        </main>
+      )}
+
       <footer className="pq-foot">
         <div className="pq-foot-grid">
             {/* Brand */}
             <div className="pq-foot-brand">
               <div className="pq-foot-logo">
-                <Keyhole size={28} glow={false} />
-                <span>Pre<b>Q</b>ualy</span>
+                <img src="/PreQualy%20Logo.svg" alt="PreQualy" className="pq-brand-logo"/>
               </div>
 
               <p className="pq-foot-desc">
@@ -994,16 +1403,16 @@ export default function PreQualyApp() {
             {/* Resources */}
             <div className="pq-foot-col">
               <h4>Resources</h4>
-              <button onClick={() => go("programs")}>FAQs</button>
-              <button onClick={() => go("homes")}>News</button>
+              <button onClick={() => go("faqs")}>FAQs</button>
+              <button onClick={() => go("news")}>News</button>
             </div>
 
             {/* Company */}
             <div className="pq-foot-col">
               <h4>Company</h4>
-              <button>About Us</button>
-              <button>Our Mission</button>
-              <button>Careers</button>
+              <button onClick={() => go("about")}>About Us</button>
+              <button onClick={() => go("founderstory")}>Founder Story</button>
+              <button onClick={() => go("careers")}>Careers</button>
             </div>
 
             {/* Newsletter */}
@@ -1030,12 +1439,6 @@ export default function PreQualyApp() {
 
           <div className="pq-foot-bottom">
             <p>© 2026 PreQualy. All rights reserved.</p>
-
-            <div className="pq-foot-legal">
-              <button>Privacy Policy</button>
-              <button>Terms of Use</button>
-              <button>Accessibility</button>
-            </div>
           </div>
       </footer>
     </div>
@@ -1806,7 +2209,7 @@ button{font-family:inherit}
 .pq-key.glow circle:nth-of-type(2), .pq-key.glow path:nth-of-type(2){filter:drop-shadow(0 0 5px var(--cyan))}
 
 /* header */
-.pq-head{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+.pq-head{position:sticky;top:0;z-index:20;background:var(--navy);backdrop-filter:blur(8px);
   display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   padding:12px 24px;gap:16px;border-bottom:1px solid var(--line)}
 .pq-brand{display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
@@ -1815,7 +2218,7 @@ button{font-family:inherit}
 .pq-brand b{color:var(--teal)}
 .pq-nav{display:flex;gap:2px;justify-self:center;flex-wrap:wrap;justify-content:center}
 .pq-navbtn{display:flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;
-  font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 12px;border-radius:0}
+  font-size:13.5px;font-weight:600;color:#fff;padding:8px 12px;border-radius:0}
 .pq-navbtn.on{color:var(--teal-dark);}
 .pq-navbtn:hover{color:var(--teal-dark)}
 .pq-navlabel{
@@ -2214,7 +2617,7 @@ button{font-family:inherit}
 .pq-foot{
   margin-top:60px;
   border-top:1px solid var(--line);
-  background:#fff;
+  background:var(--navy);
   padding:44px 24px 18px;
 }
 
@@ -2249,7 +2652,7 @@ button{font-family:inherit}
 }
 
 .pq-foot-desc{
-  color:var(--muted);
+  color:#fff;
   font-size:14px;
   line-height:1.6;
   max-width:280px;
@@ -2260,7 +2663,7 @@ button{font-family:inherit}
   font-family:'Plus Jakarta Sans',sans-serif;
   font-size:15px;
   font-weight:700;
-  color:var(--navy);
+  color:#fff;
   margin:0 0 16px;
 }
 
@@ -2271,7 +2674,7 @@ button{font-family:inherit}
   padding:0;
   margin:0 0 12px;
   font-size:14px;
-  color:var(--muted);
+  color:#fff;
   cursor:pointer;
   text-align:left;
 }
@@ -2282,7 +2685,7 @@ button{font-family:inherit}
 
 .pq-foot-news{
   font-size:14px;
-  color:var(--muted);
+  color:#fff;
   line-height:1.6;
   margin:0 0 16px;
 }
@@ -2338,7 +2741,7 @@ button{font-family:inherit}
 .pq-foot-bottom p{
   margin:0;
   font-size:13px;
-  color:var(--muted);
+  color:#fff;
 }
 
 .pq-foot-legal{
@@ -2437,7 +2840,7 @@ button{font-family:inherit}
 .pq-contact-hero{
     text-align:center;
     max-width:760px;
-    margin:0 auto 60px;
+    margin:80px auto 60px;
 }
 .pq-section-tag{
     display:inline-block;
@@ -2868,5 +3271,116 @@ button{font-family:inherit}
 .pq-news-cta p{color:rgba(255,255,255,.8);line-height:1.7;max-width:620px;margin:0 auto 25px}
 .pq-news-cta .pq-nav-cta{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 10px 25px rgba(25,201,219,.3)}
 @media(max-width:900px){.pq-news{padding:50px 18px 70px}.pq-news-featured{grid-template-columns:1fr;gap:18px;padding:26px}.pq-news-featured-label{width:max-content}.pq-news-hero{margin-bottom:45px}.pq-news-hero h1{font-size:2.5rem}.pq-news-featured h2{font-size:1.5rem}.pq-news-cta{padding:42px 25px}.pq-news-cta h2{font-size:1.7rem}}
+
+.pq-brand-logo{height:46px;display:block}
+
+//about us pg
+.pq-about{min-height:100%;}
+/* Hero */
+.pq-about-hero{text-align:center;max-width:900px;margin:0 auto;padding:90px 24px 70px;}
+.pq-about-hero h1{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(38px,5vw,64px);line-height:1.05;letter-spacing:-.045em;margin:0 0 22px;}
+.pq-about-hero > p:last-child{max-width:700px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.75;}
+/* Shared section */
+.pq-about-section{max-width:1180px;margin:0 auto;padding:70px 24px;}
+.pq-section-heading{text-align:center;max-width:700px;margin:0 auto 40px;}
+.pq-section-heading h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(30px,4vw,44px);letter-spacing:-.035em;margin:0;}
+/* Eyebrow */
+.pq-eyebrow{color:var(--teal-dark);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px;}
+/* Process */
+.pq-process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pq-process-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;min-height:280px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease;}
+.pq-process-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,34,51,.13);}
+.pq-process-number{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:var(--cyan-soft);color:var(--teal-dark);font-size:14px;font-weight:800;margin-bottom:26px;}
+.pq-process-card h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:22px;margin:0 0 12px;}
+.pq-process-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0;}
+/* Mission / Vision */
+.pq-about-mission{padding-top:30px;}
+.pq-about-two-column{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+.pq-about-info-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:34px;box-shadow:var(--shadow);}
+.pq-about-icon{width:58px;height:58px;border-radius:16px;background:var(--cyan-soft);color:var(--teal-dark);display:grid;place-items:center;margin-bottom:24px;}
+.pq-about-info-card h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:27px;line-height:1.2;letter-spacing:-.025em;margin:0 0 18px;}
+.pq-about-info-card p:not(.pq-eyebrow){color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 15px;}
+.pq-about-info-card p:last-child{margin-bottom:0;}
+/* Growth section */
+.pq-about-growth{margin-top:40px;background:var(--navy);color:#fff;padding:90px 24px; margin-left:350px;margin-right:350px;border-radius:20px}
+.pq-about-growth-inner{max-width:850px;margin:0 auto;text-align:center;}
+.pq-about-growth .pq-eyebrow{color:var(--teal-bright);}
+.pq-about-growth h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(32px,4vw,48px);line-height:1.1;letter-spacing:-.035em;margin:0 0 26px;}
+.pq-about-growth p:not(.pq-eyebrow){color:rgba(255,255,255,.78);font-size:15px;line-height:1.8;margin:0 auto 18px;}
+.pq-about-button{margin-top:18px;display:inline-flex;align-items:center;gap:8px;}
+/* Responsive */
+@media(max-width:800px){.pq-about-hero{padding:65px 20px 50px;}.pq-process-grid,.pq-about-two-column{grid-template-columns:1fr;}.pq-about-section{padding:50px 20px;}.pq-about-info-card{padding:28px;}.pq-about-growth{padding:65px 20px;}}
+
+//careers pg
+.pq-careers{min-height:100%;}
+.pq-careers-hero{text-align:center;max-width:850px;margin:0 auto;padding:90px 24px 70px;}
+.pq-careers-hero h1{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(38px,5vw,62px);line-height:1.05;letter-spacing:-.045em;margin:0 0 22px;}
+.pq-careers-hero > p:last-child{max-width:700px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.75;}
+.pq-careers-values{max-width:1180px;margin:0 auto;padding:20px 24px 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pq-careers-value{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease;}
+.pq-careers-value:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,34,51,.13);}
+.pq-careers-icon{width:58px;height:58px;border-radius:16px;background:var(--cyan-soft);color:var(--teal-dark);display:grid;place-items:center;margin-bottom:22px;}
+.pq-careers-value h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:21px;margin:0 0 10px;}
+.pq-careers-value p{color:var(--muted);font-size:14px;line-height:1.7;margin:0;}
+.pq-careers-openings{max-width:1080px;margin:0 auto 80px;padding:0 24px;}
+.pq-careers-openings-inner{background:var(--navy);color:#fff;border-radius:28px;padding:75px 40px;text-align:center;box-shadow:var(--shadow);}
+.pq-careers-openings .pq-eyebrow{color:var(--teal-bright);}
+.pq-careers-openings h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(30px,4vw,44px);letter-spacing:-.035em;margin:0 0 18px;}
+.pq-careers-openings p:not(.pq-eyebrow){max-width:650px;margin:0 auto;color:rgba(255,255,255,.78);font-size:15px;line-height:1.8;}
+.pq-careers-button{margin-top:28px;}
+@media(max-width:800px){.pq-careers-hero{padding:65px 20px 50px;}.pq-careers-values{grid-template-columns:1fr;padding:20px 20px 60px;}.pq-careers-openings{padding:0 20px;margin-bottom:60px;}.pq-careers-openings-inner{padding:60px 24px;}}
+
+//founder story pg
+.pq-founder h1{text-align:center}
+.pq-founder-hero{text-align:center;max-width:920px;margin:0 auto;padding:90px 24px 75px}
+.pq-founder-hero h1{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(40px,5vw,68px);line-height:1.04;letter-spacing:-.05em;margin:0 0 24px;text-align:center}
+.pq-founder-hero-copy{max-width:720px;margin:0 auto 28px;color:var(--muted);font-size:17px;line-height:1.75;text-align:center}
+.pq-founder-hero .pq-eyebrow{text-align:center}
+.pq-founder-cta{display:inline-flex;margin:8px auto 0}
+.pq-founder-cta{margin-top:8px}
+.pq-founder-section{max-width:1180px;margin:0 auto;padding:75px 24px}
+.pq-founder-intro{padding-top:30px}
+.pq-founder-intro-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:stretch}
+.pq-founder-profile{background:#fff;border:1px solid var(--line);border-radius:26px;padding:36px;box-shadow:var(--shadow)}
+.pq-founder-avatar{width:86px;height:86px;border-radius:22px;background:var(--cyan-soft);color:var(--teal-dark);display:grid;place-items:center;margin-bottom:40px}
+.pq-founder-profile h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:30px;letter-spacing:-.03em;margin:0 0 14px}
+.pq-founder-profile>p:not(.pq-eyebrow){color:var(--muted);font-size:14px;line-height:1.75;margin:0}
+.pq-founder-insight{background:var(--navy);border-radius:26px;padding:42px;color:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center}
+.pq-founder-insight .pq-eyebrow{color:var(--teal-bright)}
+.pq-founder-insight h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(30px,4vw,46px);line-height:1.1;letter-spacing:-.04em;margin:0 0 22px}
+.pq-founder-insight p:not(.pq-eyebrow){color:rgba(255,255,255,.78);font-size:15px;line-height:1.8;margin:0 0 16px}
+.pq-founder-insight p:last-child{margin-bottom:0}
+.pq-founder-story{padding-top:60px}
+.pq-founder-story-inner{max-width:820px;margin:0 auto}
+.pq-founder-story-inner h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-.04em;margin:0 0 28px}
+.pq-founder-story-inner p:not(.pq-eyebrow){color:var(--muted);font-size:15px;line-height:1.85;margin:0 0 20px}
+.pq-founder-story-inner p:last-child{margin-bottom:0}
+.pq-founder-idea{margin:20px 24px 0;background:var(--cyan-soft);border:1px solid rgba(25,201,219,.2);border-radius:30px;padding:85px 24px;margin-left:350px;margin-right:350px}
+.pq-founder-idea-inner{max-width:850px;margin:0 auto;text-align:center}
+.pq-founder-idea-icon{width:68px;height:68px;border-radius:20px;background:#fff;color:var(--teal-dark);display:grid;place-items:center;margin:0 auto 24px;box-shadow:0 10px 28px rgba(10,34,51,.08)}
+.pq-founder-idea h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(32px,4vw,50px);line-height:1.1;letter-spacing:-.04em;margin:0 0 26px}
+.pq-founder-idea p:not(.pq-eyebrow){max-width:760px;margin:0 auto 18px;color:var(--muted);font-size:15px;line-height:1.8}
+.pq-founder-idea p:last-child{margin-bottom:0}
+.pq-founder-model{padding-top:85px;padding-bottom:85px}
+.pq-founder-model .pq-section-heading{max-width:780px;margin:0 auto 42px;text-align:center}
+.pq-founder-model .pq-section-heading h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(30px,4vw,44px);line-height:1.1;letter-spacing:-.035em;margin:0 0 14px}
+.pq-founder-model .pq-section-heading>p:last-child{color:var(--muted);font-size:15px;line-height:1.7;margin:0}
+.pq-founder-model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pq-founder-model-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease}
+.pq-founder-model-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,34,51,.13)}
+.pq-founder-model-icon{width:58px;height:58px;border-radius:16px;background:var(--cyan-soft);color:var(--teal-dark);display:grid;place-items:center;margin-bottom:24px}
+.pq-founder-model-card h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:21px;margin:0 0 12px}
+.pq-founder-model-card p{color:var(--muted);font-size:14px;line-height:1.75;margin:0}
+.pq-founder-vision{margin:20px 24px 0;background:var(--navy);color:#fff;border-radius:30px;padding:90px 24px;margin-left:350px;margin-right:350px}
+.pq-founder-vision-inner{max-width:850px;margin:0 auto;text-align:center}
+.pq-founder-vision .pq-eyebrow{color:var(--teal-bright)}
+.pq-founder-vision h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(34px,4.5vw,54px);line-height:1.08;letter-spacing:-.04em;margin:0 0 26px}
+.pq-founder-vision p:not(.pq-eyebrow){color:rgba(255,255,255,.78);font-size:15px;line-height:1.85;margin:0 auto 24px;max-width:760px}
+.pq-founder-vision-button{margin-top:8px}
+.pq-button{border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:10px;font-weight:700;font-family:inherit;background:var(--teal);color:#fff;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.pq-button:hover{transform:translateY(-2px);background:var(--teal-dark);box-shadow:0 10px 24px rgba(25,201,219,.22)}
+.pq-button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+@media(max-width:900px){.pq-founder-intro-grid{grid-template-columns:1fr}.pq-founder-model-grid{grid-template-columns:1fr 1fr}.pq-founder-section{padding:60px 20px}}
+@media(max-width:650px){.pq-founder-hero{padding:65px 20px 50px}.pq-founder-hero h1{font-size:clamp(36px,10vw,52px)}.pq-founder-section{padding:50px 20px}.pq-founder-profile,.pq-founder-insight{padding:28px}.pq-founder-model-grid{grid-template-columns:1fr}.pq-founder-idea{margin:10px 12px 0;padding:65px 20px}.pq-founder-vision{margin:10px 12px 0;padding:65px 20px}.pq-founder-idea h2,.pq-founder-vision h2{font-size:34px}}
 `;
 
