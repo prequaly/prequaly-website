@@ -3,7 +3,7 @@
   --navy: #0A2233;
   --navy-2: #0D2E45;
   --navy-3: #123B57;
-  --teal: #19C9DB;
+  --teal: #0FA6B8;
   --teal-bright: #41DCEC;
   --teal-dark: #0FA6B8;
   --cyan-soft: #E4F8FB;
@@ -214,10 +214,9 @@ h1 {
 
 .form-area { padding-top: 12px; }
 .form-panel {
-  display: none; max-width: 840px; margin: 0 auto; padding: 28px; background: #fff;
+  max-width: 840px; margin: 0 auto; padding: 28px; background: #fff;
   border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow);
 }
-.form-panel.active { display: block; }
 .form-panel-header { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; margin-bottom: 24px; }
 .form-panel-header h2 { margin-bottom: 8px; }
 .form-panel-header p { color: var(--muted); margin: 0; line-height: 1.6; }
@@ -230,6 +229,7 @@ h1 {
 
 .form-step { display: none; }
 .form-step.active { display: block; }
+
 
 .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .field { display: grid; gap: 7px; }

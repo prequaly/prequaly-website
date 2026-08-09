@@ -1,5 +1,56 @@
 import { useState } from "react";
 
+const SUBMIT_ENDPOINT = "https://qpwmfbviwpjtwcqbpkky.supabase.co/functions/v1/submit-interest";
+
+function SuccessPanel() {
+  const shareText = encodeURIComponent(
+    "I just joined the @PreQualy interest list - unlocking opportunities for homeownership to millions! Join me:"
+  );
+  const shareUrl = encodeURIComponent(window.location.href);
+
+  return (
+    <div className="form-panel">
+      <div className="success">
+        <div className="success-icon" aria-hidden="true">&#10003;</div>
+        <h2 tabIndex="-1">Thank You for Joining the PreQualy Interest List!</h2>
+        <p>Your information has been successfully submitted. Please check your inbox for a confirmation email.</p>
+        <p>
+          We will keep you informed about PreQualy&rsquo;s launch, platform updates,
+          early-access opportunities, and resources that may support your homeownership
+          journey or your work in the housing industry.
+        </p>
+        <p>We look forward to connecting with you.</p>
+        <div className="share-row">
+          <a
+            className="button button-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+          >
+            Share on X
+          </a>
+          <a
+            className="button button-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+          >
+            Share on Facebook
+          </a>
+        </div>
+        <button
+          type="button"
+          className="button button-secondary"
+          style={{ marginTop: "14px" }}
+          onClick={() => window.location.reload()}
+        >
+          Return to the top
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function Home({ go }) {
   const [activeForm, setActiveForm] = useState(null);
   const [formSteps, setFormSteps] = useState({
@@ -8,6 +59,63 @@ function Home({ go }) {
     governmentForm: 0,
     nonprofitForm: 0,
   });
+  const [submitted, setSubmitted] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
+  async function submitInterest(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    // Honeypot — if filled by a bot, silently succeed without submitting
+    const hp = form.querySelector('input[name="company_website"]');
+    if (hp && hp.value.trim() !== "") {
+      setSubmitted(formId);
+      return;
+    }
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.interests = [...form.querySelectorAll('input[name="interests"]:checked')].map((c) => c.value);
+    delete payload.company_website;
+
+    const body = {
+      audience: form.dataset.formName,
+      submittedAt: new Date().toISOString(),
+      source: "interest-landing-page",
+      ...payload,
+    };
+
+    setSubmitting(true);
+    setFormErrors((prev) => ({ ...prev, [formId]: "" }));
+
+    try {
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        let msg = "Something went wrong. Please try again.";
+        try {
+          const j = await res.json();
+          if (j.error) msg = j.error;
+        } catch {
+          /* ignore */
+        }
+        throw new Error(msg);
+      }
+
+      setSubmitted(formId);
+    } catch (e) {
+      setFormErrors((prev) => ({
+        ...prev,
+        [formId]: e.message || "Something went wrong submitting your information. Please try again, or email support@prequaly.ai.",
+      }));
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({
@@ -757,6 +865,9 @@ function Home({ go }) {
                 HOME BUYER FORM
             ===================================================== */}
             {activeForm === "homebuyerForm" && (
+                submitted === "homebuyerForm" ? (
+                <SuccessPanel />
+                ) : (
                 <form
                 className="form-panel multi-step-form"
                 id="homebuyerForm"
@@ -807,8 +918,7 @@ function Home({ go }) {
 
 
                 {/* Step 1 */}
-                {currentStep("homebuyerForm") === 0 && (
-                    <div className="form-step active">
+                <div className={"form-step" + (currentStep("homebuyerForm") === 0 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -873,12 +983,10 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
                 {/* Step 2 */}
-                {currentStep("homebuyerForm") === 1 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("homebuyerForm") === 1 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -931,12 +1039,10 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
                 {/* Step 3 */}
-                {currentStep("homebuyerForm") === 2 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("homebuyerForm") === 2 ? " active" : "")}>
                     <div className="field full">
                         <span className="lbl">
                         What are you most interested in?
@@ -1001,7 +1107,6 @@ function Home({ go }) {
                         </div>
                     </div>
                     </div>
-                )}
 
                 <div className="form-actions">
 
@@ -1027,21 +1132,23 @@ function Home({ go }) {
                     <button
                         type="button"
                         className="button button-primary"
-                        onClick={() => alert("Thank you for joining the interest list!")}
+                        disabled={submitting}
+                        onClick={() => submitInterest("homebuyerForm")}
                     >
-                        Submit
+                        {submitting ? "Submitting…" : "Join the Interest List"}
                     </button>
                     )}
 
                 </div>
 
-                <p className="form-error" role="alert"></p>
+                <p className="form-error" role="alert">{formErrors.homebuyerForm}</p>
 
                 <p className="privacy">
                     By submitting this form, you agree to receive PreQualy
                     updates. Your information will not be sold.
                 </p>
                 </form>
+                )
             )}
 
 
@@ -1049,6 +1156,9 @@ function Home({ go }) {
                 PROFESSIONAL FORM
             ===================================================== */}
             {activeForm === "professionalForm" && (
+                submitted === "professionalForm" ? (
+                <SuccessPanel />
+                ) : (
                 <form
                 className="form-panel multi-step-form"
                 id="professionalForm"
@@ -1098,8 +1208,7 @@ function Home({ go }) {
                 </div>
 
 
-                {currentStep("professionalForm") === 0 && (
-                    <div className="form-step active">
+                <div className={"form-step" + (currentStep("professionalForm") === 0 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1188,11 +1297,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("professionalForm") === 1 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("professionalForm") === 1 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1244,11 +1351,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("professionalForm") === 2 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("professionalForm") === 2 ? " active" : "")}>
                     <div className="field full">
                         <span className="lbl">
                         What are you interested in?
@@ -1313,7 +1418,6 @@ function Home({ go }) {
                         </div>
                     </div>
                     </div>
-                )}
 
                 <div className="form-actions">
 
@@ -1339,21 +1443,23 @@ function Home({ go }) {
                     <button
                         type="button"
                         className="button button-primary"
-                        onClick={() => alert("Thank you for joining the interest list!")}
+                        disabled={submitting}
+                        onClick={() => submitInterest("professionalForm")}
                     >
-                        Submit
+                        {submitting ? "Submitting…" : "Join the Interest List"}
                     </button>
                     )}
 
                 </div>
 
-                <p className="form-error" role="alert"></p>
+                <p className="form-error" role="alert">{formErrors.professionalForm}</p>
 
                 <p className="privacy">
                     Joining the interest list does not create a referral,
                     brokerage, lending, or contractual relationship.
                 </p>
                 </form>
+                )
             )}
 
 
@@ -1361,6 +1467,9 @@ function Home({ go }) {
                 GOVERNMENT FORM
             ===================================================== */}
             {activeForm === "governmentForm" && (
+                submitted === "governmentForm" ? (
+                <SuccessPanel />
+                ) : (
                 <form
                 className="form-panel multi-step-form"
                 id="governmentForm"
@@ -1409,8 +1518,7 @@ function Home({ go }) {
                 </div>
 
 
-                {currentStep("governmentForm") === 0 && (
-                    <div className="form-step active">
+                <div className={"form-step" + (currentStep("governmentForm") === 0 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1487,11 +1595,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("governmentForm") === 1 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("governmentForm") === 1 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1544,11 +1650,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("governmentForm") === 2 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("governmentForm") === 2 ? " active" : "")}>
 
                     <label className="field full">
                         <span className="lbl">
@@ -1577,7 +1681,6 @@ function Home({ go }) {
                     </label>
 
                     </div>
-                )}
 
                 <div className="form-actions">
 
@@ -1603,21 +1706,23 @@ function Home({ go }) {
                     <button
                         type="button"
                         className="button button-primary"
-                        onClick={() => alert("Thank you for joining the interest list!")}
+                        disabled={submitting}
+                        onClick={() => submitInterest("governmentForm")}
                     >
-                        Submit
+                        {submitting ? "Submitting…" : "Join the Interest List"}
                     </button>
                     )}
 
                 </div>
 
-                <p className="form-error" role="alert"></p>
+                <p className="form-error" role="alert">{formErrors.governmentForm}</p>
 
                 <p className="privacy">
                     PreQualy is designed to complement existing agency systems
                     and improve visibility, coordination, and utilization.
                 </p>
                 </form>
+                )
             )}
 
 
@@ -1625,6 +1730,9 @@ function Home({ go }) {
                 NONPROFIT FORM
             ===================================================== */}
             {activeForm === "nonprofitForm" && (
+                submitted === "nonprofitForm" ? (
+                <SuccessPanel />
+                ) : (
                 <form
                 className="form-panel multi-step-form"
                 id="nonprofitForm"
@@ -1676,8 +1784,7 @@ function Home({ go }) {
                 </div>
 
 
-                {currentStep("nonprofitForm") === 0 && (
-                    <div className="form-step active">
+                <div className={"form-step" + (currentStep("nonprofitForm") === 0 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1765,11 +1872,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("nonprofitForm") === 1 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("nonprofitForm") === 1 ? " active" : "")}>
                     <div className="field-grid">
 
                         <label className="field">
@@ -1809,11 +1914,9 @@ function Home({ go }) {
 
                     </div>
                     </div>
-                )}
 
 
-                {currentStep("nonprofitForm") === 2 && (
-                    <div className="form-step">
+                <div className={"form-step" + (currentStep("nonprofitForm") === 2 ? " active" : "")}>
                     <div className="field full">
                         <span className="lbl">
                         What are you interested in?
@@ -1878,7 +1981,6 @@ function Home({ go }) {
                         </div>
                     </div>
                     </div>
-                )}
 
                 <div className="form-actions">
 
@@ -1904,21 +2006,23 @@ function Home({ go }) {
                     <button
                         type="button"
                         className="button button-primary"
-                        onClick={() => alert("Thank you for joining the interest list!")}
+                        disabled={submitting}
+                        onClick={() => submitInterest("nonprofitForm")}
                     >
-                        Submit
+                        {submitting ? "Submitting…" : "Join the Interest List"}
                     </button>
                     )}
 
                 </div>
 
-                <p className="form-error" role="alert"></p>
+                <p className="form-error" role="alert">{formErrors.nonprofitForm}</p>
 
                 <p className="privacy">
                     Your information will be used for platform updates,
                     research, and potential coordination discussions.
                 </p>
                 </form>
+                )
             )}
 
             </div>
