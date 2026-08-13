@@ -118,24 +118,17 @@ h1 {
 
 .hero-visual {
   min-height: 460px; border-radius: 32px;
-  background:
-    radial-gradient(circle at 50% 37%, rgba(65,220,236,.4), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.2), rgba(228,248,251,.85)),
-    linear-gradient(135deg, #eaf8fb, #f5fbff);
+  background: #eaf8fb;
   border: 1px solid rgba(207,232,236,.85); box-shadow: var(--shadow);
   position: relative; overflow: hidden; display: grid; place-items: center; padding: 34px;
 }
-.hero-visual::before, .hero-visual::after { content: ""; position: absolute; border-radius: 50%; filter: blur(10px); }
-.hero-visual::before { width: 270px; height: 270px; background: rgba(25,201,219,.16); top: 40px; right: 20px; }
-.hero-visual::after { width: 180px; height: 180px; background: rgba(10,34,51,.08); bottom: 10px; left: 10px; }
 
 .q-emblem {
   width: 210px; height: 210px; border-radius: 50%; position: relative; z-index: 2;
   display: grid; place-items: center;
-  background: radial-gradient(circle at 40% 30%, #41DCEC, #19C9DB 34%, #0D2E45 74%, #0A2233);
-  box-shadow: 0 30px 70px rgba(10,34,51,.30), inset 0 0 26px rgba(65,220,236,.35);
+  background: #19C9DB;
 }
-.keyhole { width: 46px; height: 76px; position: relative; filter: drop-shadow(0 0 10px rgba(65,220,236,.9)); }
+.keyhole { width: 46px; height: 76px; position: relative; }
 .keyhole::before {
   content: ""; position: absolute; top: 0; left: 8px; width: 30px; height: 30px;
   border-radius: 50%; background: #eafcff;

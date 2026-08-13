@@ -430,6 +430,31 @@ function useCountUp(target, run) {
   return v;
 }
 
+/* Social brand icons (not included in lucide-react) */
+function LinkedInIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.94v5.666H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
+    </svg>
+  );
+}
+function XIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+function InstagramIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
 /* Brand mark — the glowing keyhole Q */
 function Keyhole({ size = 44, glow = true }) {
   return (
@@ -470,6 +495,96 @@ async function joinInterestList(email) {
   } catch {
     return { ok: false, demo: false };
   }
+}
+
+/* ---------------------------------------------------------------- Contact form backend
+   Delivers "Send Us a Message" submissions to support@prequaly.ai via the
+   submit-contact Supabase Edge Function, which sends through Mailjet — the
+   same email provider already wired up for the interest-list confirmations.
+   The endpoint is deployed with verify_jwt disabled (like submit-interest),
+   so no anon key is required to call it. */
+const CONTACT_FUNCTION_URL = "https://qpwmfbviwpjtwcqbpkky.supabase.co/functions/v1/submit-contact";
+
+async function sendContactMessage({ name, email, message }) {
+  const res = await fetch(CONTACT_FUNCTION_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, message }),
+  });
+  let body = {};
+  try { body = await res.json(); } catch { /* ignore */ }
+  if (!res.ok) throw new Error(body.error || "Failed to send message. Please try again.");
+  return body;
+}
+
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      await sendContactMessage(form);
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
+    <form className="pq-contact-form" onSubmit={handleSubmit}>
+      <div className="pq-field">
+        <label>Your Name *</label>
+        <input
+          type="text"
+          placeholder="Enter your full name"
+          value={form.name}
+          onChange={update("name")}
+          required
+        />
+      </div>
+      <div className="pq-field">
+        <label>Your Email *</label>
+        <input
+          type="email"
+          placeholder="Enter your email address"
+          value={form.email}
+          onChange={update("email")}
+          required
+        />
+      </div>
+      <div className="pq-field">
+        <label>Your Message</label>
+        <textarea
+          rows={7}
+          placeholder="Write your message here..."
+          value={form.message}
+          onChange={update("message")}
+          required
+        />
+      </div>
+      <button className="pq-cta" disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : "Send Message"}
+      </button>
+      {status === "success" && (
+        <p className="pq-form-status pq-form-status-success" role="status">
+          Thanks — your message has been sent. We'll get back to you within 1–2 business days.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="pq-form-status pq-form-status-error" role="alert">
+          {errorMsg}
+        </p>
+      )}
+    </form>
+  );
 }
 
 /* Scroll-reveal wrapper (no-op under prefers-reduced-motion) */
@@ -855,67 +970,40 @@ export default function PreQualyApp() {
             </p>
           </section>
           <section className="pq-contact-grid">
-            <aside className="pq-contact-info">
-              <div className="pq-info-card">
-                <h3>Get in Touch</h3>
-                <div className="pq-contact-item">
-                  <Mail size={18} />
-                  <div>
-                    <strong>Email</strong>
-                    <a href="mailto:info@prequaly.ai">
-                      info@prequaly.ai
-                    </a>
-                  </div>
-                </div>
-                <div className="pq-contact-item">
-                  <Clock size={18} />
-                  <div>
-                    <strong>Response Time</strong>
-                    <span>Typically within 1–2 business days</span>
-                  </div>
-                </div>
-              </div>
-              <div className="pq-info-card">
-                <h3>Follow Us</h3>
-                <a
-                  className="pq-social-link"
-                  href="https://www.linkedin.com/company/prequaly"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span>LinkedIn</span>
-                </a>
-              </div>
-            </aside>
             <section className="pq-contact-card">
               <h2>Send Us a Message</h2>
-              <form className="pq-contact-form">
-                <div className="pq-field">
-                  <label>Your Name *</label>
-                  <input
-                    type="text"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-                <div className="pq-field">
-                  <label>Your Email *</label>
-                  <input
-                    type="email"
-                    placeholder="Enter your email address"
-                  />
-                </div>
-                <div className="pq-field">
-                  <label>Your Message</label>
-                  <textarea
-                    rows={7}
-                    placeholder="Write your message here..."
-                  />
-                </div>
-                <button className="pq-cta">
-                  Send Message
-                </button>
-              </form>
+              <ContactForm />
             </section>
+            <div className="pq-info-card">
+              <h3>Follow Us</h3>
+              <a
+                className="pq-social-link"
+                href="https://www.linkedin.com/company/prequaly"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <LinkedInIcon size={18} />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                className="pq-social-link"
+                href="https://x.com/PreQualyInc"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XIcon size={18} />
+                <span>@PreQualyInc</span>
+              </a>
+              <a
+                className="pq-social-link"
+                href="https://www.instagram.com/_prequaly/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon size={18} />
+                <span>@_prequaly</span>
+              </a>
+            </div>
           </section>
           <section className="pq-partner-banner">
             <h2>Interested in Partnering With PreQualy?</h2>
@@ -3177,11 +3265,11 @@ button{font-family:inherit}
     margin:auto;
 }
 .pq-contact-grid{
-    display:grid;
-    grid-template-columns:320px 1fr;
+    display:flex;
+    flex-direction:column;
     gap:28px;
-    margin:0 350px 60px;
-    align-items:start;
+    max-width:760px;
+    margin:0 auto 60px;
 }
 .pq-info-card,
 .pq-contact-card{
@@ -3189,10 +3277,8 @@ button{font-family:inherit}
     border:1px solid var(--line);
     border-radius:var(--radius);
     box-shadow:var(--shadow);
-    padding:30px;
-}
-.pq-info-card{
-    margin-bottom:20px;
+    padding:36px;
+    width:100%;
 }
 .pq-info-card h3,
 .pq-contact-card h2{
@@ -3231,6 +3317,12 @@ button{font-family:inherit}
     color:var(--navy);
     font-weight:700;
     transition:.2s ease;
+}
+.pq-social-link + .pq-social-link{
+    margin-top:10px;
+}
+.pq-social-link svg{
+    flex-shrink:0;
 }
 .pq-social-link:hover{
     border-color:var(--teal);
@@ -3275,6 +3367,17 @@ button{font-family:inherit}
 .pq-field textarea{
     resize:vertical;
     min-height:170px;
+}
+.pq-form-status{
+    margin:-4px 0 0;
+    font-size:.92rem;
+    line-height:1.6;
+}
+.pq-form-status-success{
+    color:var(--teal-dark);
+}
+.pq-form-status-error{
+    color:#c0392b;
 }
 .pq-partner-banner{
     background:var(--navy);
@@ -3334,9 +3437,6 @@ button{font-family:inherit}
 @media (max-width:900px){
     .pq-contact{
         padding:50px 18px 70px;
-    }
-    .pq-contact-grid{
-        grid-template-columns:1fr;
     }
     .pq-contact-hero{
         margin-bottom:45px;

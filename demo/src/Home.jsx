@@ -2,11 +2,30 @@ import { useState } from "react";
 
 const SUBMIT_ENDPOINT = "https://qpwmfbviwpjtwcqbpkky.supabase.co/functions/v1/submit-interest";
 
+// Canonical PreQualy link — used in every share message and as the URL
+// platforms fetch Open Graph data from (never window.location.href, which
+// can be a local/dev path with no OG tags, e.g. localhost during testing).
+const PREQUALY_SHARE_URL = "https://prequaly.com/";
+
 function SuccessPanel() {
-  const shareText = encodeURIComponent(
-    "I just joined the @PreQualy interest list - unlocking opportunities for homeownership to millions! Join me:"
-  );
-  const shareUrl = encodeURIComponent(window.location.href);
+  const [igCopied, setIgCopied] = useState(false);
+
+  const xText = `I just joined the @PreQualyInc interest list — PreQualy is unlocking opportunities for homeownership to millions. Join me: ${PREQUALY_SHARE_URL}`;
+  const igText = `I just joined the @_prequaly interest list — PreQualy is unlocking opportunities for homeownership to millions. Join me: ${PREQUALY_SHARE_URL}`;
+
+  // Instagram has no web share-intent that accepts prefilled caption text,
+  // so we copy the caption to the clipboard and hand the user off to the
+  // PreQualy profile to paste it into a post.
+  const shareToInstagram = async () => {
+    try {
+      await navigator.clipboard.writeText(igText);
+      setIgCopied(true);
+      setTimeout(() => setIgCopied(false), 2500);
+    } catch {
+      /* clipboard unavailable — Instagram still opens, caption just isn't pre-copied */
+    }
+    window.open("https://www.instagram.com/_prequaly/", "_blank", "noopener");
+  };
 
   return (
     <div className="form-panel">
@@ -25,18 +44,17 @@ function SuccessPanel() {
             className="button button-primary"
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}`}
           >
             Share on X
           </a>
-          <a
+          <button
+            type="button"
             className="button button-secondary"
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+            onClick={shareToInstagram}
           >
-            Share on Facebook
-          </a>
+            {igCopied ? "Caption Copied!" : "Share on Instagram"}
+          </button>
         </div>
         <button
           type="button"
@@ -298,35 +316,6 @@ function Home({ go }) {
                 role="img"
                 aria-label="A multicultural family standing in front of homes beneath a glowing keyhole"
                 >
-                <defs>
-                    <radialGradient id="glow" cx="50%" cy="42%" r="60%">
-                    <stop offset="0%" stopColor="#41DCEC" />
-                    <stop offset="42%" stopColor="#19C9DB" />
-                    <stop offset="100%" stopColor="#0A2233" />
-                    </radialGradient>
-
-                    <linearGradient
-                    id="roof"
-                    x1="0"
-                    y1="0"
-                    x2="1"
-                    y2="1"
-                    >
-                    <stop offset="0%" stopColor="#19C9DB" />
-                    <stop offset="100%" stopColor="#0FA6B8" />
-                    </linearGradient>
-
-                    <filter
-                    id="soft"
-                    x="-30%"
-                    y="-30%"
-                    width="160%"
-                    height="160%"
-                    >
-                    <feGaussianBlur stdDeviation="10" />
-                    </filter>
-                </defs>
-
                 {/* Ground */}
                 <ellipse
                     cx="300"
@@ -345,16 +334,6 @@ function Home({ go }) {
                     strokeWidth="2"
                 />
 
-                {/* Glow */}
-                <circle
-                    cx="300"
-                    cy="150"
-                    r="120"
-                    fill="#19C9DB"
-                    opacity="0.18"
-                    filter="url(#soft)"
-                />
-
                 {/* Houses */}
                 <g>
 
@@ -370,7 +349,7 @@ function Home({ go }) {
 
                     <path
                     d="M60 332 L130 286 L200 332 Z"
-                    fill="url(#roof)"
+                    fill="#19C9DB"
                     />
 
                     <rect
@@ -412,7 +391,7 @@ function Home({ go }) {
 
                     <path
                     d="M400 318 L475 268 L550 318 Z"
-                    fill="url(#roof)"
+                    fill="#19C9DB"
                     />
 
                     <rect
@@ -493,7 +472,7 @@ function Home({ go }) {
                     cx="300"
                     cy="150"
                     r="96"
-                    fill="url(#glow)"
+                    fill="#19C9DB"
                 />
 
                 <g fill="#EAFCFF">
