@@ -651,14 +651,12 @@ export default function PreQualyApp() {
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
           {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
-          <NavBtn on={tab === "programs"} onClick={() => go("programs")} icon={Search} label="For Homebuyers" dropdown>
-            <button onClick={() => go("overview")}>Overview</button>
-            <button onClick={() => go("homes")}>How it works</button>
-          </NavBtn>
-          <NavBtn on={tab === "dashboard"} onClick={() => go("dashboard")} icon={LayoutDashboard} label="For Partners" dropdown>
-            <button onClick={() => go("programs")}>Nonprofits</button>
-            <button onClick={() => go("homes")}>Government Agencies</button>
-            <button onClick={() => go("connect")}>Real Estate Professionals</button>
+          <NavBtn on={tab === "whoserve"} onClick={() => go("whoserve")} icon={Search} label="Who We Serve" />
+          <NavBtn on={tab === "partners"} onClick={() => go("partners")} icon={LayoutDashboard} label="For Partners" dropdown>
+            <button onClick={() => go("partners-gov")}>Government Agencies</button>
+            <button onClick={() => go("partners-nonprofit")}>Nonprofits</button>
+            <button onClick={() => go("partners-lender")}>Lenders</button>
+            <button onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
           </NavBtn>
           <NavBtn on={tab === "faqs" || tab === "news"} icon={LayoutDashboard} label="Resources" dropdown>
             <button onClick={() => go("faqs")}>FAQs</button>
@@ -962,6 +960,315 @@ export default function PreQualyApp() {
       {tab === "resources" && <Resources onStart={startIntake} />}
 
       {tab === "interest" && <InterestList />}
+
+      {tab === "whoserve" || tab === "whoserve-buyers" || tab === "whoserve-pro" || tab === "whoserve-nonprofit" || tab === "whoserve-gov" ? (
+        <main className="pq-whoserve">
+          <section className="pq-whoserve-hero">
+            <span className="pq-section-tag">Who PreQualy Is For</span>
+            <h1>Expanding Access to the <span>Homeownership Ecosystem</span></h1>
+            <p>
+              PreQualy is designed for the people and organizations working to make homeownership more accessible. By bringing fragmented housing information into one centralized platform, PreQualy helps future homebuyers explore possible pathways to purchasing a home while helping housing professionals and community partners reach, prepare, and support more buyers.
+            </p>
+          </section>
+
+          <nav className="pq-whoserve-tabs">
+            <button 
+              className={"pq-whoserve-tab " + (tab === "whoserve" || tab === "whoserve-buyers" ? "active" : "")}
+              onClick={() => setTab("whoserve-buyers")}
+            >
+              Future Homebuyers
+            </button>
+            <button 
+              className={"pq-whoserve-tab " + (tab === "whoserve-pro" ? "active" : "")}
+              onClick={() => setTab("whoserve-pro")}
+            >
+              Real Estate Professionals
+            </button>
+            <button 
+              className={"pq-whoserve-tab " + (tab === "whoserve-nonprofit" ? "active" : "")}
+              onClick={() => setTab("whoserve-nonprofit")}
+            >
+              Nonprofits
+            </button>
+            <button 
+              className={"pq-whoserve-tab " + (tab === "whoserve-gov" ? "active" : "")}
+              onClick={() => setTab("whoserve-gov")}
+            >
+              Government Agencies
+            </button>
+          </nav>
+
+          {(tab === "whoserve" || tab === "whoserve-buyers") && (
+            <section className="pq-whoserve-content">
+              <h2>Future Homebuyers</h2>
+              <p>
+                Finding a path to homeownership can be overwhelming. Loan products, down payment assistance, closing cost support, homebuyer grants, and income-restricted housing opportunities are often offered by different organizations, governed by different requirements, and published in different places.
+              </p>
+              <p>
+                PreQualy helps future homebuyers explore potential resources based on factors such as where they want to buy, household size, household income, and other relevant information. Instead of searching across numerous websites or learning about an opportunity after it has closed, buyers can gain a clearer view of programs that may align with their circumstances and homeownership goals.
+              </p>
+              <p>
+                Exploring potential options through PreQualy does not require a hard credit inquiry and does not lock a buyer into a particular lender, real estate professional, or financial product. PreQualy is not a lender and does not make loan approval or underwriting decisions. Instead, it helps buyers become more informed, better prepared, and better positioned to take the next step with qualified housing and financial professionals.
+              </p>
+              <h3>Through PreQualy, future homebuyers may be able to:</h3>
+              <ul className="pq-whoserve-list">
+                <li>Explore potential mortgage products, grants, and homebuyer assistance programs in one place</li>
+                <li>Identify programs that may align with their location, income, household composition, or intended purchase</li>
+                <li>Better understand the requirements, deadlines, and next steps associated with different opportunities</li>
+                <li>Discover potential ways to combine available resources when program rules allow</li>
+                <li>Prepare for more productive conversations with lenders, housing counselors, and real estate professionals</li>
+                <li>Move forward with greater clarity, confidence, and control</li>
+              </ul>
+              <p>
+                PreQualy is especially valuable for first-generation buyers, first-time homebuyers, working- and middle-income households, and people who may be closer to homeownership than they realize but lack access to clear, coordinated information.
+              </p>
+            </section>
+          )}
+
+          {tab === "whoserve-pro" && (
+            <section className="pq-whoserve-content">
+              <h2>Real Estate Professionals, Developers, and Lenders</h2>
+              <p>
+                Many prospective buyers are capable of becoming homeowners but need additional preparation, the right loan product, access to financial assistance, or a home that aligns with specific affordability requirements. Real estate professionals, developers, and lenders often encounter these barriers after the home search or financing process has already begun.
+              </p>
+              <p>
+                PreQualy is designed to help agents, brokers, developers, loan officers, and financial institutions identify and address potential affordability or readiness gaps earlier. By increasing awareness of available programs, financing products, and affordable homeownership opportunities, PreQualy can support stronger buyer preparation and more efficient transactions.
+              </p>
+              <h3>For professionals across the homeownership ecosystem, PreQualy can help:</h3>
+              <ul className="pq-whoserve-list">
+                <li>Expand the pool of prospective buyers by identifying additional pathways to homeownership</li>
+                <li>Connect buyers with loan products, assistance programs, and available homes that may complement their financial profiles</li>
+                <li>Build stronger pipelines of informed and better-prepared buyers</li>
+                <li>Increase visibility for affordable, workforce, mixed-income, and income-restricted homes</li>
+                <li>Reduce avoidable delays caused by missing information, program deadlines, or financing surprises</li>
+                <li>Lower the risk of transactions falling through because affordability requirements or assistance options were identified too late</li>
+                <li>Improve coordination among buyers, lenders, agents, developers, housing counselors, and assistance providers</li>
+                <li>Support more informed and consistent communication throughout the purchasing process</li>
+                <li>Advance responsible outreach and fair housing practices by making information more broadly accessible</li>
+              </ul>
+              <p>
+                PreQualy does not replace professional advice, underwriting, income verification, or required eligibility determinations. It provides an additional layer of housing intelligence that helps professionals guide buyers and coordinate resources more effectively.
+              </p>
+            </section>
+          )}
+
+          {tab === "whoserve-nonprofit" && (
+            <section className="pq-whoserve-content">
+              <h2>Nonprofits and Foundations</h2>
+              <p>
+                Nonprofits, community-based organizations, and philanthropic institutions invest significant resources in housing stability, financial capability, down payment assistance, and equitable access to homeownership. Yet many programs remain underutilized because the people who could benefit from them do not know they exist or cannot easily determine where to begin.
+              </p>
+              <p>
+                PreQualy helps mission-driven organizations increase the visibility and reach of their programs. By connecting program information with households actively exploring homeownership, PreQualy can help close the gap between funding availability and community participation.
+              </p>
+              <h3>Nonprofits and foundations can use PreQualy to:</h3>
+              <ul className="pq-whoserve-list">
+                <li>Increase awareness of homeownership programs and financial resources</li>
+                <li>Reach prospective participants beyond their existing networks</li>
+                <li>Improve the utilization of available funds and services</li>
+                <li>Direct households toward relevant programs earlier in their homeownership journey</li>
+                <li>Strengthen referral relationships across the housing ecosystem</li>
+                <li>Identify recurring barriers that prevent eligible households from accessing assistance</li>
+                <li>Better understand how resources translate into applications, referrals, and potential homeownership outcomes</li>
+                <li>Demonstrate the reach and impact of housing-related investments</li>
+              </ul>
+              <p>
+                PreQualy serves as both a distribution channel and a partnership platform, helping mission-driven organizations extend their impact without having to build separate technology or outreach infrastructure.
+              </p>
+            </section>
+          )}
+
+          {tab === "whoserve-gov" && (
+            <section className="pq-whoserve-content">
+              <h2>Government Agencies</h2>
+              <p>
+                Cities, counties, housing authorities, and other public agencies administer programs intended to expand access to safe, stable, and affordable housing. These programs may include down payment assistance, closing cost assistance, affordable mortgage products, income-restricted homes, homebuyer education, and other locally funded opportunities.
+              </p>
+              <p>
+                However, fragmented information, limited outreach capacity, complex eligibility requirements, and manual administrative processes can make it difficult for residents to find and navigate these resources.
+              </p>
+              <p>
+                PreQualy is designed to help public agencies improve how housing opportunities are communicated, accessed, and monitored. By centralizing program information and helping residents identify potentially relevant resources, PreQualy supports a more proactive and transparent approach to public program delivery.
+              </p>
+              <h3>Public agencies can benefit from:</h3>
+              <ul className="pq-whoserve-list">
+                <li>Increased visibility and utilization of publicly funded housing programs</li>
+                <li>Broader and more equitable community outreach</li>
+                <li>Clearer communication of eligibility requirements, deadlines, and available funding</li>
+                <li>Reduced administrative burden associated with repetitive inquiries and initial program navigation</li>
+                <li>Better coordination with lenders, nonprofits, developers, and real estate professionals</li>
+                <li>Greater insight into demand, participation barriers, and unmet community needs</li>
+                <li>Stronger documentation to support program monitoring, reporting, and planning</li>
+                <li>Improved transparency around the availability and use of public resources</li>
+              </ul>
+              <p>
+                PreQualy does not replace an agency's formal application, eligibility review, or compliance processes. It helps agencies make opportunities easier to discover and navigate while supporting more informed program administration.
+              </p>
+            </section>
+          )}
+        </main>
+      ) : null}
+
+      {tab === "partners" || tab === "partners-gov" || tab === "partners-nonprofit" || tab === "partners-lender" || tab === "partners-realestate" ? (
+        <main className="pq-partners">
+          <section className="pq-partners-hero">
+            <span className="pq-section-tag">Partners</span>
+            <h1>Built to Align <span>Incentives Across the Homeownership Ecosystem</span></h1>
+            <p>
+              The path to homeownership rarely depends on one organization. A successful purchase may involve a public assistance program, a nonprofit housing counselor, a participating lender, a real estate professional, a developer, and one or more sources of financial support.
+            </p>
+            <p>
+              Yet these participants often operate through separate systems, timelines, and requirements. The result is fragmented information, duplicated work, missed opportunities, and unnecessary delays for both buyers and professionals.
+            </p>
+            <p>
+              PreQualy is designed as shared housing infrastructure that connects these parts of the ecosystem. The platform helps partners improve coordination, increase transparency, and connect future homebuyers with resources that may strengthen their ability to purchase a home.
+            </p>
+            <p>
+              Our partnership model is built around a shared objective: helping more households move from interest in homeownership to informed preparation and, ultimately, a sustainable purchase.
+            </p>
+          </section>
+
+          <nav className="pq-partners-tabs">
+            <button 
+              className={"pq-partners-tab " + (tab === "partners" || tab === "partners-gov" ? "active" : "")}
+              onClick={() => setTab("partners-gov")}
+            >
+              Government Agencies
+            </button>
+            <button 
+              className={"pq-partners-tab " + (tab === "partners-nonprofit" ? "active" : "")}
+              onClick={() => setTab("partners-nonprofit")}
+            >
+              Nonprofits
+            </button>
+            <button 
+              className={"pq-partners-tab " + (tab === "partners-lender" ? "active" : "")}
+              onClick={() => setTab("partners-lender")}
+            >
+              Lenders
+            </button>
+            <button 
+              className={"pq-partners-tab " + (tab === "partners-realestate" ? "active" : "")}
+              onClick={() => setTab("partners-realestate")}
+            >
+              Real Estate Professionals
+            </button>
+          </nav>
+
+          {(tab === "partners" || tab === "partners-gov") && (
+            <section className="pq-partners-content">
+              <h2>Government Agencies and Housing Authorities</h2>
+              <p>
+                PreQualy helps public agencies make housing programs more visible, accessible, and easier to navigate. By placing program information where future homebuyers and housing professionals can find it, agencies can extend their reach beyond traditional outreach channels.
+              </p>
+              <h3>PreQualy can support agencies in:</h3>
+              <ul className="pq-partners-list">
+                <li>Promoting down payment assistance, closing cost assistance, affordable mortgage, and homeownership programs</li>
+                <li>Reaching residents who may qualify but are not currently connected to an agency or service provider</li>
+                <li>Communicating program requirements, application periods, funding availability, and other updates</li>
+                <li>Supporting fair and consistent access to publicly funded opportunities</li>
+                <li>Identifying patterns in demand, participation, and program utilization</li>
+                <li>Strengthening coordination with community organizations, lenders, developers, and real estate professionals</li>
+                <li>Supporting reporting, planning, and program improvement with clearer participation insights</li>
+              </ul>
+              <p>
+                The goal is to help agencies move from waiting for residents to find individual programs toward proactively connecting residents with potential homeownership pathways.
+              </p>
+            </section>
+          )}
+
+          {tab === "partners-nonprofit" && (
+            <section className="pq-partners-content">
+              <h2>Nonprofits and Foundations</h2>
+              <p>
+                PreQualy helps nonprofits and foundations increase the reach and practical impact of their housing investments. Whether an organization provides grants, counseling, education, financial coaching, or direct homebuyer assistance, PreQualy can help connect those resources with households actively seeking a path to ownership.
+              </p>
+              <p>
+                As a distribution and impact amplifier, PreQualy can help partners:
+              </p>
+              <ul className="pq-partners-list">
+                <li>Increase awareness of available services and funding</li>
+                <li>Reach communities that may be underserved by traditional outreach</li>
+                <li>Improve referrals to homebuyer education, counseling, and assistance programs</li>
+                <li>Reduce the gap between a program's intended audience and its actual participants</li>
+                <li>Identify opportunities for collaborative funding and program development</li>
+                <li>Strengthen partnerships across the public, nonprofit, and private sectors</li>
+                <li>Capture information that supports learning, evaluation, and impact reporting</li>
+              </ul>
+              <p>
+                For foundations, this creates a stronger connection between funding intent and real-world outcomes. For nonprofit service providers, it provides a pathway to reach more households without significantly expanding administrative or marketing capacity.
+              </p>
+            </section>
+          )}
+
+          {tab === "partners-lender" && (
+            <section className="pq-partners-content">
+              <h2>Lenders and Financial Institutions</h2>
+              <p>
+                Lenders and financial institutions play a critical role in transforming homeownership goals into sustainable financing. However, prospective borrowers are not always aware of the loan products, flexible underwriting options, or external assistance programs that may support their purchase.
+              </p>
+              <p>
+                PreQualy helps participating lenders place appropriate products in front of prospective buyers while supporting better alignment between private financing and public or philanthropic resources.
+              </p>
+              <h3>Potential benefits include:</h3>
+              <ul className="pq-partners-list">
+                <li>Reaching prospective borrowers who are actively exploring homeownership</li>
+                <li>Increasing awareness of specialized, affordable, and community-focused mortgage products</li>
+                <li>Helping buyers identify complementary grants or assistance programs</li>
+                <li>Supporting stronger buyer preparation before formal underwriting begins</li>
+                <li>Reducing fallout caused by preventable information or affordability gaps</li>
+                <li>Strengthening relationships with public agencies, nonprofit organizations, developers, and real estate professionals</li>
+                <li>Supporting responsible lending, community development, and financial inclusion goals</li>
+              </ul>
+              <p>
+                PreQualy does not make credit decisions or guarantee borrower eligibility. Formal qualification, underwriting, disclosures, and loan approval remain the responsibility of the participating financial institution.
+              </p>
+            </section>
+          )}
+
+          {tab === "partners-realestate" && (
+            <section className="pq-partners-content">
+              <h2>Real Estate Professionals and Developers</h2>
+              <p>
+                Real estate professionals and developers share a common goal: connecting prepared buyers with homes they can realistically and sustainably purchase. Yet fragmented program information, affordability requirements, and financing barriers can delay transactions, limit buyer access, and increase the risk that otherwise viable sales will fall through.
+              </p>
+              <p>
+                PreQualy helps agents, brokers, and developers connect prospective buyers with potential loan products, grants, down payment assistance, and affordable homeownership opportunities earlier in the purchasing process. This creates a more coordinated path between buyer preparation, available housing, and financing resources.
+              </p>
+              <p>
+                For agents and brokers, PreQualy can strengthen buyer readiness by helping clients explore potential resources before financing barriers disrupt a transaction. For developers, particularly those building affordable, workforce, mixed-income, or inclusionary housing, PreQualy can increase the visibility of available homes and support outreach to households whose profiles may align with applicable affordability requirements.
+              </p>
+              <h3>Through partnership with PreQualy, real estate professionals and developers can:</h3>
+              <ul className="pq-partners-list">
+                <li>Connect prospective buyers with potential financing and assistance resources earlier</li>
+                <li>Build stronger pipelines of informed and better-prepared buyers</li>
+                <li>Increase visibility for affordable, workforce, mixed-income, and income-restricted homes</li>
+                <li>Reach households that may align with targeted income ranges or program requirements</li>
+                <li>Reduce financing surprises and affordability barriers discovered late in the transaction</li>
+                <li>Lower the risk of sales falling through because available assistance was not identified in time</li>
+                <li>Support outreach, documentation, and reporting associated with affordability commitments</li>
+                <li>Coordinate more effectively with lenders, public agencies, housing counselors, and nonprofit organizations</li>
+                <li>Reduce the time required to identify potentially aligned buyers for available properties</li>
+                <li>Accelerate sales and absorption while preserving affordability and community objectives</li>
+                <li>Expand responsible access to homeownership for first-time, first-generation, and historically underserved buyers</li>
+              </ul>
+              <p>
+                PreQualy does not act as a real estate brokerage or make formal buyer qualification or eligibility decisions. All lending, income verification, underwriting, regulatory compliance, and program eligibility determinations remain with the appropriate licensed professionals, agencies, developers, and program administrators. PreQualy improves discovery and early alignment so those professionals can guide prospective buyers more efficiently.
+              </p>
+            </section>
+          )}
+
+          <section className="pq-partners-forward">
+            <h2>A Shared Path Forward</h2>
+            <p>
+              PreQualy is more than a directory of housing programs. It is being built as connective infrastructure for a homeownership system that is currently fragmented across sectors, organizations, and jurisdictions.
+            </p>
+            <p>
+              By helping partners share opportunities, reach prospective buyers, and coordinate resources more effectively, PreQualy can strengthen the entire pathway to homeownership without requiring any one organization to solve the problem alone.
+            </p>
+          </section>
+        </main>
+      ) : null}
 
       {tab === "about" && (
         <main className="pq-about">
@@ -3382,5 +3689,47 @@ button{font-family:inherit}
 .pq-button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 @media(max-width:900px){.pq-founder-intro-grid{grid-template-columns:1fr}.pq-founder-model-grid{grid-template-columns:1fr 1fr}.pq-founder-section{padding:60px 20px}}
 @media(max-width:650px){.pq-founder-hero{padding:65px 20px 50px}.pq-founder-hero h1{font-size:clamp(36px,10vw,52px)}.pq-founder-section{padding:50px 20px}.pq-founder-profile,.pq-founder-insight{padding:28px}.pq-founder-model-grid{grid-template-columns:1fr}.pq-founder-idea{margin:10px 12px 0;padding:65px 20px}.pq-founder-vision{margin:10px 12px 0;padding:65px 20px}.pq-founder-idea h2,.pq-founder-vision h2{font-size:34px}}
+
+/* Who We Serve Page */
+.pq-whoserve{min-height:100%;background:var(--bg)}
+.pq-whoserve-hero{text-align:center;max-width:820px;margin:0 auto;padding:90px 24px 70px}
+.pq-whoserve-hero h1{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(38px,5vw,64px);line-height:1.05;letter-spacing:-.045em;margin:0 0 22px}
+.pq-whoserve-hero h1 span{color:var(--teal)}
+.pq-whoserve-hero>p{max-width:700px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.75}
+.pq-whoserve-tabs{display:flex;gap:12px;max-width:820px;margin:0 auto;padding:0 24px 32px;border-bottom:1px solid var(--line);justify-content:center;flex-wrap:wrap}
+.pq-whoserve-tab{background:none;border:none;padding:12px 0;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:color .2s,border-color .2s}
+.pq-whoserve-tab:hover{color:var(--teal)}
+.pq-whoserve-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.pq-whoserve-content{max-width:820px;margin:0 auto;padding:50px 24px}
+.pq-whoserve-content h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.03em;margin:0 0 24px}
+.pq-whoserve-content p{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 20px}
+.pq-whoserve-content h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:18px;font-weight:600;margin:24px 0 16px}
+.pq-whoserve-list{list-style:none;padding:0;margin:0 0 20px}
+.pq-whoserve-list li{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 12px;padding-left:28px;position:relative}
+.pq-whoserve-list li:before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700}
+@media(max-width:800px){.pq-whoserve-hero{padding:65px 20px 50px}.pq-whoserve-tabs{padding:0 20px 24px}.pq-whoserve-content{padding:40px 20px}}
+
+/* Partners Page */
+.pq-partners{min-height:100%;background:var(--bg)}
+.pq-partners-hero{text-align:center;max-width:820px;margin:0 auto;padding:90px 24px 70px}
+.pq-partners-hero h1{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(36px,4vw,52px);line-height:1.05;letter-spacing:-.045em;margin:0 0 22px}
+.pq-partners-hero h1 span{color:var(--teal)}
+.pq-partners-hero p{max-width:700px;margin:0 auto 16px;color:var(--muted);font-size:16px;line-height:1.8}
+.pq-partners-tabs{display:flex;gap:12px;max-width:820px;margin:0 auto;padding:0 24px 32px;border-bottom:1px solid var(--line);justify-content:center;flex-wrap:wrap}
+.pq-partners-tab{background:none;border:none;padding:12px 0;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:color .2s,border-color .2s}
+.pq-partners-tab:hover{color:var(--teal)}
+.pq-partners-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.pq-partners-content{max-width:820px;margin:0 auto;padding:50px 24px}
+.pq-partners-content h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.03em;margin:0 0 24px}
+.pq-partners-content p{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 20px}
+.pq-partners-content h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:18px;font-weight:600;margin:24px 0 16px}
+.pq-partners-list{list-style:none;padding:0;margin:0 0 20px}
+.pq-partners-list li{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 12px;padding-left:28px;position:relative}
+.pq-partners-list li:before{content:'•';position:absolute;left:0;color:var(--teal);font-weight:700}
+.pq-partners-forward{max-width:820px;margin:0 auto;padding:50px 24px;background:var(--panel);border-radius:22px;text-align:center}
+.pq-partners-forward h2{font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.03em;margin:0 0 24px}
+.pq-partners-forward p{color:var(--muted);font-size:16px;line-height:1.8;margin:0 0 16px}
+.pq-partners-forward p:last-child{margin-bottom:0}
+@media(max-width:800px){.pq-partners-hero{padding:65px 20px 50px}.pq-partners-content{padding:40px 20px}.pq-partners-tabs{padding:0 20px 24px}.pq-partners-forward{padding:40px 20px}}
 `;
 
