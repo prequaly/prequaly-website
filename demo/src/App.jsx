@@ -1684,7 +1684,7 @@ function Intake({ f, setF, step, setStep, onFinish, onCancel }) {
               onChange={(v) => set("first_time")(v === "no" ? "yes" : "no")} />
           </Field>
           <Field label="Did your parents own a home?" hint="'no' unlocks first-generation programs">
-            <Choice options={["no", "yes"]} value={f.first_generation === "yes" ? "yes" : "no"}
+            <Choice options={["no", "yes"]} value={f.first_generation === "yes" ? "no" : "yes"}
               onChange={(v) => set("first_generation")(v === "yes" ? "no" : "yes")} />
           </Field>
           <Field label="Veteran or active-duty service member?" hint="unlocks VA & CalVet pathways">
