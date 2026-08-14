@@ -761,7 +761,7 @@ export default function PreQualyApp() {
       <style>{CSS}</style>
       <header className="pq-head">
         <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
-          <img src="/PreQualy%20Logo.svg" alt="PreQualy" className="pq-brand-logo"/>
+          <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
         </button>
         <nav className="pq-nav" aria-label="Main">
           <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
@@ -1772,7 +1772,7 @@ export default function PreQualyApp() {
             {/* Brand */}
             <div className="pq-foot-brand">
               <div className="pq-foot-logo">
-                <img src="/PreQualy%20Logo.svg" alt="PreQualy" className="pq-brand-logo"/>
+                <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
               </div>
 
               <p className="pq-foot-desc">
