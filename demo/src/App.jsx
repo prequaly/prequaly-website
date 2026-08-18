@@ -7,7 +7,7 @@ import {
   Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
   Building2, Users, Info, Clock, Tag, HeartHandshake, BadgeCheck, Star,
   Bookmark, BookmarkCheck, GraduationCap, Wallet, FileText, Search,
-  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown, Target, Eye, Lightbulb
+  LayoutDashboard, Link2, Medal, ChevronRight, CircleDollarSign, Bell, Layers, Mail, HelpCircle, Play, ChevronDown, Target, Eye, Lightbulb, Menu, X
 } from "lucide-react";
 
 /* =====================================================================
@@ -723,6 +723,7 @@ export default function PreQualyApp() {
   const [consent, setConsent] = useState(false);
   const [referral, setReferral] = useState(null);    // {pro, at} once requested
   const [homeFilter, setHomeFilter] = useState("all");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     const id = "pq-fonts";
@@ -746,7 +747,7 @@ export default function PreQualyApp() {
   }), [f]);
 
   const hasProfile = !!results;
-  const go = (t) => { setTab(t); window.scrollTo(0, 0); };
+  const go = (t) => { setTab(t); setMobileNavOpen(false); window.scrollTo(0, 0); };
   const startIntake = () => { setIntakeStep(1); go("programs"); };
   const finishIntake = () => { setResults(runEngine(hh)); setIntakeStep(0); window.scrollTo(0, 0); };
   const rerun = () => setResults(runEngine(hh));
@@ -779,8 +780,61 @@ export default function PreQualyApp() {
           </NavBtn>
           <NavBtn on={tab === "contact"} onClick={() => go("contact")} icon={Users} label="Contact" />
         </nav>
-        <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button> 
+        <div className="pq-head-actions">
+          <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button>
+          <button
+            className="pq-mobile-menu-btn"
+            aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileNavOpen}
+            onClick={() => setMobileNavOpen((v) => !v)}
+          >
+            {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </header>
+
+      {mobileNavOpen && (
+        <nav className="pq-mobile-nav" aria-label="Mobile">
+          <button
+            className={"pq-mobile-navlink" + (tab === "home" ? " on" : "")}
+            onClick={() => go("home")}
+          >
+            Home
+          </button>
+          <button
+            className={"pq-mobile-navlink" + (tab === "whoserve" ? " on" : "")}
+            onClick={() => go("whoserve")}
+          >
+            Who We Serve
+          </button>
+
+          <div className="pq-mobile-navgroup">
+            <button
+              className={"pq-mobile-navlink" + (tab === "partners" ? " on" : "")}
+              onClick={() => go("partners")}
+            >
+              For Partners
+            </button>
+            <button className="pq-mobile-navsublink" onClick={() => go("partners-gov")}>Government Agencies</button>
+            <button className="pq-mobile-navsublink" onClick={() => go("partners-nonprofit")}>Nonprofits</button>
+            <button className="pq-mobile-navsublink" onClick={() => go("partners-lender")}>Lenders</button>
+            <button className="pq-mobile-navsublink" onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
+          </div>
+
+          <div className="pq-mobile-navgroup">
+            <p className="pq-mobile-navgroup-label">Resources</p>
+            <button className="pq-mobile-navsublink" onClick={() => go("faqs")}>FAQs</button>
+            <button className="pq-mobile-navsublink" onClick={() => go("news")}>News</button>
+          </div>
+
+          <button
+            className={"pq-mobile-navlink" + (tab === "contact" ? " on" : "")}
+            onClick={() => go("contact")}
+          >
+            Contact
+          </button>
+        </nav>
+      )}
 
       {tab === "home" && <Home go={go} />}
 
@@ -1790,9 +1844,9 @@ export default function PreQualyApp() {
             {/* Partners */}
             <div className="pq-foot-col">
               <h4>For Partners</h4>
-              <button onClick={() => go("programs")}>Nonprofits</button>
-              <button onClick={() => go("programs")}>Government Agencies</button>
-              <button onClick={() => go("homes")}>Real Estate Professionals</button>
+              <button onClick={() => go("partners-nonprofit")}>Nonprofits</button>
+              <button onClick={() => go("partners-gov")}>Government Agencies</button>
+              <button onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
             </div>
 
             {/* Resources */}
@@ -2647,6 +2701,10 @@ button{font-family:inherit}
 .pq-nav-cta:hover{
   background:var(--teal-dark);
 }
+.pq-head-actions{display:flex;align-items:center;gap:8px;justify-self:end}
+.pq-mobile-menu-btn{display:none;align-items:center;justify-content:center;background:none;border:none;color:#fff;cursor:pointer;padding:6px;border-radius:8px}
+.pq-mobile-menu-btn:hover{color:var(--teal-bright)}
+.pq-mobile-nav{display:none}
 .pq-interest-page{
   flex:1;
   display:flex;
@@ -2723,9 +2781,22 @@ button{font-family:inherit}
 @media(max-width:900px){
   .pq-head{grid-template-columns:1fr auto;padding:10px 16px}
   .pq-nav{display:none}
-  .pq-nav-cta{justify-self:end;font-size:13px;padding:9px 14px}
+  .pq-nav-cta{font-size:13px;padding:9px 14px}
+  .pq-mobile-menu-btn{display:flex}
+  .pq-mobile-nav{display:flex;flex-direction:column;background:var(--navy);padding:10px 16px 22px;gap:2px;max-height:calc(100vh - 60px);overflow-y:auto}
 }
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
+
+/* mobile nav panel */
+.pq-mobile-navlink{display:block;width:100%;text-align:left;background:none;border:none;color:#fff;
+  font-size:15px;font-weight:600;padding:12px 8px;cursor:pointer;border-radius:8px}
+.pq-mobile-navlink:hover{color:var(--teal-bright)}
+.pq-mobile-navlink.on{color:var(--teal-bright)}
+.pq-mobile-navgroup{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.12);margin-top:4px;padding-top:4px}
+.pq-mobile-navgroup-label{margin:10px 8px 2px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.pq-mobile-navsublink{display:block;width:100%;text-align:left;background:none;border:none;color:rgba(255,255,255,.85);
+  font-size:14px;font-weight:500;padding:10px 8px 10px 20px;cursor:pointer;border-radius:8px}
+.pq-mobile-navsublink:hover{color:#fff;background:rgba(255,255,255,.06)}
 
 /* landing */
 .pq-landing{flex:1;width:100%;max-width:1280px;margin:0 auto;padding:48px 24px 40px}
@@ -3709,14 +3780,14 @@ button{font-family:inherit}
 .pq-about-info-card p:not(.pq-eyebrow){color:var(--muted);font-size:14px;line-height:1.75;margin:0 0 15px;}
 .pq-about-info-card p:last-child{margin-bottom:0;}
 /* Growth section */
-.pq-about-growth{margin-top:40px;background:var(--navy);color:#fff;padding:90px 24px; margin-left:350px;margin-right:350px;border-radius:20px}
+.pq-about-growth{max-width:900px;margin:40px auto 0;background:var(--navy);color:#fff;padding:90px 24px;border-radius:20px}
 .pq-about-growth-inner{max-width:850px;margin:0 auto;text-align:center;}
 .pq-about-growth .pq-eyebrow{color:var(--teal-bright);}
 .pq-about-growth h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(32px,4vw,48px);line-height:1.1;letter-spacing:-.035em;margin:0 0 26px;}
 .pq-about-growth p:not(.pq-eyebrow){color:rgba(255,255,255,.78);font-size:15px;line-height:1.8;margin:0 auto 18px;}
 .pq-about-button{margin-top:18px;display:inline-flex;align-items:center;gap:8px;}
 /* Responsive */
-@media(max-width:800px){.pq-about-hero{padding:65px 20px 50px;}.pq-process-grid,.pq-about-two-column{grid-template-columns:1fr;}.pq-about-section{padding:50px 20px;}.pq-about-info-card{padding:28px;}.pq-about-growth{padding:65px 20px;}}
+@media(max-width:800px){.pq-about-hero{padding:65px 20px 50px;}.pq-process-grid,.pq-about-two-column{grid-template-columns:1fr;}.pq-about-section{padding:50px 20px;}.pq-about-info-card{padding:28px;}.pq-about-growth{padding:65px 20px;margin-left:20px;margin-right:20px;}}
 
 //careers pg
 .pq-careers{min-height:100%;}
