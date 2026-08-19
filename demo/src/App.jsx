@@ -797,6 +797,11 @@ export default function PreQualyApp() {
               <button onClick={() => go("faqs")}>FAQs</button>
               <button onClick={() => go("news")}>News</button>
             </NavBtn>
+            <NavBtn on={tab === "about" || tab === "founderstory" || tab === "careers"} icon={Info} label="Company" dropdown>
+              <button onClick={() => go("about")}>About Us</button>
+              <button onClick={() => go("founderstory")}>Founder Story</button>
+              <button onClick={() => go("careers")}>Careers</button>
+            </NavBtn>
             <NavBtn on={tab === "contact"} onClick={() => go("contact")} icon={Users} label="Contact" />
           </nav>
           <div className="pq-head-actions">
@@ -844,6 +849,13 @@ export default function PreQualyApp() {
               <p className="pq-mobile-navgroup-label">Resources</p>
               <button className="pq-mobile-navsublink" onClick={() => go("faqs")}>FAQs</button>
               <button className="pq-mobile-navsublink" onClick={() => go("news")}>News</button>
+            </div>
+
+            <div className="pq-mobile-navgroup">
+              <p className="pq-mobile-navgroup-label">Company</p>
+              <button className="pq-mobile-navsublink" onClick={() => go("about")}>About Us</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("founderstory")}>Founder Story</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("careers")}>Careers</button>
             </div>
 
             <button
