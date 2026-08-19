@@ -1,0 +1,168 @@
+/* Isolated stylesheet for the /editarticles admin route.
+   Never loaded by the public marketing site (App.jsx) and vice versa. */
+
+:root{
+  --navy:#0A2233;
+  --cyan:#19C9DB;
+  --cyan-soft:#E4F8FB;
+  --teal:#0FA6B8;
+  --teal-dark:#0FA6B8;
+  --line:#DFE9EF;
+  --muted:#61708F;
+  --surface:#FFFFFF;
+  --ink:#16324A;
+  --shadow:0 18px 50px rgba(10,34,51,.10);
+  --radius:22px;
+}
+
+*{box-sizing:border-box}
+body{margin:0}
+
+.adm-loading,
+.adm-login-wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--cyan-soft);
+  font-family:"Inter",sans-serif;
+  color:var(--ink);
+  padding:20px;
+}
+
+.adm-login-card{
+  width:100%;
+  max-width:380px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:36px 32px;
+}
+.adm-login-card h1{
+  font-family:"Manrope",sans-serif;
+  color:var(--navy);
+  font-size:1.4rem;
+  margin:0 0 8px;
+}
+
+.adm-muted{color:var(--muted);font-size:.9rem;line-height:1.6;margin:0 0 20px}
+
+.adm-field{display:block;margin-bottom:16px}
+.adm-field label{display:block;font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:7px}
+.adm-field input,
+.adm-field select,
+.adm-field textarea{
+  width:100%;
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:11px;
+  padding:12px 14px;
+  font-size:15px;
+  font-family:inherit;
+  color:var(--ink);
+}
+.adm-field input:focus,
+.adm-field select:focus,
+.adm-field textarea:focus{border-color:var(--teal);outline:none}
+.adm-field textarea{resize:vertical}
+
+.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:460px){.adm-row{grid-template-columns:1fr}}
+
+.adm-choice{display:flex;gap:18px;flex-wrap:wrap}
+.adm-radio{display:flex;align-items:center;gap:7px;font-size:14.5px;color:var(--ink);cursor:pointer}
+
+.adm-error{color:#B3261E;font-size:13.5px;margin:0 0 14px}
+
+.adm-btn{
+  background:#fff;
+  color:var(--navy);
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  padding:10px 18px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .15s,border-color .15s;
+}
+.adm-btn:hover{border-color:var(--teal)}
+.adm-btn:disabled{opacity:.6;cursor:not-allowed}
+.adm-btn-primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.adm-btn-primary:hover{background:var(--teal-dark)}
+.adm-btn-danger{background:#B3261E;color:#fff;border-color:#B3261E}
+.adm-btn-danger-outline{color:#B3261E;border-color:#F3C6C2}
+.adm-btn-danger-outline:hover{border-color:#B3261E}
+
+.adm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+
+.adm-shell{min-height:100vh;background:var(--cyan-soft);font-family:"Inter",sans-serif;color:var(--ink)}
+
+.adm-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--navy);
+  color:#fff;
+  padding:16px 28px;
+}
+.adm-header-title{font-family:"Manrope",sans-serif;font-weight:700;font-size:17px}
+.adm-header-right{display:flex;align-items:center;gap:14px}
+.adm-header-right .adm-muted{margin:0;color:rgba(255,255,255,.7)}
+.adm-header-right .adm-btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.adm-header-right .adm-btn:hover{border-color:#fff}
+
+.adm-main{max-width:800px;margin:0 auto;padding:34px 20px 70px}
+
+.adm-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px}
+.adm-card h2{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.3rem;margin:0 0 18px}
+
+.adm-list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.adm-list-header h2{margin:0}
+
+.adm-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.adm-list-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 16px;
+}
+.adm-list-row-content{flex:1;min-width:0}
+.adm-list-row-date{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--teal-dark)}
+.adm-list-row-title{font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-list-row-actions{display:flex;gap:8px;flex-shrink:0}
+
+.adm-badge{
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  padding:6px 11px;
+  border-radius:999px;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.adm-badge-news{background:var(--cyan-soft);color:var(--teal-dark)}
+.adm-badge-press{background:var(--navy);color:#fff}
+
+.adm-preview{margin-bottom:20px}
+
+/* Reproductions of the public card styles (App.jsx) so the preview step
+   is pixel-identical to what renders on the live site. Kept in sync manually
+   when the public news/press card CSS changes. */
+.pq-news-featured{position:relative;overflow:hidden;display:grid;grid-template-columns:170px 1fr;gap:30px;background:radial-gradient(circle at 100% 0%,rgba(65,220,236,.14),transparent 45%),linear-gradient(135deg,#fff,var(--cyan-soft));border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow)}
+.pq-news-featured-label{align-self:start;display:inline-flex;justify-content:center;align-items:center;padding:9px 15px;border-radius:999px;background:var(--navy);color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;width:max-content}
+.pq-news-featured-content{position:relative;z-index:2}
+.pq-news-date{color:var(--teal-dark);font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+.pq-news-featured h2{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.8rem;line-height:1.2;margin:0 0 14px}
+.pq-news-featured p{color:var(--muted);line-height:1.7;margin:0 0 18px}
+.pq-news-link{display:inline-flex;align-items:center;gap:6px;color:var(--teal-dark);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.pq-press-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 34px;box-shadow:var(--shadow)}
+.pq-press-card-label{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--cyan-soft);color:var(--teal-dark);font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.pq-press-card h3{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.4rem;line-height:1.25;margin:0 0 12px}
+.pq-press-card p{color:var(--muted);line-height:1.7;margin:0 0 16px}
+@media(max-width:460px){.pq-news-featured{grid-template-columns:1fr;gap:18px;padding:24px}}

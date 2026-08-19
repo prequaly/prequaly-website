@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Home from "./Home";
 import "./Landing.css";
+import { fetchPublishedArticles } from "./articles.js";
+import { NewsFeaturedCard, PressCard, ArticleEmptyState } from "./ArticleCards.jsx";
 import {
   Check, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Landmark,
   Building2, Users, Info, Clock, Tag, HeartHandshake, BadgeCheck, Star,
@@ -724,6 +726,22 @@ export default function PreQualyApp() {
   const [referral, setReferral] = useState(null);    // {pro, at} once requested
   const [homeFilter, setHomeFilter] = useState("all");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [articles, setArticles] = useState(null);        // null = not yet loaded
+  const [articlesError, setArticlesError] = useState(null);
+
+  useEffect(() => {
+    if (tab !== "news" || articles !== null) return;
+    let cancelled = false;
+    fetchPublishedArticles().then(({ data, error }) => {
+      if (cancelled) return;
+      if (error) setArticlesError(error);
+      else setArticles(data);
+    });
+    return () => { cancelled = true; };
+  }, [tab, articles]);
+
+  const newsItems = (articles || []).filter((a) => a.type === "news");
+  const pressItems = (articles || []).filter((a) => a.type === "press");
 
   useEffect(() => {
     const id = "pq-fonts";
@@ -761,80 +779,82 @@ export default function PreQualyApp() {
     <div className="pq-root">
       <style>{CSS}</style>
       <header className="pq-head">
-        <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
-          <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
-        </button>
-        <nav className="pq-nav" aria-label="Main">
-          <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
-          {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
-          <NavBtn on={tab === "whoserve"} onClick={() => go("whoserve")} icon={Search} label="Who We Serve" />
-          <NavBtn on={tab === "partners"} onClick={() => go("partners")} icon={LayoutDashboard} label="For Partners" dropdown>
-            <button onClick={() => go("partners-gov")}>Government Agencies</button>
-            <button onClick={() => go("partners-nonprofit")}>Nonprofits</button>
-            <button onClick={() => go("partners-lender")}>Lenders</button>
-            <button onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
-          </NavBtn>
-          <NavBtn on={tab === "faqs" || tab === "news"} icon={LayoutDashboard} label="Resources" dropdown>
-            <button onClick={() => go("faqs")}>FAQs</button>
-            <button onClick={() => go("news")}>News</button>
-          </NavBtn>
-          <NavBtn on={tab === "contact"} onClick={() => go("contact")} icon={Users} label="Contact" />
-        </nav>
-        <div className="pq-head-actions">
-          <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button>
-          <button
-            className="pq-mobile-menu-btn"
-            aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileNavOpen}
-            onClick={() => setMobileNavOpen((v) => !v)}
-          >
-            {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
+        <div className="pq-head-row">
+          <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
+            <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
           </button>
-        </div>
-      </header>
-
-      {mobileNavOpen && (
-        <nav className="pq-mobile-nav" aria-label="Mobile">
-          <button
-            className={"pq-mobile-navlink" + (tab === "home" ? " on" : "")}
-            onClick={() => go("home")}
-          >
-            Home
-          </button>
-          <button
-            className={"pq-mobile-navlink" + (tab === "whoserve" ? " on" : "")}
-            onClick={() => go("whoserve")}
-          >
-            Who We Serve
-          </button>
-
-          <div className="pq-mobile-navgroup">
+          <nav className="pq-nav" aria-label="Main">
+            <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
+            {/* <NavBtn on={tab === "about"} onClick={() => go("about")} icon={Info} label="About" /> */}
+            <NavBtn on={tab === "whoserve"} onClick={() => go("whoserve")} icon={Search} label="Who We Serve" />
+            <NavBtn on={tab === "partners"} onClick={() => go("partners")} icon={LayoutDashboard} label="For Partners" dropdown>
+              <button onClick={() => go("partners-gov")}>Government Agencies</button>
+              <button onClick={() => go("partners-nonprofit")}>Nonprofits</button>
+              <button onClick={() => go("partners-lender")}>Lenders</button>
+              <button onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
+            </NavBtn>
+            <NavBtn on={tab === "faqs" || tab === "news"} icon={LayoutDashboard} label="Resources" dropdown>
+              <button onClick={() => go("faqs")}>FAQs</button>
+              <button onClick={() => go("news")}>News</button>
+            </NavBtn>
+            <NavBtn on={tab === "contact"} onClick={() => go("contact")} icon={Users} label="Contact" />
+          </nav>
+          <div className="pq-head-actions">
+            <button className="pq-nav-cta" onClick={() => go("interest")}> Join the Interest List </button>
             <button
-              className={"pq-mobile-navlink" + (tab === "partners" ? " on" : "")}
-              onClick={() => go("partners")}
+              className="pq-mobile-menu-btn"
+              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileNavOpen}
+              onClick={() => setMobileNavOpen((v) => !v)}
             >
-              For Partners
+              {mobileNavOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
-            <button className="pq-mobile-navsublink" onClick={() => go("partners-gov")}>Government Agencies</button>
-            <button className="pq-mobile-navsublink" onClick={() => go("partners-nonprofit")}>Nonprofits</button>
-            <button className="pq-mobile-navsublink" onClick={() => go("partners-lender")}>Lenders</button>
-            <button className="pq-mobile-navsublink" onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
           </div>
+        </div>
 
-          <div className="pq-mobile-navgroup">
-            <p className="pq-mobile-navgroup-label">Resources</p>
-            <button className="pq-mobile-navsublink" onClick={() => go("faqs")}>FAQs</button>
-            <button className="pq-mobile-navsublink" onClick={() => go("news")}>News</button>
-          </div>
+        {mobileNavOpen && (
+          <nav className="pq-mobile-nav" aria-label="Mobile">
+            <button
+              className={"pq-mobile-navlink" + (tab === "home" ? " on" : "")}
+              onClick={() => go("home")}
+            >
+              Home
+            </button>
+            <button
+              className={"pq-mobile-navlink" + (tab === "whoserve" ? " on" : "")}
+              onClick={() => go("whoserve")}
+            >
+              Who We Serve
+            </button>
 
-          <button
-            className={"pq-mobile-navlink" + (tab === "contact" ? " on" : "")}
-            onClick={() => go("contact")}
-          >
-            Contact
-          </button>
-        </nav>
-      )}
+            <div className="pq-mobile-navgroup">
+              <button
+                className={"pq-mobile-navlink" + (tab === "partners" ? " on" : "")}
+                onClick={() => go("partners")}
+              >
+                For Partners
+              </button>
+              <button className="pq-mobile-navsublink" onClick={() => go("partners-gov")}>Government Agencies</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("partners-nonprofit")}>Nonprofits</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("partners-lender")}>Lenders</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("partners-realestate")}>Real Estate Professionals</button>
+            </div>
+
+            <div className="pq-mobile-navgroup">
+              <p className="pq-mobile-navgroup-label">Resources</p>
+              <button className="pq-mobile-navsublink" onClick={() => go("faqs")}>FAQs</button>
+              <button className="pq-mobile-navsublink" onClick={() => go("news")}>News</button>
+            </div>
+
+            <button
+              className={"pq-mobile-navlink" + (tab === "contact" ? " on" : "")}
+              onClick={() => go("contact")}
+            >
+              Contact
+            </button>
+          </nav>
+        )}
+      </header>
 
       {tab === "home" && <Home go={go} />}
 
@@ -848,27 +868,27 @@ export default function PreQualyApp() {
               partnerships, and stories as we work to make affordable
               homeownership more accessible.</p>
           </section>
-          {/* FEATURED UPDATE */}
-          <section className="pq-news-featured">
-            <div className="pq-news-featured-label">
-              Latest Update
-            </div>
-            <div className="pq-news-featured-content">
-              <div className="pq-news-date">
-                August 2026
-              </div>
-              <h2>PreQualy Advances in the ACE Pitch Program</h2>
-              <p>PreQualy is continuing to develop its vision for a more
-                accessible homeownership ecosystem, helping first-time and
-                working-class homebuyers better identify affordable
-                homeownership opportunities and resources.</p>
-              <a
-                href="https://www.instagram.com/p/DTOBxKXjzfM/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pq-news-link"
-              >View the announcement →</a>
-            </div>
+          {/* NEWS & UPDATES */}
+          <section className="pq-news-section">
+            {articlesError && (
+              <p className="pq-news-status pq-news-status-error">
+                Couldn't load updates right now — please check back soon.
+              </p>
+            )}
+            {articles === null && !articlesError && (
+              <p className="pq-news-status">Loading updates…</p>
+            )}
+            {articles !== null && newsItems.length === 0 && (
+              <ArticleEmptyState
+                title="More updates coming soon"
+                message="PreQualy is growing, and we're just getting started. Check back here for company announcements, partnerships, milestones, and other updates."
+                ctaLabel="Get in Touch"
+                onCta={() => go("contact")}
+              />
+            )}
+            {newsItems.map((a, i) => (
+              <NewsFeaturedCard key={a.id} article={a} showLabel={i === 0} />
+            ))}
           </section>
           {/* PRESS RELEASES */}
           <section className="pq-news-section">
@@ -880,17 +900,19 @@ export default function PreQualyApp() {
                 will appear here as they become available.
               </p>
             </div>
-            <div className="pq-news-empty">
-              <div className="pq-news-empty-icon">✦</div>
-              <h3>More updates coming soon</h3>
-              <p>PreQualy is growing, and we're just getting started.
-                Check back here for company announcements, partnerships,
-                milestones, and other updates.</p>
-              <button
-                className="pq-nav-cta"
-                onClick={() => go("contact")}
-              >Get in Touch</button>
-            </div>
+            {articles !== null && pressItems.length === 0 && !articlesError && (
+              <ArticleEmptyState
+                title="More updates coming soon"
+                message="PreQualy is growing, and we're just getting started. Check back here for company announcements, partnerships, milestones, and other updates."
+                ctaLabel="Get in Touch"
+                onCta={() => go("contact")}
+              />
+            )}
+            {pressItems.length > 0 && (
+              <div className="pq-press-grid">
+                {pressItems.map((a) => (<PressCard key={a.id} article={a} />))}
+              </div>
+            )}
           </section>
           {/* BOTTOM CTA */}
           <section className="pq-news-cta">
@@ -2659,8 +2681,9 @@ button{font-family:inherit}
 
 /* header */
 .pq-head{position:sticky;top:0;z-index:20;background:var(--navy);backdrop-filter:blur(8px);
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-  padding:12px 24px;gap:16px;border-bottom:1px solid var(--line)}
+  border-bottom:1px solid var(--line)}
+.pq-head-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:12px 24px;gap:16px}
 .pq-brand{display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:var(--navy);letter-spacing:-.01em;
   justify-self:start}
@@ -2779,7 +2802,7 @@ button{font-family:inherit}
 
 .pq-arrow{margin-left:2px;color:var(--muted);flex-shrink:0}
 @media(max-width:900px){
-  .pq-head{grid-template-columns:1fr auto;padding:10px 16px}
+  .pq-head-row{grid-template-columns:1fr auto;padding:10px 16px}
   .pq-nav{display:none}
   .pq-nav-cta{font-size:13px;padding:9px 14px}
   .pq-mobile-menu-btn{display:flex}
@@ -3741,6 +3764,13 @@ button{font-family:inherit}
 .pq-news-empty-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:var(--cyan-soft);color:var(--teal-dark);font-size:1.4rem;font-weight:800}
 .pq-news-empty h3{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.35rem;margin:0 0 10px}
 .pq-news-empty p{max-width:580px;margin:0 auto 24px;color:var(--muted);line-height:1.7}
+.pq-news-status{text-align:center;color:var(--muted);font-size:.95rem;margin:0 auto 30px}
+.pq-news-status-error{color:#B3261E}
+.pq-press-grid{display:flex;flex-direction:column;gap:24px;max-width:1050px;margin:0 auto}
+.pq-press-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 34px;box-shadow:var(--shadow)}
+.pq-press-card-label{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--cyan-soft);color:var(--teal-dark);font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+.pq-press-card h3{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.4rem;line-height:1.25;margin:0 0 12px}
+.pq-press-card p{color:var(--muted);line-height:1.7;margin:0 0 16px;max-width:650px}
 .pq-news-cta{position:relative;overflow:hidden;max-width:1050px;background:var(--navy);color:#fff;border-radius:28px;padding:55px 40px;text-align:center;box-shadow:var(--shadow);margin:0 auto}
 .pq-news-cta::before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(25,201,219,.12);top:-130px;right:-70px}
 .pq-news-cta::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(65,220,236,.07);bottom:-100px;left:-60px}
@@ -3748,7 +3778,7 @@ button{font-family:inherit}
 .pq-news-cta h2{font-family:"Manrope",sans-serif;color:#fff;font-size:2rem;margin:0 0 12px}
 .pq-news-cta p{color:rgba(255,255,255,.8);line-height:1.7;max-width:620px;margin:0 auto 25px}
 .pq-news-cta .pq-nav-cta{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 10px 25px rgba(25,201,219,.3)}
-@media(max-width:900px){.pq-news{padding:50px 18px 70px}.pq-news-featured{grid-template-columns:1fr;gap:18px;padding:26px}.pq-news-featured-label{width:max-content}.pq-news-hero{margin-bottom:45px}.pq-news-hero h1{font-size:2.5rem}.pq-news-featured h2{font-size:1.5rem}.pq-news-cta{padding:42px 25px}.pq-news-cta h2{font-size:1.7rem}}
+@media(max-width:900px){.pq-news{padding:50px 18px 70px}.pq-news-featured{grid-template-columns:1fr;gap:18px;padding:26px}.pq-news-featured-label{width:max-content}.pq-news-hero{margin-bottom:45px}.pq-news-hero h1{font-size:2.5rem}.pq-news-featured h2{font-size:1.5rem}.pq-news-cta{padding:42px 25px}.pq-news-cta h2{font-size:1.7rem}.pq-press-card{padding:24px 22px}}
 
 .pq-brand-logo{height:46px;display:block}
 
