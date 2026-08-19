@@ -16,6 +16,13 @@ export function NewsFeaturedCard({ article, showLabel }) {
         </div>
         <h2>{article.title}</h2>
         <p>{article.description}</p>
+        {article.image_urls && article.image_urls.length > 0 && (
+          <div className="pq-article-images">
+            {article.image_urls.map((url) => (
+              <img key={url} src={url} alt="" className="pq-article-image" />
+            ))}
+          </div>
+        )}
         {article.link_url && (
           <a
             href={article.link_url}
@@ -38,6 +45,13 @@ export function PressCard({ article }) {
       </div>
       <h3>{article.title}</h3>
       <p>{article.description}</p>
+      {article.image_urls && article.image_urls.length > 0 && (
+        <div className="pq-article-images">
+          {article.image_urls.map((url) => (
+            <img key={url} src={url} alt="" className="pq-article-image" />
+          ))}
+        </div>
+      )}
       {article.link_url && (
         <a
           href={article.link_url}

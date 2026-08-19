@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { supabase } from '../supabaseClient.js'
 import { MONTH_NAMES } from '../articles.js'
 import { NewsFeaturedCard, PressCard } from '../ArticleCards.jsx'
+import ImageCropper from './ImageCropper.jsx'
 
 const CURRENT_YEAR = new Date().getFullYear()
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+// Matches the display box in ArticleCards.jsx / App.jsx's .pq-article-image (220x150),
+// so what gets cropped here is exactly what renders on the site. Output is rendered at
+// 4x that box size for reasonable sharpness.
+const ARTICLE_IMAGE_ASPECT = 220 / 150
+const ARTICLE_IMAGE_OUTPUT_WIDTH = 880
+const ARTICLE_IMAGE_OUTPUT_HEIGHT = 600
 
 function blankForm(initialArticle) {
   if (initialArticle) {
@@ -14,6 +23,7 @@ function blankForm(initialArticle) {
       link_url: initialArticle.link_url || '',
       display_month: initialArticle.display_month,
       display_year: initialArticle.display_year,
+      image_urls: initialArticle.image_urls || [],
     }
   }
   return {
@@ -23,6 +33,7 @@ function blankForm(initialArticle) {
     link_url: '',
     display_month: new Date().getMonth() + 1,
     display_year: CURRENT_YEAR,
+    image_urls: [],
   }
 }
 
@@ -31,9 +42,52 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
   const [form, setForm] = useState(() => blankForm(initialArticle))
   const [error, setError] = useState(null)
   const [submitting, setSubmitting] = useState(false)
+  const [imageError, setImageError] = useState(null)
+  const [uploading, setUploading] = useState(false)
+  const [pendingFile, setPendingFile] = useState(null)
+  const fileInputRef = useRef(null)
 
   function update(field, value) {
     setForm((f) => ({ ...f, [field]: value }))
+  }
+
+  function handleFileChosen(e) {
+    const file = e.target.files && e.target.files[0]
+    e.target.value = ''
+    if (!file) return
+    setImageError(null)
+    if (!file.type.startsWith('image/')) {
+      setImageError('Only image files can be uploaded.')
+      return
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setImageError('Images must be 5MB or smaller.')
+      return
+    }
+    setPendingFile(file)
+  }
+
+  async function handleCropApply(blob, outType) {
+    setPendingFile(null)
+    setImageError(null)
+    setUploading(true)
+    const ext = outType === 'image/png' ? 'png' : 'jpg'
+    const path = `${crypto.randomUUID()}.${ext}`
+    const { error: uploadError } = await supabase.storage
+      .from('article-images')
+      .upload(path, blob, { contentType: outType })
+    if (uploadError) {
+      setImageError(uploadError.message)
+      setUploading(false)
+      return
+    }
+    const { data } = supabase.storage.from('article-images').getPublicUrl(path)
+    setForm((f) => ({ ...f, image_urls: [...f.image_urls, data.publicUrl] }))
+    setUploading(false)
+  }
+
+  function removeImage(index) {
+    setForm((f) => ({ ...f, image_urls: f.image_urls.filter((_, i) => i !== index) }))
   }
 
   function handleContinue(e) {
@@ -56,6 +110,7 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
       link_url: form.link_url.trim() || null,
       display_month: Number(form.display_month),
       display_year: Number(form.display_year),
+      image_urls: form.image_urls,
     }
     const { error } = mode === 'edit'
       ? await supabase.from('articles').update(payload).eq('id', initialArticle.id)
@@ -152,6 +207,42 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
           </div>
 
           <div className="adm-field">
+            <label htmlFor="adm-images">Images (optional)</label>
+            <input
+              id="adm-images"
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChosen}
+              style={{ display: 'none' }}
+            />
+            <button
+              type="button"
+              className="adm-btn"
+              onClick={() => fileInputRef.current.click()}
+              disabled={uploading}
+            >
+              {uploading ? 'Uploading…' : '+ Add Image'}
+            </button>
+            {imageError && <p className="adm-error" role="alert">{imageError}</p>}
+            {form.image_urls.length > 0 && (
+              <div className="adm-image-grid">
+                {form.image_urls.map((url, i) => (
+                  <div className="adm-image-thumb" key={url}>
+                    <img src={url} alt="" />
+                    <button
+                      type="button"
+                      className="adm-image-remove"
+                      onClick={() => removeImage(i)}
+                      aria-label="Remove image"
+                    >×</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="adm-field">
             <label htmlFor="adm-link">Hyperlink (optional)</label>
             <input
               id="adm-link"
@@ -191,6 +282,17 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
             </button>
           </div>
         </div>
+      )}
+
+      {pendingFile && (
+        <ImageCropper
+          file={pendingFile}
+          aspect={ARTICLE_IMAGE_ASPECT}
+          outputWidth={ARTICLE_IMAGE_OUTPUT_WIDTH}
+          outputHeight={ARTICLE_IMAGE_OUTPUT_HEIGHT}
+          onCancel={() => setPendingFile(null)}
+          onApply={handleCropApply}
+        />
       )}
     </div>
   )
