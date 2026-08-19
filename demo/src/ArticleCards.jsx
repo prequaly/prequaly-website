@@ -6,7 +6,7 @@ import { formatDisplayDate } from './articles.js'
 
 export function NewsFeaturedCard({ article, showLabel }) {
   return (
-    <section className="pq-news-featured">
+    <section className={"pq-news-featured" + (showLabel ? "" : " pq-news-featured--nolabel")}>
       {showLabel && (
         <div className="pq-news-featured-label">Latest Update</div>
       )}

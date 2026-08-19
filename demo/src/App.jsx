@@ -3747,6 +3747,7 @@ button{font-family:inherit}
 .pq-news-hero h1 span{color:var(--teal-dark)}
 .pq-news-hero p{color:var(--muted);font-size:1.08rem;line-height:1.8;max-width:700px;margin:0 auto}
 .pq-news-featured{position:relative;overflow:hidden;display:grid;grid-template-columns:170px 1fr;gap:30px;max-width:1050px;background:radial-gradient(circle at 100% 0%,rgba(65,220,236,.14),transparent 45%),linear-gradient(135deg,#fff,var(--cyan-soft));border:1px solid var(--line);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);margin:0 auto 70px}
+.pq-news-featured--nolabel{grid-template-columns:1fr}
 .pq-news-featured::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(25,201,219,.07);right:-80px;bottom:-90px}
 .pq-news-featured-label{align-self:start;display:inline-flex;justify-content:center;align-items:center;padding:9px 15px;border-radius:999px;background:var(--navy);color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;width:max-content}
 .pq-news-featured-content{position:relative;z-index:2}
