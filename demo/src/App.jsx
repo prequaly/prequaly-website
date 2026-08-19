@@ -781,7 +781,7 @@ export default function PreQualyApp() {
       <header className="pq-head">
         <div className="pq-head-row">
           <button className="pq-brand" aria-label="PreQualy home" onClick={() => go("home")}>
-            <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
+            <img src="/Dark%20PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
           </button>
           <nav className="pq-nav" aria-label="Main">
             <NavBtn on={tab === "home"} onClick={() => go("home")} icon={Home} label="Home" />
@@ -1848,7 +1848,7 @@ export default function PreQualyApp() {
             {/* Brand */}
             <div className="pq-foot-brand">
               <div className="pq-foot-logo">
-                <img src="/PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
+                <img src="/Dark%20PreQualy%20Logo.png" alt="PreQualy" className="pq-brand-logo"/>
               </div>
 
               <p className="pq-foot-desc">
@@ -2680,7 +2680,7 @@ button{font-family:inherit}
 .pq-key.glow circle:nth-of-type(2), .pq-key.glow path:nth-of-type(2){filter:drop-shadow(0 0 5px var(--cyan))}
 
 /* header */
-.pq-head{position:sticky;top:0;z-index:20;background:var(--navy);backdrop-filter:blur(8px);
+.pq-head{position:sticky;top:0;z-index:20;background:var(--bg);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line)}
 .pq-head-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   padding:12px 24px;gap:16px}
@@ -2690,7 +2690,7 @@ button{font-family:inherit}
 .pq-brand b{color:var(--teal)}
 .pq-nav{display:flex;gap:2px;justify-self:center;flex-wrap:wrap;justify-content:center}
 .pq-navbtn{display:flex;align-items:center;gap:5px;background:none;border:0;cursor:pointer;
-  font-size:13.5px;font-weight:600;color:#fff;padding:8px 12px;border-radius:0}
+  font-size:13.5px;font-weight:600;color:var(--navy);padding:8px 12px;border-radius:0}
 .pq-navbtn.on{color:var(--teal-dark);}
 .pq-navbtn:hover{color:var(--teal-dark)}
 .pq-navlabel{
@@ -2725,8 +2725,8 @@ button{font-family:inherit}
   background:var(--teal-dark);
 }
 .pq-head-actions{display:flex;align-items:center;gap:8px;justify-self:end}
-.pq-mobile-menu-btn{display:none;align-items:center;justify-content:center;background:none;border:none;color:#fff;cursor:pointer;padding:6px;border-radius:8px}
-.pq-mobile-menu-btn:hover{color:var(--teal-bright)}
+.pq-mobile-menu-btn{display:none;align-items:center;justify-content:center;background:none;border:none;color:var(--navy);cursor:pointer;padding:6px;border-radius:8px}
+.pq-mobile-menu-btn:hover{color:var(--teal-dark)}
 .pq-mobile-nav{display:none}
 .pq-interest-page{
   flex:1;
@@ -2806,20 +2806,20 @@ button{font-family:inherit}
   .pq-nav{display:none}
   .pq-nav-cta{font-size:13px;padding:9px 14px}
   .pq-mobile-menu-btn{display:flex}
-  .pq-mobile-nav{display:flex;flex-direction:column;background:var(--navy);padding:10px 16px 22px;gap:2px;max-height:calc(100vh - 60px);overflow-y:auto}
+  .pq-mobile-nav{display:flex;flex-direction:column;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px 22px;gap:2px;max-height:calc(100vh - 60px);overflow-y:auto}
 }
 @media(max-width:560px){.pq-navbtn span{display:none}.pq-navbtn{padding:8px}}
 
 /* mobile nav panel */
-.pq-mobile-navlink{display:block;width:100%;text-align:left;background:none;border:none;color:#fff;
+.pq-mobile-navlink{display:block;width:100%;text-align:left;background:none;border:none;color:var(--navy);
   font-size:15px;font-weight:600;padding:12px 8px;cursor:pointer;border-radius:8px}
-.pq-mobile-navlink:hover{color:var(--teal-bright)}
-.pq-mobile-navlink.on{color:var(--teal-bright)}
-.pq-mobile-navgroup{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.12);margin-top:4px;padding-top:4px}
-.pq-mobile-navgroup-label{margin:10px 8px 2px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.pq-mobile-navsublink{display:block;width:100%;text-align:left;background:none;border:none;color:rgba(255,255,255,.85);
+.pq-mobile-navlink:hover{color:var(--teal-dark)}
+.pq-mobile-navlink.on{color:var(--teal-dark)}
+.pq-mobile-navgroup{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:4px;padding-top:4px}
+.pq-mobile-navgroup-label{margin:10px 8px 2px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pq-mobile-navsublink{display:block;width:100%;text-align:left;background:none;border:none;color:var(--ink);
   font-size:14px;font-weight:500;padding:10px 8px 10px 20px;cursor:pointer;border-radius:8px}
-.pq-mobile-navsublink:hover{color:#fff;background:rgba(255,255,255,.06)}
+.pq-mobile-navsublink:hover{color:var(--teal-dark);background:var(--mist)}
 
 /* landing */
 .pq-landing{flex:1;width:100%;max-width:1280px;margin:0 auto;padding:48px 24px 40px}
@@ -3106,7 +3106,7 @@ button{font-family:inherit}
 .pq-foot{
   margin-top:60px;
   border-top:1px solid var(--line);
-  background:var(--navy);
+  background:var(--mist);
   padding:44px 24px 18px;
 }
 
@@ -3141,7 +3141,7 @@ button{font-family:inherit}
 }
 
 .pq-foot-desc{
-  color:#fff;
+  color:var(--muted);
   font-size:14px;
   line-height:1.6;
   max-width:280px;
@@ -3152,7 +3152,7 @@ button{font-family:inherit}
   font-family:'Plus Jakarta Sans',sans-serif;
   font-size:15px;
   font-weight:700;
-  color:#fff;
+  color:var(--navy);
   margin:0 0 16px;
 }
 
@@ -3163,7 +3163,7 @@ button{font-family:inherit}
   padding:0;
   margin:0 0 12px;
   font-size:14px;
-  color:#fff;
+  color:var(--ink);
   cursor:pointer;
   text-align:left;
 }
@@ -3174,7 +3174,7 @@ button{font-family:inherit}
 
 .pq-foot-news{
   font-size:14px;
-  color:#fff;
+  color:var(--muted);
   line-height:1.6;
   margin:0 0 16px;
 }
@@ -3230,7 +3230,7 @@ button{font-family:inherit}
 .pq-foot-bottom p{
   margin:0;
   font-size:13px;
-  color:#fff;
+  color:var(--muted);
 }
 
 .pq-foot-legal{
