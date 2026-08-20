@@ -35,7 +35,7 @@ export default function ArticleList({ articles, onEdit, onDeleted, onNew }) {
           <li key={a.id} className="adm-list-row">
             <span className={`adm-badge adm-badge-${a.type}`}>{TYPE_LABELS[a.type]}</span>
             <div className="adm-list-row-content">
-              <div className="adm-list-row-date">{formatDisplayDate(a.display_month, a.display_year)}</div>
+              <div className="adm-list-row-date">{formatDisplayDate(a.published_date)}</div>
               <div className="adm-list-row-title">{a.title}</div>
             </div>
             <div className="adm-list-row-actions">

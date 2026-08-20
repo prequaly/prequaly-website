@@ -1,10 +1,14 @@
 import { useRef, useState } from 'react'
 import { supabase } from '../supabaseClient.js'
-import { MONTH_NAMES } from '../articles.js'
+import { generateUniqueSlug, hasArticleBody } from '../articles.js'
 import { NewsFeaturedCard, PressCard } from '../ArticleCards.jsx'
+import ArticleBody from '../ArticleBody.jsx'
 import ImageCropper from './ImageCropper.jsx'
+import RichTextEditor from './RichTextEditor.jsx'
 
-const CURRENT_YEAR = new Date().getFullYear()
+function todayIso() {
+  return new Date().toISOString().slice(0, 10)
+}
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024
 // Matches the display box in ArticleCards.jsx / App.jsx's .pq-article-image (220x150),
@@ -19,21 +23,25 @@ function blankForm(initialArticle) {
     return {
       type: initialArticle.type,
       title: initialArticle.title,
+      author: initialArticle.author || '',
       description: initialArticle.description,
+      body_html: initialArticle.body_html || '',
       link_url: initialArticle.link_url || '',
-      display_month: initialArticle.display_month,
-      display_year: initialArticle.display_year,
+      published_date: initialArticle.published_date || todayIso(),
       image_urls: initialArticle.image_urls || [],
+      slug: initialArticle.slug,
     }
   }
   return {
     type: 'news',
     title: '',
+    author: '',
     description: '',
+    body_html: '',
     link_url: '',
-    display_month: new Date().getMonth() + 1,
-    display_year: CURRENT_YEAR,
+    published_date: todayIso(),
     image_urls: [],
+    slug: null,
   }
 }
 
@@ -92,8 +100,8 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
 
   function handleContinue(e) {
     e.preventDefault()
-    if (!form.title.trim() || !form.description.trim()) {
-      setError('Title and description are required.')
+    if (!form.title.trim() || !form.author.trim() || !form.description.trim() || !form.published_date) {
+      setError('Title, author, description, and date are required.')
       return
     }
     setError(null)
@@ -103,14 +111,17 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
   async function handlePublish() {
     setSubmitting(true)
     setError(null)
+    const slug = form.slug || await generateUniqueSlug(form.title.trim())
     const payload = {
       type: form.type,
       title: form.title.trim(),
+      author: form.author.trim(),
       description: form.description.trim(),
+      body_html: form.body_html,
       link_url: form.link_url.trim() || null,
-      display_month: Number(form.display_month),
-      display_year: Number(form.display_year),
+      published_date: form.published_date,
       image_urls: form.image_urls,
+      slug,
     }
     const { error } = mode === 'edit'
       ? await supabase.from('articles').update(payload).eq('id', initialArticle.id)
@@ -123,11 +134,7 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
     onDone()
   }
 
-  const previewArticle = {
-    ...form,
-    display_month: Number(form.display_month),
-    display_year: Number(form.display_year),
-  }
+  const previewArticle = form
 
   return (
     <div className="adm-card">
@@ -159,26 +166,22 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
 
           <div className="adm-row">
             <div className="adm-field">
-              <label htmlFor="adm-month">Month</label>
-              <select
-                id="adm-month"
-                value={form.display_month}
-                onChange={(e) => update('display_month', e.target.value)}
-              >
-                {MONTH_NAMES.map((m, i) => (
-                  <option key={m} value={i + 1}>{m}</option>
-                ))}
-              </select>
+              <label htmlFor="adm-author">Author</label>
+              <input
+                id="adm-author"
+                type="text"
+                value={form.author}
+                onChange={(e) => update('author', e.target.value)}
+                required
+              />
             </div>
             <div className="adm-field">
-              <label htmlFor="adm-year">Year</label>
+              <label htmlFor="adm-date">Date</label>
               <input
-                id="adm-year"
-                type="number"
-                min="2000"
-                max="2100"
-                value={form.display_year}
-                onChange={(e) => update('display_year', e.target.value)}
+                id="adm-date"
+                type="date"
+                value={form.published_date}
+                onChange={(e) => update('published_date', e.target.value)}
                 required
               />
             </div>
@@ -196,7 +199,7 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
           </div>
 
           <div className="adm-field">
-            <label htmlFor="adm-description">Description</label>
+            <label htmlFor="adm-description">Card Summary</label>
             <textarea
               id="adm-description"
               rows={4}
@@ -204,6 +207,16 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
               onChange={(e) => update('description', e.target.value)}
               required
             />
+          </div>
+
+          <div className="adm-field">
+            <label htmlFor="adm-body">Full Article (optional)</label>
+            <p className="adm-muted">
+              Leave this blank if you're just posting a link to something written elsewhere —
+              the card will show the summary above and link straight to the Hyperlink field
+              below. Write here when you want a full page on the site with your own formatting.
+            </p>
+            <RichTextEditor value={form.body_html} onChange={(html) => update('body_html', html)} />
           </div>
 
           <div className="adm-field">
@@ -264,12 +277,25 @@ export default function ArticleForm({ mode, initialArticle, onDone, onCancel }) 
 
       {step === 'preview' && (
         <div>
-          <p className="adm-muted">This is exactly how the article will look on the site.</p>
+          <p className="adm-muted">This is exactly how the card will look on the News &amp; Updates page.</p>
           <div className="adm-preview">
             {previewArticle.type === 'news'
               ? <NewsFeaturedCard article={previewArticle} showLabel />
               : <PressCard article={previewArticle} />}
           </div>
+
+          {hasArticleBody(previewArticle) ? (
+            <>
+              <p className="adm-muted">This is how the full article page will look when someone clicks through.</p>
+              <div className="adm-preview adm-preview-full">
+                <ArticleBody html={previewArticle.body_html} />
+              </div>
+            </>
+          ) : (
+            <p className="adm-muted">
+              No full article written — the card above won't link to a full page{previewArticle.link_url ? ', just to the hyperlink you added.' : '.'}
+            </p>
+          )}
 
           {error && <p className="adm-error" role="alert">{error}</p>}
 

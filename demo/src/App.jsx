@@ -710,8 +710,13 @@ function InterestList() {
 
 /* =====================================================================
    APP SHELL */
+const VALID_INITIAL_TABS = ["news"]; // deep-linkable via /?tab=news (see ArticleDetail's back link)
+
 export default function PreQualyApp() {
-  const [tab, setTab] = useState("home");            // home | programs | homes | dashboard | connect | resources
+  const [tab, setTab] = useState(() => {
+    const requested = new URLSearchParams(window.location.search).get("tab");
+    return VALID_INITIAL_TABS.includes(requested) ? requested : "home";
+  });            // home | programs | homes | dashboard | connect | resources
   const [intakeStep, setIntakeStep] = useState(0);   // 0=not started, 1..3 wizard
   const [f, setF] = useState({
     county: "", city: "", size: 3, income: "", first_time: "yes",
@@ -3764,8 +3769,12 @@ button{font-family:inherit}
 .pq-news-featured-label{align-self:start;display:inline-flex;justify-content:center;align-items:center;padding:9px 15px;border-radius:999px;background:var(--navy);color:#fff;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;width:max-content}
 .pq-news-featured-content{position:relative;z-index:2}
 .pq-news-date{color:var(--teal-dark);font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+.pq-news-author{color:var(--muted);font-weight:600;text-transform:none;letter-spacing:normal}
 .pq-news-featured h2{font-family:"Manrope",sans-serif;color:var(--navy);font-size:1.8rem;line-height:1.2;margin:0 0 14px}
+.pq-news-title-link{color:inherit;text-decoration:none}
+.pq-news-title-link:hover{text-decoration:underline;text-underline-offset:3px}
 .pq-news-featured p{color:var(--muted);line-height:1.7;margin:0 0 18px;max-width:650px}
+.pq-news-links{display:flex;flex-wrap:wrap;gap:8px 22px}
 .pq-news-link{display:inline-flex;align-items:center;gap:6px;color:var(--teal-dark);font-weight:800;text-decoration:underline;text-underline-offset:3px;transition:.2s ease}
 .pq-news-link:hover{color:var(--navy)}
 .pq-article-images{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 18px}
